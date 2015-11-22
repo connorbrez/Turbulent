@@ -7,9 +7,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.levels.Level;
+import com.connorbrezinsky.turbulent.levels.LevelEight;
 import com.connorbrezinsky.turbulent.levels.LevelFive;
 import com.connorbrezinsky.turbulent.levels.LevelFour;
+import com.connorbrezinsky.turbulent.levels.LevelNine;
 import com.connorbrezinsky.turbulent.levels.LevelOne;
+import com.connorbrezinsky.turbulent.levels.LevelSeven;
+import com.connorbrezinsky.turbulent.levels.LevelSix;
+import com.connorbrezinsky.turbulent.levels.LevelTen;
 import com.connorbrezinsky.turbulent.levels.LevelThree;
 import com.connorbrezinsky.turbulent.levels.LevelTwo;
 import com.connorbrezinsky.turbulent.levels.TestChamber;
@@ -32,6 +37,8 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
+	
+	
 
 	public static int getMidX(int width){
 		return viewportWidth / 2 - (width / 2);
@@ -54,6 +61,38 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
+	
+	public static boolean rightBoxCollider(Character c){
+		return false;
+	}
+	
+	public static boolean leftBoxCollider(Character c){
+		return false;
+	}
+	
+	public static boolean topBoxCollider(Character c){
+		return false;
+	}
+	
+	public static boolean bottomBoxCollider(Character c){
+		return false;
+	}
+	
+	public static boolean rightBoxCollider(physicsObject c){
+		return false;
+	}
+	
+	public static boolean leftBoxCollider(physicsObject c){
+		return false;
+	}
+	
+	public static boolean topBoxCollider(physicsObject c){
+		return false;
+	}
+	
+	public static boolean bottomBoxCollider(physicsObject c){
+		return false;
+	}
 
 	public static boolean getKeyPress(Input i, int key){
 		if(i.isKeyPressed(key) && i.isKeyDown(key)) {
@@ -75,6 +114,11 @@ public class Main extends StateBasedGame {
 		this.addState(new LevelThree(Level.stage[3]));
 		this.addState(new LevelFour(Level.stage[4]));
 		this.addState(new LevelFive(Level.stage[5]));
+		this.addState(new LevelSix(Level.stage[6]));
+		this.addState(new LevelSeven(Level.stage[7]));
+		this.addState(new LevelEight(Level.stage[8]));
+		this.addState(new LevelNine(Level.stage[9]));
+		this.addState(new LevelTen(Level.stage[10]));
 		this.addState(new TestChamber(Level.testChamber));
 
 	}
@@ -91,6 +135,11 @@ public class Main extends StateBasedGame {
 		this.getState(Level.stage[3]).init(arg0, this);
 		this.getState(Level.stage[4]).init(arg0, this);
 		this.getState(Level.stage[5]).init(arg0, this);
+		this.getState(Level.stage[6]).init(arg0, this);
+		this.getState(Level.stage[7]).init(arg0, this);
+		this.getState(Level.stage[8]).init(arg0, this);
+		this.getState(Level.stage[9]).init(arg0, this);
+		this.getState(Level.stage[10]).init(arg0, this);
 		this.getState(Level.testChamber).init(arg0, this);
 
 	}

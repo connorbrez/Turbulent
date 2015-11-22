@@ -10,7 +10,6 @@ import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.objectSpawner;
 import com.connorbrezinsky.turbulent.Character;
 
-
 public class Level {
 
 	public static Platform wallLeft = new Platform(0, 0, 20, 600, Color.lightGray, Platform.NORMAL);
@@ -21,26 +20,23 @@ public class Level {
 
 	static Animation aLevelFinish;
 	static int d = 100;
-	static int[] duration = {d,d,d,d,d,d,d,d,d,d,d,d};
-	
+	static int[] duration = { d, d, d, d, d, d, d, d, d, d, d, d };
+
 	static Animation aObjectSpawner;
 	static int d_ = 100;
-	static int[] objSDuration = {d_,d_,d_,d_,d_,d_};
+	static int[] objSDuration = { d_, d_, d_, d_, d_, d_ };
 
-	
-	public static int[] stage = { 0, 1, 2, 3, 4, 5};
+	public static int[] stage = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 	public static int testChamber = 1926;
 
 	public static void renderBasicWalls(Graphics g){
 		wallLeft.render(g);
 		wallRight.render(g);
 	}
-	
+
 	public static void renderLevelFinish(){
-		
+
 	}
-	
-	
 
 	public static void addWallCollison(Character p){
 		wallLeft.addCollider(p);
@@ -59,10 +55,18 @@ public class Level {
 		}else if(i.isKeyPressed(Input.KEY_5)) {
 			arg1.enterState(stage[5]);
 		}else if(i.isKeyPressed(Input.KEY_6)) {
-			arg1.enterState(1);
+			arg1.enterState(stage[6]);
 		}else if(i.isKeyPressed(Input.KEY_7)) {
+			arg1.enterState(stage[7]);
+		}else if(i.isKeyPressed(Input.KEY_8)) {
+			arg1.enterState(stage[8]);
+		}else if(i.isKeyPressed(Input.KEY_9)) {
+			arg1.enterState(stage[9]);
+		}else if(i.isKeyPressed(Input.KEY_MINUS)) {
+			arg1.enterState(stage[10]);
+		}else if(i.isKeyPressed(Input.KEY_EQUALS) || i.isKeyPressed(Input.KEY_ADD)) {
 			arg1.enterState(1);
-		}else if(i.isKeyPressed(Input.KEY_T)){
+		}else if(i.isKeyPressed(Input.KEY_T)) {
 			arg1.enterState(1926);
 		}
 

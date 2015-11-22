@@ -3,35 +3,21 @@ package com.connorbrezinsky.turbulent.levels;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.Character;
 
 
-public class LevelThree implements GameState {
+import com.connorbrezinsky.turbulent.Main;
+
+public class LevelEight implements GameState {
 
 	Color bg = Color.black;
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 
-	public Platform obj1 = new Platform(Main.getMidX(20), 100, 20, 500, Color.gray);
-
-	public Platform[] jumpPlatforms = { new Platform(obj1.getX() - 15, 550, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 500, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 450, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 400, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 350, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 300, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 250, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 200, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 150, 15, 10, Color.lightGray)};
-
-	public LevelThree(int s) {
+	public LevelEight(int s) {
 
 	}
 
@@ -44,21 +30,12 @@ public class LevelThree implements GameState {
 	@Override
 	public int getID(){
 		// TODO Auto-generated method stub
-		return 3;
+		return 8;
 	}
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
 
-		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
-				Level.duration);
 	}
 
 	@Override
@@ -70,19 +47,6 @@ public class LevelThree implements GameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
-		Level.levelFinish.render(g);
-
-		obj1.render(g);
-		//jumpPlatforms[0].render(g);
-		jumpPlatforms[1].render(g);
-		//jumpPlatforms[2].render(g);
-		jumpPlatforms[3].render(g);
-		//jumpPlatforms[4].render(g);
-		jumpPlatforms[5].render(g);
-		//jumpPlatforms[6].render(g);
-		jumpPlatforms[7].render(g);
-		jumpPlatforms[8].render(g);
-	
 
 		player.render(g);
 	}
@@ -93,27 +57,9 @@ public class LevelThree implements GameState {
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
-
-		obj1.addCollider(player);
-
-		//jumpPlatforms[0].addCollider(player);
-		jumpPlatforms[1].addCollider(player);
-		//jumpPlatforms[2].addCollider(player);
-		jumpPlatforms[3].addCollider(player);
-		//jumpPlatforms[4].addCollider(player);
-		jumpPlatforms[5].addCollider(player);
-		//jumpPlatforms[6].addCollider(player);
-		jumpPlatforms[7].addCollider(player);
-		jumpPlatforms[8].addCollider(player);
 		
-		Level.levelFinish.addCollider(player);
-		Level.levelFinish.setNextLevel(Level.stage[4]);
-
-		if(Level.levelFinish.isFinished(player)) {
-			Level.levelFinish.goToNextLevel(arg1);
-		}
-
 		Level.goToLevel(i, arg1);
+
 	}
 
 	@Override

@@ -31,33 +31,85 @@ public class Switch {
 	public void addCollider(Character c){
 
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
-			// left
-			c.x = x - c.getWidth();
+			c.x = x - c.getWidth() - 0.1F;
+
+		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
+			c.x = x - c.getWidth() - 0.1F;
+
 		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
 				y, width, 10)) {
-			// top
 			c.y = y - c.getHeight();
 			c.yVel = 0;
 			c.isJumping = false;
 		}else
 			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
-			// top
 			c.y = y - c.getHeight();
 			c.yVel = 0;
 			c.isJumping = false;
+
+		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
+			c.y = y - c.getHeight();
+			c.yVel = 0;
+			c.isJumping = false;
+
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
-			// right
-			c.x = x + width;
+			c.x = x + width + 0.1F;
+
+		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
+			c.x = x + width + 0.1F;
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
-			// bottom
 			c.y = y + height;
+			c.yVel = 0;
+
+		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
+			c.y = y + height;
+			c.yVel = 0;
 
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
 				y + height - 10, width, 10)) {
-			// bottom
 			c.y = y + height;
-		}else{
+			c.yVel = 0;
+		}
+	}
+	
+	public void addCollider(physicsObject c){
 
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+			c.x = x - c.getWidth() - 0.1F;
+
+		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
+			c.x = x - c.getWidth() - 0.1F;
+
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
+				y, width, 10)) {
+			c.y = y - c.getHeight();
+			c.yVel = 0;
+		}else
+			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
+			c.y = y - c.getHeight();
+			c.yVel = 0;
+
+		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
+			c.y = y - c.getHeight();
+			c.yVel = 0;
+
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
+			c.x = x + width + 0.1F;
+
+		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
+			c.x = x + width + 0.1F;
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
+			c.y = y + height;
+			c.yVel = 0;
+
+		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
+			c.y = y + height;
+			c.yVel = 0;
+
+		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
+				y + height - 10, width, 10)) {
+			c.y = y + height;
+			c.yVel = 0;
 		}
 	}
 
@@ -140,6 +192,179 @@ public class Switch {
 						triggered = true;
 					}
 				}
+			}
+		}else{
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}
+		}
+	}
+
+	public void init(physicsObject c, int t, Input i){
+		type = t;
+		if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
+				height)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}
+
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY() + c.getHeight() + 1, c.getWidth() + 1,
+				c.getHeight() + 1, x, y, width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = true;
+
+			}
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() + 1, c.getWidth() + 1, c.getHeight() + 1, x, y,
+				width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = true;
+
+			}
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, 10, height)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+
+			}
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y + height - 9, width,
+				10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+
+			}
+		}else if(Main.addCollisonBox(c.getX() + c.getHeight() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x,
+				y + height - 9, width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}
+		}else{
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}
+		}
+
+	}
+
+	public void init(Character c, physicsObject o, int t, Input i){
+		type = t;
+		if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
+				height)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}else if(getTypeAsInt() == 1) {
+				if(Main.getKeyPress(i, actionButton)) {
+					if(triggered) {
+						triggered = false;
+					}else{
+						triggered = true;
+					}
+				}
+			}
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY() + c.getHeight() + 1, c.getWidth() + 1,
+				c.getHeight() + 1, x, y, width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = true;
+			}else if(getTypeAsInt() == 1) {
+				if(Main.getKeyPress(i, actionButton)) {
+					if(triggered) {
+						triggered = false;
+					}else{
+						triggered = true;
+					}
+				}
+
+			}
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() + 1, c.getWidth() + 1, c.getHeight() + 1, x, y,
+				width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = true;
+			}else if(getTypeAsInt() == 1) {
+				if(Main.getKeyPress(i, actionButton)) {
+					if(triggered) {
+						triggered = false;
+					}else{
+						triggered = true;
+					}
+				}
+			}
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, 10, height)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}else if(getTypeAsInt() == 1) {
+				if(Main.getKeyPress(i, actionButton)) {
+					if(triggered) {
+						triggered = false;
+					}else{
+						triggered = true;
+					}
+				}
+			}
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y + height - 9, width,
+				10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}else if(getTypeAsInt() == 1) {
+				if(Main.getKeyPress(i, actionButton)) {
+					if(triggered) {
+						triggered = false;
+					}else{
+						triggered = true;
+					}
+				}
+			}
+		}else if(Main.addCollisonBox(c.getX() + c.getHeight() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x,
+				y + height - 9, width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}else if(getTypeAsInt() == 1) {
+				if(Main.getKeyPress(i, actionButton)) {
+					if(triggered) {
+						triggered = false;
+					}else{
+						triggered = true;
+					}
+				}
+			}
+		}else{
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}
+		}
+
+		// physObj
+
+		if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y, 10,
+				height)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+			}
+
+		}else if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY() + o.getHeight() + 1, o.getWidth() + 1,
+				o.getHeight() + 1, x, y, width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = true;
+
+			}
+		}else if(Main.addCollisonBox(o.getX(), o.getY() + o.getHeight() + 1, o.getWidth() + 1, o.getHeight() + 1, x, y,
+				width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = true;
+
+			}
+		}else if(Main.addCollisonBox(o.getX(), o.getY(), o.getWidth(), o.getHeight(), x + width - 9, y, 10, height)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+
+			}
+		}else if(Main.addCollisonBox(o.getX(), o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y + height - 9, width,
+				10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
+
+			}
+		}else if(Main.addCollisonBox(o.getX() + o.getHeight() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x,
+				y + height - 9, width, 10)) {
+			if(getTypeAsInt() == 0) {
+				triggered = false;
 			}
 		}else{
 			if(getTypeAsInt() == 0) {
