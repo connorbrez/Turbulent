@@ -9,7 +9,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Platform;
-import com.connorbrezinsky.turbulent.objectSpawner;
 import com.connorbrezinsky.turbulent.Character;
 
 public class Level {
@@ -20,7 +19,6 @@ public class Level {
 	public static SpriteSheet spriteSheet;
 	
 	public static Platform levelFinish;
-	public static objectSpawner objSpawner;
 	
 	public static Image characterTest;
 

@@ -15,7 +15,7 @@ public class Switch {
 	public boolean triggered = false;
 	boolean isAnimated = false;
 	Animation obj;
-	boolean hasSprite=false;
+	boolean hasSprite = false;
 	Image sprite;
 
 	public static int PRESSURE = 0;
@@ -73,7 +73,7 @@ public class Switch {
 	}
 
 	public void render(Graphics g){
-		if(isAnimated){
+		if(isAnimated) {
 			if(obj != null) {
 				obj.draw(x, y, width, height);
 			}else{
@@ -90,7 +90,7 @@ public class Switch {
 		}else{
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
-			
+
 		}
 	}
 
@@ -138,7 +138,7 @@ public class Switch {
 		}
 	}
 
-	public void addCollider(physicsObject c){
+	public void addCollider(PhysicsObject c){
 
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 			c.x = x - c.getWidth() - 0.1F;
@@ -194,8 +194,8 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth() + 15, c.getY() + c.getHeight() + 15, c.getWidth() + 15,
-				c.getHeight() + 15, x, y, width, height)) {
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
+				y, width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
@@ -208,8 +208,8 @@ public class Switch {
 				}
 
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() + 15, c.getWidth() + 15, c.getHeight() + 5, x,
-				y, width, height)) {
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
+				height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
@@ -267,7 +267,7 @@ public class Switch {
 		}
 	}
 
-	public void init(physicsObject c, int t, Input i){
+	public void init(PhysicsObject c, int t, Input i){
 		type = t;
 		if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
 				height)) {
@@ -311,9 +311,9 @@ public class Switch {
 
 	}
 
-	public void init(Character c, physicsObject o, int t, Input i){
+	public void init(Character c, PhysicsObject o, int t, Input i){
 		type = t;
-		if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
 				height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
@@ -326,8 +326,8 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY() + c.getHeight() + 1, c.getWidth() + 1,
-				c.getHeight() + 1, x, y, width, 10)) {
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth() , c.getY() + c.getHeight() , c.getWidth() ,
+				c.getHeight() , x, y, width, 10)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
@@ -340,7 +340,7 @@ public class Switch {
 				}
 
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() + 1, c.getWidth() + 1, c.getHeight() + 1, x, y,
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() , c.getWidth() , c.getHeight() , x, y,
 				width, 10)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
@@ -391,15 +391,9 @@ public class Switch {
 					}
 				}
 			}
-		}else{
-			if(getTypeAsInt() == 0) {
-				triggered = false;
-			}
-		}
-
-		// physObj
-
-		if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y, 10,
+		
+		
+		}else if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y, 10,
 				height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
@@ -438,6 +432,7 @@ public class Switch {
 				triggered = false;
 			}
 		}
+		
 	}
 
 	public float getX(){

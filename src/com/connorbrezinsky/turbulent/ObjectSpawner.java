@@ -3,15 +3,15 @@ package com.connorbrezinsky.turbulent;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 
-public class objectSpawner {
+public class ObjectSpawner {
 
 	float x, y, width, height;
 	Animation obj;
 	Image sprite;
-	physicsObject physObj;
+	PhysicsObject physObj;
 	boolean hasPhysObj = true;
 
-	public objectSpawner(Animation a, Image[] img, int[] d) {
+	public ObjectSpawner(Animation a, Image[] img, int[] d) {
 
 		
 		width = 30;

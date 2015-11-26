@@ -38,8 +38,6 @@ public class Main extends StateBasedGame {
 		}
 	}
 	
-	
-
 	public static int getMidX(int width){
 		return viewportWidth / 2 - (width / 2);
 	}
@@ -62,6 +60,8 @@ public class Main extends StateBasedGame {
 		}
 	}
 	
+	
+	// TODO add simpler collision functions here
 	public static boolean rightBoxCollider(Character c){
 		return false;
 	}
@@ -78,19 +78,19 @@ public class Main extends StateBasedGame {
 		return false;
 	}
 	
-	public static boolean rightBoxCollider(physicsObject c){
+	public static boolean rightBoxCollider(PhysicsObject c){
 		return false;
 	}
 	
-	public static boolean leftBoxCollider(physicsObject c){
+	public static boolean leftBoxCollider(PhysicsObject c){
 		return false;
 	}
 	
-	public static boolean topBoxCollider(physicsObject c){
+	public static boolean topBoxCollider(PhysicsObject c){
 		return false;
 	}
 	
-	public static boolean bottomBoxCollider(physicsObject c){
+	public static boolean bottomBoxCollider(PhysicsObject c){
 		return false;
 	}
 

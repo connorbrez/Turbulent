@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-public class physicsObject {
+public class PhysicsObject {
 
 	float x, y, width, height, spawnerX, spawnerY;
 	float yVel = 0;
@@ -16,7 +16,7 @@ public class physicsObject {
 	boolean goneFromSpawner = true;
 	int actionKey = Input.KEY_E;
 
-	public physicsObject(float _x, float _y, float w, float h, Color c) {
+	public PhysicsObject(float _x, float _y, float w, float h, Color c) {
 		x = _x;
 		y = _y;
 		width = w;
@@ -24,7 +24,7 @@ public class physicsObject {
 		color = c;
 	}
 
-	public physicsObject(float _x, float _y, float w, float h, Color c, boolean spawner) {
+	public PhysicsObject(float _x, float _y, float w, float h, Color c, boolean spawner) {
 		x = _x;
 		y = _y;
 		width = w;
@@ -35,7 +35,7 @@ public class physicsObject {
 	}
 
 	public void addPlayerCollider(Character c){
-		if(goneFromSpawner) {
+		if(goneFromSpawner && canPickup) {
 			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 				c.x = x - c.getWidth() - 0.1F;
 
@@ -81,7 +81,7 @@ public class physicsObject {
 		}
 	}
 
-	public void addPhysObjCollider(physicsObject c){
+	public void addPhysObjCollider(PhysicsObject c){
 		if(canPickup && c.canPickup && goneFromSpawner) {
 			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 				c.x = x - c.getWidth() - 0.1F;
@@ -136,7 +136,7 @@ public class physicsObject {
 		}
 	}
 
-	public void render(Graphics g, objectSpawner pObj){
+	public void render(Graphics g, ObjectSpawner pObj){
 
 		pObj.render(spawnerX, spawnerY);
 

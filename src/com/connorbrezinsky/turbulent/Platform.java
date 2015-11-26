@@ -181,7 +181,7 @@ public class Platform {
 		}
 	}
 
-	public void addCollider(Character c, physicsObject pObj){
+	public void addCollider(Character c, PhysicsObject pObj){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 			c.x = x - c.getWidth() - 0.1F;
 

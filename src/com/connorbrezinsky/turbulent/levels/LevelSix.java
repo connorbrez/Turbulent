@@ -9,23 +9,38 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import com.connorbrezinsky.turbulent.Character;
 
+import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Door;
 import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.ObjectSpawner;
+import com.connorbrezinsky.turbulent.PhysicsObject;
 import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
+import com.connorbrezinsky.turbulent.Switch;
 
 public class LevelSix implements GameState {
 
 	Color bg = Color.black;
 	public Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
+	public Door finishDoor = new Door(650, 600 - 100, 10, 100, Color.blue);
 
+	
 	public Platform obj0 = new Platform(0, 0, 800, 200);
 	public Platform obj00 = new Platform(600, 0, 300, 500);
 	SpriteLoader sLoader;
+	
+	Switch pressureSwitch = new Switch(400,600-5,20,5,Color.black);
+	
+	Image pickup;
+	Image downarrow;
+	
 
 	Platform finish = Level.levelFinish;
 
+	public ObjectSpawner objSpawner;
+	public PhysicsObject cube = new PhysicsObject(200, 600 - 20, 10, 10, Color.blue, true);
+	float sx;
 	public LevelSix(int s) {
 
 	}
@@ -49,8 +64,23 @@ public class LevelSix implements GameState {
 				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
 				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
 				new Image("res/animation/finish/phase12.png") };
-		SpriteSheet spritesheet = new SpriteSheet(new Image("res/sprites.png"),20,20);
+
+		Image[] iPhysSpawner = { new Image("res/animation/physSpawner/physSpawner1.png"),
+				new Image("res/animation/physSpawner/physSpawner2.png"),
+				new Image("res/animation/physSpawner/physSpawner3.png"),
+				new Image("res/animation/physSpawner/physSpawner4.png"),
+				new Image("res/animation/physSpawner/physSpawner5.png"),
+				new Image("res/animation/physSpawner/physSpawner6.png"), };
+		
+		downarrow = new Image("res/downarrow.png");
+		pickup = new Image("res/pickup.png");
+		
+		SpriteSheet spritesheet = new SpriteSheet(new Image("res/sprites.png"), 20, 20);
 		sLoader = new SpriteLoader(spritesheet);
+		objSpawner = new ObjectSpawner(Level.aObjectSpawner, iPhysSpawner, Level.objSDuration);
+		sx = cube.getX()-10;
+		
+		
 		
 		obj0.addImage(sLoader.getImage(0));
 		obj00.addImage(sLoader.getImage(0));
@@ -63,13 +93,26 @@ public class LevelSix implements GameState {
 
 	}
 
+	
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
 		finish.render(g);
 		obj0.render(g);
 		obj00.render(g);
-
+		finishDoor.render(g);
+		
+		g.setColor(Color.white);
+		g.fillRect(100,490,75,50);
+		pickup.draw(105,500);
+		
+		g.fillRect(pressureSwitch.x-10, 600-60, 40, 60);
+		downarrow.draw(pressureSwitch.x-2,600-50);
+		pressureSwitch.render(g);
+		
+		cube.setSpawnerPos(sx, 600-50);
+		cube.render(g, objSpawner);
+		
 		player.render(g);
 	}
 
@@ -82,10 +125,28 @@ public class LevelSix implements GameState {
 		obj0.addCollider(player);
 		obj00.addCollider(player);
 
+	
+		pressureSwitch.init(player, cube, Switch.PRESSURE, i);
+		pressureSwitch.addCollider(player);
+		pressureSwitch.addCollider(cube);
+		cube.addPhysics();
+		cube.init(i, player);
+
+		obj0.addCollider(player, cube);
+		obj00.addCollider(player,cube);
+		finishDoor.addCollider(player);
+		cube.addPlayerCollider(player);
+		
 		finish.addCollider(player);
 		finish.setNextLevel(Level.stage[7]);
 		if(finish.isFinished(player)) {
 			finish.goToNextLevel(arg1);
+		}
+		
+		if(pressureSwitch.isTriggered()){
+			finishDoor.open();
+		}else{
+			finishDoor.close();
 		}
 
 		Level.goToLevel(i, arg1);

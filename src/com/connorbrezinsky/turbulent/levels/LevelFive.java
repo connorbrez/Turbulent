@@ -160,7 +160,7 @@ public class LevelFive implements GameState {
 		colorSwitch.init(player, Switch.ACTION, i);
 
 		Level.levelFinish.addCollider(player);
-		Level.levelFinish.setNextLevel(5);
+		Level.levelFinish.setNextLevel(6);
 		finishDoor.addCollider(player);
 
 		sDoor0.init(player, Switch.ACTION, i);
