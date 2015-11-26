@@ -6,14 +6,16 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Door;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Platform;
+import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Switch;
-import com.connorbrezinsky.turbulent.Character;
 
 
 public class LevelFive implements GameState {
@@ -25,6 +27,8 @@ public class LevelFive implements GameState {
 
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 
+	SpriteLoader sLoader;
+	
 	public Door finishDoor = new Door(650, 600 - 100, 10, 100, Color.green);
 	public Door door0 = new Door(650, 205, 10, 50, Color.red);
 
@@ -50,12 +54,12 @@ public class LevelFive implements GameState {
 	public Platform obj00 = new Platform(800 - 200, 0, 200, 205, Color.black, Platform.NORMAL);
 	public Platform obj000 = new Platform(0, 0, 800, 50, Color.black, Platform.NORMAL);
 
-	public Switch doorSwitch0 = new Switch(480, 280 - 30, 20, 20, Color.white);
-	public Switch doorSwitch1 = new Switch(750, 600 - 345 - 30, 20, 20, Color.black);
+	public Switch doorSwitch0 = new Switch(480, 280 - 30, 20, 20);
+	public Switch doorSwitch1 = new Switch(750, 600 - 345 - 30, 20, 20);
 
-	public Switch sDoor0 = new Switch(260, 250 - 30, 20, 20, Color.red);
+	public Switch sDoor0 = new Switch(260, 250 - 30, 20, 20);
 
-	public Switch colorSwitch = new Switch(10, 600 - 30, 20, 20, Color.white);
+	public Switch colorSwitch = new Switch(10, 600 - 30, 20, 20);
 
 	public LevelFive(int s) {
 
@@ -63,14 +67,12 @@ public class LevelFive implements GameState {
 
 	@Override
 	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public int getID(){
-		// TODO Auto-generated method stub
-		return 5;
+				return 5;
 	}
 
 	@Override
@@ -86,6 +88,15 @@ public class LevelFive implements GameState {
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
 				Level.duration);
+		
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"),20,20));
+		
+		doorSwitch0.addSprite(sLoader.getImage(2));
+		doorSwitch1.addSprite(sLoader.getImage(4));
+		
+		sDoor0.addSprite(sLoader.getImage(4));
+		colorSwitch.addSprite(sLoader.getImage(3));
+
 	}
 
 	@Override
@@ -182,6 +193,8 @@ public class LevelFive implements GameState {
 			door0.addSwitch(sDoor0);
 			doorSwitch1.addCollider(player);
 			doorSwitch1.init(player, Switch.ACTION, i);
+			
+			colorSwitch.changeSprite(sLoader.getImage(5));
 
 		}else{
 			bg = Color.black;
@@ -189,7 +202,7 @@ public class LevelFive implements GameState {
 			setObjColor(Color.green);
 
 			obj0.setColor(Color.white);
-
+			colorSwitch.changeSprite(sLoader.getImage(3));
 			obj2.addCollider(player);
 			obj3.addCollider(player);
 			obj4.addCollider(player);
@@ -226,134 +239,112 @@ public class LevelFive implements GameState {
 
 	@Override
 	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(int arg0, int arg1, int arg2){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseReleased(int arg0, int arg1, int arg2){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseWheelMoved(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void inputEnded(){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void inputStarted(){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public boolean isAcceptingInput(){
-		// TODO Auto-generated method stub
-		return false;
+				return false;
 	}
 
 	@Override
 	public void setInput(Input arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyPressed(int arg0, char arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyReleased(int arg0, char arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerButtonPressed(int arg0, int arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerButtonReleased(int arg0, int arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerDownPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerDownReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerLeftPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerLeftReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerRightPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerRightReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerUpPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerUpReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

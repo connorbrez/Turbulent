@@ -19,8 +19,8 @@ public class LevelOne implements GameState {
 	Color bg = Color.black;
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 
-	public Image a_key;
-	public Image d_key;
+	public Image move;
+	
 
 	public LevelOne(int s) {
 
@@ -28,20 +28,17 @@ public class LevelOne implements GameState {
 
 	@Override
 	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public int getID(){
-		// TODO Auto-generated method stub
-		return 1;
+				return 1;
 	}
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		a_key = new Image("res/a.png");
-		d_key = new Image("res/d.png");
+		move = new Image("res/move.png");
 
 		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
 				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
@@ -58,21 +55,15 @@ public class LevelOne implements GameState {
 
 	@Override
 	public void leave(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
 		Level.levelFinish.render(g);
-		a_key.draw(Main.viewportWidth / 4 - a_key.getWidth(), Main.viewportHeight / 2 - a_key.getHeight());
-		g.setColor(Color.lightGray);
-		g.drawString("To go left", Main.viewportWidth / 4 - a_key.getWidth() + 50,
-				Main.viewportHeight / 2 - a_key.getHeight() + 10);
-		d_key.draw(Main.viewportWidth / 4 - d_key.getWidth(), Main.viewportHeight / 2 - d_key.getHeight() + 50);
-		g.drawString("To go right", Main.viewportWidth / 4 - d_key.getWidth() + 50,
-				Main.viewportHeight / 2 - d_key.getHeight() + 58);
+		move.draw(10, 400);
+		
 
 		// Level.renderBasicWalls(g);
 		player.render(g);
@@ -99,134 +90,112 @@ public class LevelOne implements GameState {
 
 	@Override
 	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(int arg0, int arg1, int arg2){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseReleased(int arg0, int arg1, int arg2){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseWheelMoved(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void inputEnded(){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void inputStarted(){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public boolean isAcceptingInput(){
-		// TODO Auto-generated method stub
-		return false;
+				return false;
 	}
 
 	@Override
 	public void setInput(Input arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyPressed(int arg0, char arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyReleased(int arg0, char arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerButtonPressed(int arg0, int arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerButtonReleased(int arg0, int arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerDownPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerDownReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerLeftPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerLeftReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerRightPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerRightReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerUpPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerUpReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

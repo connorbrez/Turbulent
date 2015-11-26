@@ -4,7 +4,6 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Platform {
@@ -14,13 +13,25 @@ public class Platform {
 	public int type = 0;
 	public int nextLvl;
 	boolean isAnimated = false;
+	boolean hasSprite = false;
+	Image sprite;
 	Animation obj;
-	Rectangle rObj;
 
 	public static int NORMAL = 0;
 	public static int MOVING = 1;
 	public static int FINISH = 2;
 
+	
+	public Platform(float _x, float _y, float w, float h) {
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		c = Color.gray;
+		type = NORMAL;
+		nextLvl = 1337;
+	}
+	
 	public Platform(float _x, float _y, float w, float h, Color _c, int _type) {
 		x = _x;
 		y = _y;
@@ -30,7 +41,31 @@ public class Platform {
 		type = _type;
 		nextLvl = 1337;
 		isAnimated = false;
-		rObj = new Rectangle(x, y, width, height);
+
+	}
+
+	public Platform(float _x, float _y, float w, float h, int _type, Image img) {
+		sprite = img;
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		type = _type;
+		nextLvl = 1337;
+		hasSprite = true;
+
+	}
+
+	public Platform(float _x, float _y, float w, float h, Image img) {
+		hasSprite = true;
+		sprite = img;
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		type = NORMAL;
+		nextLvl = 1337;
+		
 
 	}
 
@@ -43,7 +78,6 @@ public class Platform {
 		type = NORMAL;
 		nextLvl = 1337;
 		isAnimated = false;
-		rObj = new Rectangle(x, y, width, height);
 
 	}
 
@@ -56,13 +90,21 @@ public class Platform {
 		obj = a;
 		nextLvl = 1337;
 		isAnimated = true;
-		rObj = new Rectangle(x, y, width, height);
 		obj = new Animation(img, d, true);
 
 	}
+	
+	
 
 	public void render(Graphics g){
-		if(isAnimated) {
+		if(hasSprite) {
+			if(sprite != null) {
+				sprite.draw(x, y, width, height);
+			}else{
+				g.setColor(Color.magenta);
+				g.drawString("null", x, y);
+			}
+		}else if(isAnimated) {
 			if(obj != null) {
 				obj.draw(x, y, width, height);
 			}else{
@@ -73,6 +115,17 @@ public class Platform {
 			g.setColor(c);
 			g.fillRect(x, y, width, height);
 		}
+	}
+	
+	public void addImage(Image img){
+		this.hasSprite=true;
+		this.sprite=img;
+	}
+	
+	public void addAnimation(Animation a, Image[] img, int[] d){
+		this.isAnimated=true;
+		obj=a;
+		obj = new Animation(img, d, true);
 	}
 
 	/*

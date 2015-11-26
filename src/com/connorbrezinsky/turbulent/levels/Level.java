@@ -3,7 +3,9 @@ package com.connorbrezinsky.turbulent.levels;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Platform;
@@ -15,8 +17,12 @@ public class Level {
 	public static Platform wallLeft = new Platform(0, 0, 20, 600, Color.lightGray, Platform.NORMAL);
 	public static Platform wallRight = new Platform(800 - 20, 0, 20, 600, Color.lightGray, Platform.NORMAL);
 
+	public static SpriteSheet spriteSheet;
+	
 	public static Platform levelFinish;
 	public static objectSpawner objSpawner;
+	
+	public static Image characterTest;
 
 	static Animation aLevelFinish;
 	static int d = 100;
@@ -35,7 +41,7 @@ public class Level {
 	}
 
 	public static void renderLevelFinish(){
-
+		
 	}
 
 	public static void addWallCollison(Character p){
@@ -62,10 +68,8 @@ public class Level {
 			arg1.enterState(stage[8]);
 		}else if(i.isKeyPressed(Input.KEY_9)) {
 			arg1.enterState(stage[9]);
-		}else if(i.isKeyPressed(Input.KEY_MINUS)) {
+		}else if(i.isKeyPressed(Input.KEY_0)) {
 			arg1.enterState(stage[10]);
-		}else if(i.isKeyPressed(Input.KEY_EQUALS) || i.isKeyPressed(Input.KEY_ADD)) {
-			arg1.enterState(1);
 		}else if(i.isKeyPressed(Input.KEY_T)) {
 			arg1.enterState(1926);
 		}

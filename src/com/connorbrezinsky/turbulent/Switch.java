@@ -1,7 +1,9 @@
 package com.connorbrezinsky.turbulent;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
 public class Switch {
@@ -11,6 +13,10 @@ public class Switch {
 	public Color color;
 	public int actionButton = Input.KEY_E;
 	public boolean triggered = false;
+	boolean isAnimated = false;
+	Animation obj;
+	boolean hasSprite=false;
+	Image sprite;
 
 	public static int PRESSURE = 0;
 	public static int ACTION = 1;
@@ -23,9 +29,69 @@ public class Switch {
 		color = c;
 	}
 
+	public Switch(float _x, float _y, float w, float h, Animation a, Image[] img, int[] d) {
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		obj = a;
+		isAnimated = true;
+		obj = new Animation(img, d, true);
+
+	}
+
+	public Switch(float _x, float _y, float w, float h) {
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		hasSprite = true;
+		sprite = null;
+
+	}
+
+	public void addSprite(Image img){
+		sprite = img;
+	}
+
+	public void changeSprite(Image img){
+		sprite = img;
+	}
+
+	public void changeSprite(Image img, int _x, int _y){
+		sprite = img;
+		x = _x;
+		y = _y;
+	}
+
+	public void changeSprite(Image img, int _x, int _y, int w, int h){
+		sprite = img;
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+	}
+
 	public void render(Graphics g){
-		g.setColor(color);
-		g.fillRect(x, y, width, height);
+		if(isAnimated){
+			if(obj != null) {
+				obj.draw(x, y, width, height);
+			}else{
+				g.setColor(Color.magenta);
+				g.drawString("null", x, y);
+			}
+		}else if(hasSprite) {
+			if(sprite != null) {
+				sprite.draw(x, y, width, height);
+			}else{
+				g.setColor(Color.magenta);
+				g.drawString("null", x, y);
+			}
+		}else{
+			g.setColor(color);
+			g.fillRect(x, y, width, height);
+			
+		}
 	}
 
 	public void addCollider(Character c){
@@ -71,7 +137,7 @@ public class Switch {
 			c.yVel = 0;
 		}
 	}
-	
+
 	public void addCollider(physicsObject c){
 
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
@@ -115,8 +181,8 @@ public class Switch {
 
 	public void init(Character c, int t, Input i){
 		type = t;
-		if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
-				height)) {
+		if(Main.addCollisonBox(c.getX() + c.getWidth() + 15, c.getY(), c.getWidth() + 15, c.getHeight() + 15, x, y,
+				width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
@@ -128,8 +194,8 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY() + c.getHeight() + 1, c.getWidth() + 1,
-				c.getHeight() + 1, x, y, width, 10)) {
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth() + 15, c.getY() + c.getHeight() + 15, c.getWidth() + 15,
+				c.getHeight() + 15, x, y, width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
@@ -142,8 +208,8 @@ public class Switch {
 				}
 
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() + 1, c.getWidth() + 1, c.getHeight() + 1, x, y,
-				width, 10)) {
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() + 15, c.getWidth() + 15, c.getHeight() + 5, x,
+				y, width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
@@ -155,7 +221,8 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, 10, height)) {
+		}else
+			if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
@@ -167,8 +234,8 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y + height - 9, width,
-				10)) {
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth() + 15, c.getHeight() + 15, x, y + height - 9,
+				width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
@@ -180,8 +247,8 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x,
-				y + height - 9, width, 10)) {
+		}else if(Main.addCollisonBox(c.getX() + c.getHeight() + 15, c.getY(), c.getWidth() + 15, c.getHeight() + 5, x,
+				y + height - 9, width, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {

@@ -5,6 +5,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.connorbrezinsky.turbulent.levels.Level;
+
 public class Character {
 	public float x, y, width, height, yVel;
 	public float gravity = 0.5F;
@@ -16,7 +18,7 @@ public class Character {
 	public boolean canMove = true;
 	public Rectangle rPl;
 	
-	
+	boolean isTesting = false;
 	
 	
 	public Character(float _x, float _y, float w, float h, Color c) {
@@ -28,10 +30,26 @@ public class Character {
 		rPl = new Rectangle(x,y,width,height);
 	
 	}
+	
+	public Character(float _x, float _y, float w, float h, boolean test) {
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		isTesting = true;
+		rPl = new Rectangle(x,y,width,height);
+	
+	}
+	
 
 	public void render(Graphics g){
+		if(!isTesting){
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
+		}else{
+			Level.characterTest.draw(x,y,width,height);
+		}
+		
 
 	}
 

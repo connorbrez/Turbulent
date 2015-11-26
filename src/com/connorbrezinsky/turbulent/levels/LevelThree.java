@@ -21,15 +21,15 @@ public class LevelThree implements GameState {
 
 	public Platform obj1 = new Platform(Main.getMidX(20), 100, 20, 500, Color.gray);
 
-	public Platform[] jumpPlatforms = { new Platform(obj1.getX() - 15, 550, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 500, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 450, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 400, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 350, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 300, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 250, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 200, 15, 10, Color.lightGray),
-			new Platform(obj1.getX() - 15, 150, 15, 10, Color.lightGray)};
+	public Platform[] jumpPlatforms = { new Platform(obj1.getX() - 15, 570, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 520, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 470, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 430, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 370, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 330, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 270, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 230, 15, 10, Color.lightGray),
+			new Platform(obj1.getX() - 15, 170, 15, 10, Color.lightGray)};
 
 	public LevelThree(int s) {
 
@@ -37,14 +37,12 @@ public class LevelThree implements GameState {
 
 	@Override
 	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public int getID(){
-		// TODO Auto-generated method stub
-		return 3;
+				return 3;
 	}
 
 	@Override
@@ -63,8 +61,7 @@ public class LevelThree implements GameState {
 
 	@Override
 	public void leave(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -118,134 +115,112 @@ public class LevelThree implements GameState {
 
 	@Override
 	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(int arg0, int arg1, int arg2){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseReleased(int arg0, int arg1, int arg2){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseWheelMoved(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void inputEnded(){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void inputStarted(){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public boolean isAcceptingInput(){
-		// TODO Auto-generated method stub
-		return false;
+				return false;
 	}
 
 	@Override
 	public void setInput(Input arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyPressed(int arg0, char arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyReleased(int arg0, char arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerButtonPressed(int arg0, int arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerButtonReleased(int arg0, int arg1){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerDownPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerDownReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerLeftPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerLeftReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerRightPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerRightReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerUpPressed(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void controllerUpReleased(int arg0){
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
