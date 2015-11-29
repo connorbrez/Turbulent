@@ -15,6 +15,7 @@ public class PhysicsObject {
 	boolean hasSpawner = false;
 	boolean goneFromSpawner = true;
 	int actionKey = Input.KEY_E;
+	Character char_;
 
 	public PhysicsObject(float _x, float _y, float w, float h, Color c) {
 		x = _x;
@@ -32,6 +33,10 @@ public class PhysicsObject {
 		color = c;
 		hasSpawner = true;
 		goneFromSpawner = false;
+	}
+
+	public void addPlayer(Character c){
+		char_ = c;
 	}
 
 	public void addPlayerCollider(Character c){
@@ -168,8 +173,16 @@ public class PhysicsObject {
 	}
 
 	public void carry(Character c){
-		this.x = c.x + c.width + 10;
-		this.y = c.y;
+		if(char_ != null && char_.direction == Character.LEFT) {
+			this.x = c.x + c.width + 10;
+			this.y = c.y;
+		}else if(char_ != null && char_.direction == Character.RIGHT) {
+			this.x = c.x - c.width - 8.1F;
+			this.y = c.y;
+		}else{
+			this.x = c.x + c.width + 10;
+			this.y = c.y;
+		}
 	}
 
 	public void pickup(Character c){
@@ -226,12 +239,12 @@ public class PhysicsObject {
 		trig.addCollider(c);
 
 		if(trig.isTriggered) {
-			if(Main.getKeyPress(i, actionKey)) {
+			if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
 				pickup(c);
 			}
 		}else if(!canPickup) {
 			carry(c);
-			if(Main.getKeyPress(i, actionKey)) {
+			if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
 				canPickup = true;
 			}
 		}

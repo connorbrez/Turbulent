@@ -12,6 +12,7 @@ public class Switch {
 	public int type;
 	public Color color;
 	public int actionButton = Input.KEY_E;
+	public int actionButtonController = 17;
 	public boolean triggered = false;
 	boolean isAnimated = false;
 	Animation obj;
@@ -95,12 +96,21 @@ public class Switch {
 	}
 
 	public void addCollider(Character c){
-
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
-			c.x = x - c.getWidth() - 0.1F;
+			if(height <= 5) {
+				c.y = y - c.height - 1;
+			}else{
+				c.x = x - c.getWidth() - 0.1F;
+
+			}
 
 		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x - c.getWidth() - 0.1F;
+			if(height <= 5) {
+				c.y = y - c.height - 1;
+			}else{
+				c.x = x - c.getWidth() - 0.1F;
+
+			}
 
 		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
 				y, width, 10)) {
@@ -119,10 +129,19 @@ public class Switch {
 			c.isJumping = false;
 
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
-			c.x = x + width + 0.1F;
+			if(height <= 5) {
+				c.y = y - c.height - 1;
+			}else{
+				c.x = x + width + 0.1F;
+
+			}
 
 		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x + width + 0.1F;
+			if(height <= 5) {
+				c.y = y - c.height - 1;
+			}else{
+				c.x = x + width + 0.1F;
+			}
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
 			c.y = y + height;
 			c.yVel = 0;
@@ -186,7 +205,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -199,7 +218,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -213,7 +232,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -226,7 +245,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -239,7 +258,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -252,7 +271,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -318,7 +337,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -326,12 +345,12 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth() , c.getY() + c.getHeight() , c.getWidth() ,
-				c.getHeight() , x, y, width, 10)) {
+		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
+				y, width, 10)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -340,12 +359,12 @@ public class Switch {
 				}
 
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight() , c.getWidth() , c.getHeight() , x, y,
-				width, 10)) {
+		}else
+			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -357,7 +376,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -370,7 +389,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -383,7 +402,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton)) {
+				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -391,10 +410,9 @@ public class Switch {
 					}
 				}
 			}
-		
-		
-		}else if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y, 10,
-				height)) {
+
+		}else if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y,
+				10, height)) {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}
@@ -432,7 +450,7 @@ public class Switch {
 				triggered = false;
 			}
 		}
-		
+
 	}
 
 	public float getX(){

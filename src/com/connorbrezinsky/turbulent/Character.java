@@ -17,39 +17,39 @@ public class Character {
 	public int runningTime;
 	public boolean canMove = true;
 	public Rectangle rPl;
-	
+	public String direction = LEFT;
+
+	public static String LEFT = "left";
+	public static String RIGHT = "right";
 	boolean isTesting = false;
-	
-	
+
 	public Character(float _x, float _y, float w, float h, Color c) {
 		x = _x;
 		y = _y;
 		width = w;
 		height = h;
 		color = c;
-		rPl = new Rectangle(x,y,width,height);
-	
+		rPl = new Rectangle(x, y, width, height);
+
 	}
-	
+
 	public Character(float _x, float _y, float w, float h, boolean test) {
 		x = _x;
 		y = _y;
 		width = w;
 		height = h;
 		isTesting = true;
-		rPl = new Rectangle(x,y,width,height);
-	
+		rPl = new Rectangle(x, y, width, height);
+
 	}
-	
 
 	public void render(Graphics g){
-		if(!isTesting){
-		g.setColor(color);
-		g.fillRect(x, y, width, height);
+		if(!isTesting) {
+			g.setColor(color);
+			g.fillRect(x, y, width, height);
 		}else{
-			Level.characterTest.draw(x,y,width,height);
+			Level.characterTest.draw(x, y, width, height);
 		}
-		
 
 	}
 
@@ -77,22 +77,21 @@ public class Character {
 			c.y = y + height;
 		}
 	}
-	
-	
-	
+
 	public void addWorldCollider(){
-		if(x<0){
-			x=1;
-		}else if(x+width>Main.viewportWidth){
-			x=Main.viewportWidth-21;
-		}else if(y<0){
-			y=1;
+		if(x < 0) {
+			x = 1;
+		}else if(x + width > Main.viewportWidth) {
+			x = Main.viewportWidth - 21;
+		}else if(y < 0) {
+			y = 1;
 		}
 	}
 
 	public void addBasicController(Input i, int right, int left, int jump){
 
 		if(i.isKeyDown(left)) {
+			direction = LEFT;
 			if(i.isKeyPressed(jump)) {
 				jump();
 			}else if(isJumping) {
@@ -101,6 +100,7 @@ public class Character {
 				x += xSpeed;
 			}
 		}else if(i.isKeyDown(right)) {
+			direction = RIGHT;
 			if(i.isKeyPressed(jump)) {
 				jump();
 			}else if(isJumping) {
@@ -110,6 +110,32 @@ public class Character {
 			}
 		}else if(i.isKeyPressed(jump)) {
 			jump();
+		}
+
+		if(i.getControllerCount() > 0) {
+
+			if(i.getAxisValue(0, 0) > 0.5) {
+				direction = LEFT;
+				if(i.isControlPressed(15, 0)) {
+					jump();
+				}else if(isJumping) {
+					x += xSpeed / 4 + 0.8;
+				}else{
+					x += xSpeed;
+				}
+			}else if(i.getAxisValue(0, 0) < -0.5) {
+				direction = RIGHT;
+				if(i.isControlPressed(15, 0)) {
+					jump();
+				}else if(isJumping) {
+					x -= xSpeed / 4 + 0.8;
+				}else{
+					x -= xSpeed;
+				}
+			}else if(i.isControlPressed(15, 0)) {
+				jump();
+			}
+
 		}
 
 	}

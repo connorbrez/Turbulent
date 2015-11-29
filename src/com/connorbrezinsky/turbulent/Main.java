@@ -29,6 +29,8 @@ public class Main extends StateBasedGame {
 
 	public static int offsetMaxX = worldsizeX - viewportWidth;
 	public static int offSetMaxY = worldsizeY - viewportHeight;
+	
+	public static double VERSION = 0.2;
 
 	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh){
 		if(mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)) {
@@ -103,7 +105,7 @@ public class Main extends StateBasedGame {
 	}
 
 	public Main(String name) {
-		super("Physics Testing");
+		super("Turbulent v" + VERSION );
 
 		/*
 		 * addState this.addState(new State(state));

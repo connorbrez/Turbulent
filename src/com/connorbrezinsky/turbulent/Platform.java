@@ -141,9 +141,15 @@ public class Platform {
 	public void addCollider(Character c){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 			c.x = x - c.getWidth() - 0.1F;
+			if(height<=5){
+				c.y=y;
+			}
 
 		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
 			c.x = x - c.getWidth() - 0.1F;
+			if(height<=5){
+				c.y=y;
+			}
 
 		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
 				y, width, 10)) {
@@ -163,9 +169,15 @@ public class Platform {
 
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
 			c.x = x + width + 0.1F;
+			if(height<=5){
+				c.y=y;
+			}
 
 		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
 			c.x = x + width + 0.1F;
+			if(height<=5){
+				c.y=y;
+			}
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
 			c.y = y + height;
 			c.yVel = 0;

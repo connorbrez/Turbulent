@@ -28,9 +28,16 @@ public class LevelSix implements GameState {
 	
 	public Platform obj0 = new Platform(0, 0, 800, 200);
 	public Platform obj00 = new Platform(600, 0, 300, 500);
+	public Platform obj1 = new Platform(400,350,80,10, Color.orange);
+	public Platform obj2 = new Platform(290, 400, 40,10, Color.blue);
+	public Platform obj3 = new Platform(230, 480, 40,10, Color.blue);
+	public Platform obj4 = new Platform(330, 500, 40,10, Color.blue);
+	public Platform obj5 = new Platform(400, 550, 40,10, Color.blue);
+
+
 	SpriteLoader sLoader;
 	
-	Switch pressureSwitch = new Switch(400,600-5,20,5,Color.black);
+	Switch pressureSwitch = new Switch(430,350-5,20,5,Color.black);
 	
 	Image pickup;
 	Image downarrow;
@@ -79,7 +86,7 @@ public class LevelSix implements GameState {
 		sLoader = new SpriteLoader(spritesheet);
 		objSpawner = new ObjectSpawner(Level.aObjectSpawner, iPhysSpawner, Level.objSDuration);
 		sx = cube.getX()-10;
-		
+		cube.addPlayer(player);
 		
 		
 		obj0.addImage(sLoader.getImage(0));
@@ -100,14 +107,20 @@ public class LevelSix implements GameState {
 		finish.render(g);
 		obj0.render(g);
 		obj00.render(g);
+		obj1.render(g);
+		obj2.render(g);
+		obj3.render(g);
+		obj4.render(g);
+		obj5.render(g);
+		
 		finishDoor.render(g);
 		
 		g.setColor(Color.white);
 		g.fillRect(100,490,75,50);
 		pickup.draw(105,500);
 		
-		g.fillRect(pressureSwitch.x-10, 600-60, 40, 60);
-		downarrow.draw(pressureSwitch.x-2,600-50);
+		g.fillRect(pressureSwitch.x-10, 350-60, 40, 60);
+		downarrow.draw(pressureSwitch.x-2,350-50);
 		pressureSwitch.render(g);
 		
 		cube.setSpawnerPos(sx, 600-50);
@@ -122,10 +135,7 @@ public class LevelSix implements GameState {
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
-		obj0.addCollider(player);
-		obj00.addCollider(player);
-
-	
+		
 		pressureSwitch.init(player, cube, Switch.PRESSURE, i);
 		pressureSwitch.addCollider(player);
 		pressureSwitch.addCollider(cube);
@@ -134,6 +144,11 @@ public class LevelSix implements GameState {
 
 		obj0.addCollider(player, cube);
 		obj00.addCollider(player,cube);
+		obj1.addCollider(player,cube);
+		obj2.addCollider(player, cube);
+		obj3.addCollider(player, cube);
+		obj4.addCollider(player,cube);
+		obj5.addCollider(player, cube);
 		finishDoor.addCollider(player);
 		cube.addPlayerCollider(player);
 		
