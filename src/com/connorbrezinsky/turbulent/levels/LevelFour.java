@@ -85,7 +85,7 @@ public class LevelFour implements GameState {
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
 		if(isActive) {
-			e_key.draw(250, 350);
+			e_key.draw(280, 365);
 			sFinishDoor.render(g);
 		}
 

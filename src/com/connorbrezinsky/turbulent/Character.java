@@ -11,6 +11,7 @@ public class Character {
 	public float x, y, width, height, yVel;
 	public float gravity = 0.5F;
 	public float xSpeed = 3F;
+	public float xVel = 0F;
 	public float ySpeed = -9.9F;
 	public Color color;
 	public boolean isJumping = true;
@@ -22,6 +23,7 @@ public class Character {
 	public static String LEFT = "left";
 	public static String RIGHT = "right";
 	boolean isTesting = false;
+	boolean moving = false;
 
 	public Character(float _x, float _y, float w, float h, Color c) {
 		x = _x;
@@ -92,51 +94,75 @@ public class Character {
 
 		if(i.isKeyDown(left)) {
 			direction = LEFT;
+			moving = true;
+			if(moving){
+			xVel = xSpeed;
+			}else{
+				xVel=0;
+			}
 			if(i.isKeyPressed(jump)) {
 				jump();
 			}else if(isJumping) {
-				x += xSpeed / 4 + 0.8;
+				x += xVel / 4 + 0.8;
 			}else{
-				x += xSpeed;
+				x += xVel;
 			}
 		}else if(i.isKeyDown(right)) {
+			moving = true;
 			direction = RIGHT;
+			if(moving){
+				xVel=xSpeed;
+			}else{
+				xVel=0;
+			}
 			if(i.isKeyPressed(jump)) {
 				jump();
 			}else if(isJumping) {
-				x -= xSpeed / 4 + 0.8;
+				x -= xVel / 4 + 0.8;
 			}else{
-				x -= xSpeed;
+				x -= xVel;
 			}
 		}else if(i.isKeyPressed(jump)) {
 			jump();
+		}else{
+			xVel=0;
 		}
 
-		if(i.getControllerCount() > 0) {
+		
+		try{
+			if(i.getControllerCount() > 0) {
 
-			if(i.getAxisValue(0, 0) > 0.5) {
-				direction = LEFT;
-				if(i.isControlPressed(15, 0)) {
+				if(i.getAxisValue(0, 0) > 0.5) {
+					xVel = xSpeed;
+					direction = LEFT;
+					if(i.isControlPressed(15, 0)) {
+						jump();
+					}else if(isJumping) {
+						x += xVel / 4 + 0.4;
+					}else{
+						x += xVel;
+					}
+				}else if(i.getAxisValue(0, 0) < -0.5) {
+					direction = RIGHT;
+					xVel = xSpeed;
+					if(i.isControlPressed(15, 0)) {
+						jump();
+					}else if(isJumping) {
+						x -= xVel / 4 + 0.4;
+					}else{
+						x -= xVel;
+					}
+				}else if(i.isControlPressed(15, 0)) {
 					jump();
-				}else if(isJumping) {
-					x += xSpeed / 4 + 0.8;
 				}else{
-					x += xSpeed;
+					xVel = 0;
 				}
-			}else if(i.getAxisValue(0, 0) < -0.5) {
-				direction = RIGHT;
-				if(i.isControlPressed(15, 0)) {
-					jump();
-				}else if(isJumping) {
-					x -= xSpeed / 4 + 0.8;
-				}else{
-					x -= xSpeed;
-				}
-			}else if(i.isControlPressed(15, 0)) {
-				jump();
+
 			}
-
+		}catch(Exception e){
+			e.printStackTrace();
 		}
+	
 
 	}
 

@@ -149,22 +149,24 @@ public class Platform {
 
 	public void addCollider(Character c, PhysicsObject pObj){
 		if(Main.leftBoxCollider(c, this)) {
-			c.x = x - c.getWidth() - 0.1F;
+			c.x = x - c.getWidth() - 1F;
+			c.moving=false;
 			if(height <= 5) {
 				c.y = y;
 			}
 		}else if(Main.topBoxCollider(c, this)) {
-			c.y = y - c.getHeight();
+			c.y = y - c.getHeight()-1;
 			c.yVel = 0;
 			c.isJumping = false;
 		}else if(Main.rightBoxCollider(c, this)) {
-			c.x = x + width + 0.1F;
+			c.moving=false;
+			c.x = x + width + 1;
 			if(height <= 5) {
 				c.y = y;
 			}
 
 		}else if(Main.bottomBoxCollider(c, this)) {
-			c.y = y + height;
+			c.y = y + height+1;
 			c.yVel = 0;
 
 		}

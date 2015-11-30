@@ -22,6 +22,9 @@ public class LevelFive implements GameState {
 
 	Color bg = Color.black;
 	Image e_key;
+	Image dropjump_white;
+	Image dropjump_black1;
+	Image dropjump_black2;
 
 	Color objColor = Color.green;
 
@@ -89,6 +92,10 @@ public class LevelFive implements GameState {
 				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
 				new Image("res/animation/finish/phase12.png") };
 
+		dropjump_white = new Image("res/dropjump_4.png");
+		dropjump_black1 = new Image("res/dropjump_1.png");
+		dropjump_black2 = new Image("res/dropjump_2.png");
+		
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
 				Level.duration);
 
@@ -144,8 +151,11 @@ public class LevelFive implements GameState {
 			doorSwitch1.render(g);
 			spike1.render(g);
 			spike2.render(g);
+			dropjump_black2.draw(90,270);
+			dropjump_black1.draw(525,235);
 		}else{
 			doorSwitch0.render(g);
+			dropjump_white.draw(310,500);
 		}
 
 		player.render(g);
