@@ -29,7 +29,7 @@ public class Main extends StateBasedGame {
 
 	public static int offsetMaxX = worldsizeX - viewportWidth;
 	public static int offSetMaxY = worldsizeY - viewportHeight;
-	
+
 	public static double VERSION = 0.2;
 
 	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh){
@@ -39,7 +39,7 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
+
 	public static int getMidX(int width){
 		return viewportWidth / 2 - (width / 2);
 	}
@@ -61,37 +61,74 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
-	
+
 	// TODO add simpler collision functions here
-	public static boolean rightBoxCollider(Character c){
-		return false;
+	public static boolean leftBoxCollider(Character c, Platform p){
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
+				p.height)) {
+			return true;
+
+		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+			return true;
+
+		}else{
+			return false;
+		}
 	}
-	
-	public static boolean leftBoxCollider(Character c){
-		return false;
+
+	public static boolean bottomBoxCollider(Character c, Platform p){
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
+				10)) {
+			return true;
+		}else
+			if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10) {
+			return true;
+		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
+				p.y + p.height - 10, p.width, 10)) {
+			return true;
+		}else{
+			return false;
+		}
 	}
-	
-	public static boolean topBoxCollider(Character c){
-		return false;
+
+	public static boolean topBoxCollider(Character c, Platform p){
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
+				p.width, 10)) {
+			return true;
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
+				10)) {
+			return true;
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
+			return true;
+		}else{
+			return false;
+		}
 	}
-	
-	public static boolean bottomBoxCollider(Character c){
-		return false;
+
+	public static boolean rightBoxCollider(Character c, Platform p){
+
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
+				p.height)) {
+			return true;
+		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+			return true;
+		}else{
+			return false;
+		}
 	}
-	
+
 	public static boolean rightBoxCollider(PhysicsObject c){
 		return false;
 	}
-	
+
 	public static boolean leftBoxCollider(PhysicsObject c){
 		return false;
 	}
-	
+
 	public static boolean topBoxCollider(PhysicsObject c){
 		return false;
 	}
-	
+
 	public static boolean bottomBoxCollider(PhysicsObject c){
 		return false;
 	}
@@ -105,7 +142,7 @@ public class Main extends StateBasedGame {
 	}
 
 	public Main(String name) {
-		super("Turbulent v" + VERSION );
+		super("Turbulent v" + VERSION);
 
 		/*
 		 * addState this.addState(new State(state));

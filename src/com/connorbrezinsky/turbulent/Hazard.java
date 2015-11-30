@@ -14,7 +14,8 @@ public class Hazard {
 	Image sprite;
 	boolean isAnimated = false;
 	boolean hasSprite = false;
-
+	boolean col = false;
+	
 	public Hazard(float _x, float _y, float w, float h, Color c) {
 		x = _x;
 		y = _y;
@@ -42,6 +43,27 @@ public class Hazard {
 		sprite = img;
 		width = sprite.getWidth();
 		height = sprite.getHeight();
+	} 
+	
+	public Hazard(float _x, float _y, int w, float h) {
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+		hasSprite=true;
+	}
+	
+	public Hazard(float _x, float _y, float colw, float colh) {
+		x = _x;
+		y = _y;
+		width = colw;
+		height = colh;
+		hasSprite = true;
+		col = true;
+	}
+	
+	public void addSprite(Image img){
+		sprite=img;
 	}
 	
 	public void render(Graphics g){
@@ -55,7 +77,11 @@ public class Hazard {
 		}else if(hasSprite){
 			
 		if(sprite!=null){
-			sprite.draw(x,y);
+			if(!col){
+			sprite.draw(x,y,width,height);
+			}else{
+				sprite.draw(x,y,20,20);
+			}
 		}else{
 			g.setColor(Color.magenta);
 			g.drawString("null", x, y);

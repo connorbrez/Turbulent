@@ -204,7 +204,7 @@ public class LevelSeven implements GameState {
 		levelFinish.addCollider(player);
 		levelFinish.setNextLevel(Level.stage[8]);
 		if(levelFinish.isFinished(player)) {
-			levelFinish.goToNextLevel(arg1);
+			//levelFinish.goToNextLevel(arg1);
 		}
 		Level.goToLevel(i, arg1);
 

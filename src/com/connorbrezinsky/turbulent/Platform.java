@@ -21,7 +21,6 @@ public class Platform {
 	public static int MOVING = 1;
 	public static int FINISH = 2;
 
-	
 	public Platform(float _x, float _y, float w, float h) {
 		x = _x;
 		y = _y;
@@ -31,7 +30,7 @@ public class Platform {
 		type = NORMAL;
 		nextLvl = 1337;
 	}
-	
+
 	public Platform(float _x, float _y, float w, float h, Color _c, int _type) {
 		x = _x;
 		y = _y;
@@ -65,7 +64,6 @@ public class Platform {
 		height = h;
 		type = NORMAL;
 		nextLvl = 1337;
-		
 
 	}
 
@@ -93,8 +91,6 @@ public class Platform {
 		obj = new Animation(img, d, true);
 
 	}
-	
-	
 
 	public void render(Graphics g){
 		if(hasSprite) {
@@ -116,123 +112,61 @@ public class Platform {
 			g.fillRect(x, y, width, height);
 		}
 	}
-	
+
 	public void addImage(Image img){
-		this.hasSprite=true;
-		this.sprite=img;
+		this.hasSprite = true;
+		this.sprite = img;
 	}
-	
+
 	public void addAnimation(Animation a, Image[] img, int[] d){
-		this.isAnimated=true;
-		obj=a;
+		this.isAnimated = true;
+		obj = a;
 		obj = new Animation(img, d, true);
 	}
 
-	/*
-	 * }else if( c.x < x && c.x + width> x+width && c.y+height>y &&
-	 * c.y+height<y+height){
-	 * 
-	 * }else if( c.x < x && c.x + width> x+width && c.y<y+height &&
-	 * c.y>y+height){
-	 * 
-	 * 
-	 */
-
 	public void addCollider(Character c){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+		if(Main.leftBoxCollider(c, this)) {
 			c.x = x - c.getWidth() - 0.1F;
-			if(height<=5){
-				c.y=y;
+			if(height <= 5) {
+				c.y = y;
 			}
-
-		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x - c.getWidth() - 0.1F;
-			if(height<=5){
-				c.y=y;
-			}
-
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, 10)) {
+		}else if(Main.topBoxCollider(c, this)) {
 			c.y = y - c.getHeight();
 			c.yVel = 0;
 			c.isJumping = false;
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-
-		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
+		}else if(Main.rightBoxCollider(c, this)) {
 			c.x = x + width + 0.1F;
-			if(height<=5){
-				c.y=y;
+			if(height <= 5) {
+				c.y = y;
 			}
 
-		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x + width + 0.1F;
-			if(height<=5){
-				c.y=y;
-			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
+		}else if(Main.bottomBoxCollider(c, this)) {
 			c.y = y + height;
 			c.yVel = 0;
 
-		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
-			c.y = y + height;
-			c.yVel = 0;
-
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-				y + height - 10, width, 10)) {
-			c.y = y + height;
-			c.yVel = 0;
 		}
 	}
 
 	public void addCollider(Character c, PhysicsObject pObj){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+		if(Main.leftBoxCollider(c, this)) {
 			c.x = x - c.getWidth() - 0.1F;
-
-		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x - c.getWidth() - 0.1F;
-
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, 10)) {
+			if(height <= 5) {
+				c.y = y;
+			}
+		}else if(Main.topBoxCollider(c, this)) {
 			c.y = y - c.getHeight();
 			c.yVel = 0;
 			c.isJumping = false;
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-
-		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
+		}else if(Main.rightBoxCollider(c, this)) {
 			c.x = x + width + 0.1F;
+			if(height <= 5) {
+				c.y = y;
+			}
 
-		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x + width + 0.1F;
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
+		}else if(Main.bottomBoxCollider(c, this)) {
 			c.y = y + height;
 			c.yVel = 0;
 
-		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
-			c.y = y + height;
-			c.yVel = 0;
-
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-				y + height - 10, width, 10)) {
-			c.y = y + height;
-			c.yVel = 0;
 		}
 
 		if(pObj.canPickup) {
