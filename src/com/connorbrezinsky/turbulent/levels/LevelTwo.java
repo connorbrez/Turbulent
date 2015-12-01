@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -43,13 +44,13 @@ public class LevelTwo implements GameState {
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
 		space_key = new Image("res/space.png");
 
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
+		Level.aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
+
+		Level.aLoader.startUse();
+		Image[] iLevelFinish = { Level.aLoader.getSubImage(0,0), Level.aLoader.getSubImage(1,0), Level.aLoader.getSubImage(2,0), Level.aLoader.getSubImage(3,0),
+				Level.aLoader.getSubImage(4,0), Level.aLoader.getSubImage(5,0), Level.aLoader.getSubImage(6,0), Level.aLoader.getSubImage(7,0), Level.aLoader.getSubImage(8,0),
+				Level.aLoader.getSubImage(9,0), Level.aLoader.getSubImage(1,1), Level.aLoader.getSubImage(2,1) };
+		Level.aLoader.endUse();
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
 				Level.duration);

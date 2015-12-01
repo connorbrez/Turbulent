@@ -9,17 +9,27 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import com.connorbrezinsky.turbulent.Character;
 
+import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.ObjectSpawner;
+import com.connorbrezinsky.turbulent.PhysicsObject;
 import com.connorbrezinsky.turbulent.Platform;
+import com.connorbrezinsky.turbulent.Switch;
 
 public class LevelEight implements GameState {
 
-	Color bg = Color.black;
+	Color bg = Color.white;
 	public Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
 	public SpriteSheet aLoader;
 
+	public Switch[] lSwitches = {};
+	public PhysicsObject finishCube = new PhysicsObject(200, 600-20, 10, 10, bg);
+	public ObjectSpawner fcSpawner; 
+	
+	public Switch finishSwitch = new Switch(Main.getMidX(40),600-5,40,5, Color.black);
+	
+	
 	public LevelEight(int s) {
 
 	}
@@ -45,6 +55,18 @@ public class LevelEight implements GameState {
 				aLoader.getSubImage(9,0), aLoader.getSubImage(1,1), aLoader.getSubImage(2,1) };
 		aLoader.endUse();
 		
+		Image[] iPhysSpawner = { new Image("res/animation/physSpawner/physSpawner1.png"),
+				new Image("res/animation/physSpawner/physSpawner2.png"),
+				new Image("res/animation/physSpawner/physSpawner3.png"),
+				new Image("res/animation/physSpawner/physSpawner4.png"),
+				new Image("res/animation/physSpawner/physSpawner5.png"),
+				new Image("res/animation/physSpawner/physSpawner6.png"), };
+		
+		fcSpawner = new ObjectSpawner(Level.aObjectSpawner, iPhysSpawner, Level.objSDuration);
+
+		
+		
+		
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
 				Level.duration);
 	}
@@ -58,7 +80,8 @@ public class LevelEight implements GameState {
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
 		Level.levelFinish.render(g);
-
+		finishSwitch.render(g);
+		
 		player.render(g);
 	}
 

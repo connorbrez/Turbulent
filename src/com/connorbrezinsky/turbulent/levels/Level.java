@@ -19,6 +19,7 @@ public class Level {
 	public static SpriteSheet spriteSheet;
 	
 	public static Platform levelFinish;
+	public static SpriteSheet aLoader;
 	
 	public static Image characterTest;
 

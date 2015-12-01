@@ -191,6 +191,7 @@ public class Main extends StateBasedGame {
 			a = new AppGameContainer(new Main("game"));
 			a.setDisplayMode(viewportWidth, viewportHeight, false);
 			a.setVSync(true);
+			a.setTargetFrameRate(60);
 			a.start();
 
 		}catch(SlickException e){
