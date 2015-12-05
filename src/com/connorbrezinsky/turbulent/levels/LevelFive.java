@@ -14,9 +14,11 @@ import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Door;
 import com.connorbrezinsky.turbulent.Hazard;
 import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.Object;
 import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Switch;
+
 
 public class LevelFive implements GameState {
 
@@ -35,27 +37,27 @@ public class LevelFive implements GameState {
 	public Door finishDoor = new Door(650, 600 - 100, 10, 100, Color.green);
 	public Door door0 = new Door(650, 205, 10, 50, Color.red);
 
-	public Platform obj1 = new Platform(Main.getMidX(50), 520, 50, 10, Color.green, Platform.NORMAL);
+	public Platform obj1 = new Platform(Main.getMidX(50), 520, 50, 10, Color.green);
 
-	public Platform obj2 = new Platform(260, 480, 30, 10, Color.white, Platform.NORMAL);
-	public Platform obj3 = new Platform(320, 400, 30, 10, Color.white, Platform.NORMAL);
-	public Platform obj4 = new Platform(350, 350, 30, 10, Color.white, Platform.NORMAL);
-	public Platform obj5 = new Platform(420, 280, 100, 10, Color.white, Platform.NORMAL);
+	public Platform obj2 = new Platform(260, 480, 30, 10, Color.white);
+	public Platform obj3 = new Platform(320, 400, 30, 10, Color.white);
+	public Platform obj4 = new Platform(350, 350, 30, 10, Color.white);
+	public Platform obj5 = new Platform(420, 280, 100, 10, Color.white);
 
-	public Platform obj6 = new Platform(420, 480, 30, 10, Color.black, Platform.NORMAL);
-	public Platform obj7 = new Platform(480, 420, 30, 10, Color.black, Platform.NORMAL);
-	public Platform obj8 = new Platform(430, 370, 30, 10, Color.black, Platform.NORMAL);
-	public Platform obj9 = new Platform(360, 310, 30, 10, Color.black, Platform.NORMAL);
-	public Platform obj10 = new Platform(230, 250, 100, 10, Color.black, Platform.NORMAL);
-	public Platform obj11 = new Platform(150, 250, 20, 10, Color.black, Platform.NORMAL);
-	public Platform obj12 = new Platform(100, 250, 20, 10, Color.black, Platform.NORMAL);
-	public Platform obj13 = new Platform(50, 250, 20, 10, Color.black, Platform.NORMAL);
-	public Platform obj14 = new Platform(0, 200, 20, 10, Color.black, Platform.NORMAL);
-	public Platform obj15 = new Platform(80, 140, 400, 10, Color.black, Platform.NORMAL);
+	public Platform obj6 = new Platform(420, 480, 30, 10, Color.black);
+	public Platform obj7 = new Platform(480, 420, 30, 10, Color.black);
+	public Platform obj8 = new Platform(430, 370, 30, 10, Color.black);
+	public Platform obj9 = new Platform(360, 310, 30, 10, Color.black);
+	public Platform obj10 = new Platform(230, 250, 100, 10, Color.black);
+	public Platform obj11 = new Platform(150, 250, 20, 10, Color.black);
+	public Platform obj12 = new Platform(100, 250, 20, 10, Color.black);
+	public Platform obj13 = new Platform(50, 250, 20, 10, Color.black);
+	public Platform obj14 = new Platform(0, 200, 20, 10, Color.black);
+	public Platform obj15 = new Platform(80, 140, 400, 10, Color.black);
 
-	public Platform obj0 = new Platform(800 - 200, 600 - 345, 200, 275, Color.white, Platform.NORMAL);
-	public Platform obj00 = new Platform(800 - 200, 0, 200, 205, Color.black, Platform.NORMAL);
-	public Platform obj000 = new Platform(0, 0, 800, 20, Color.black, Platform.NORMAL);
+	public Platform obj0 = new Platform(800 - 200, 600 - 345, 200, 275, Color.white);
+	public Platform obj00 = new Platform(800 - 200, 0, 200, 205, Color.black);
+	public Platform obj000 = new Platform(0, 0, 800, 20, Color.black);
 
 	public Hazard spike1 = new Hazard(210, 140 - 20, 20F, 13);
 	public Hazard spike2 = new Hazard(280, 140 - 20, 20F, 13);
@@ -96,8 +98,9 @@ public class LevelFive implements GameState {
 		dropjump_black1 = new Image("res/dropjump_1.png");
 		dropjump_black2 = new Image("res/dropjump_2.png");
 		
-		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
+		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish,
 				Level.duration);
+		Level.levelFinish.setType(Object.FINISH);
 
 		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
 
@@ -110,6 +113,8 @@ public class LevelFive implements GameState {
 		spike1.addSprite(sLoader.getImage(7));
 		spike2.addSprite(sLoader.getImage(7));
 
+		this.colorSwitch.setCustomActionRadius(25, 25, 55, 55);
+		
 	}
 
 	@Override
@@ -145,6 +150,8 @@ public class LevelFive implements GameState {
 		obj14.render(g);
 		obj15.render(g);
 
+		
+		
 		if(colorSwitch.triggered) {
 			sDoor0.render(g);
 			door0.render(g);
@@ -158,6 +165,7 @@ public class LevelFive implements GameState {
 			dropjump_white.draw(310,500);
 		}
 
+		
 		player.render(g);
 
 	}
@@ -191,6 +199,7 @@ public class LevelFive implements GameState {
 		obj1.addCollider(player);
 
 		if(colorSwitch.isTriggered()) {
+			doorSwitch1.init(player, Switch.ACTION, i);
 			bg = Color.white;
 			colorSwitch.setColor(Color.black);
 			setObjColor(Color.orange);
@@ -210,7 +219,7 @@ public class LevelFive implements GameState {
 			door0.addCollider(player);
 			door0.addSwitch(sDoor0);
 			doorSwitch1.addCollider(player);
-			doorSwitch1.init(player, Switch.ACTION, i);
+			
 
 			colorSwitch.changeSprite(sLoader.getImage(5));
 			
@@ -218,6 +227,7 @@ public class LevelFive implements GameState {
 			spike2.addCollider(player);
 
 		}else{
+			this.doorSwitch0.init(player, Switch.ACTION, i);
 			bg = Color.black;
 			colorSwitch.setColor(Color.white);
 			setObjColor(Color.green);
@@ -230,7 +240,7 @@ public class LevelFive implements GameState {
 			obj5.addCollider(player);
 
 			this.doorSwitch0.addCollider(player);
-			this.doorSwitch0.init(player, Switch.ACTION, i);
+			
 		}
 
 		if(doorSwitch0.isTriggered()) {

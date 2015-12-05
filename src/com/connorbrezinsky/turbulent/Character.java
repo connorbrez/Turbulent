@@ -103,7 +103,7 @@ public class Character {
 			if(i.isKeyPressed(jump)) {
 				jump();
 			}else if(isJumping) {
-				x += xVel / 4 + 0.8;
+				x += xVel / 4 + 1;
 			}else{
 				x += xVel;
 			}
@@ -118,7 +118,7 @@ public class Character {
 			if(i.isKeyPressed(jump)) {
 				jump();
 			}else if(isJumping) {
-				x -= xVel / 4 + 0.8;
+				x -= xVel / 4 + 1;
 			}else{
 				x -= xVel;
 			}
@@ -138,7 +138,7 @@ public class Character {
 					if(i.isControlPressed(15, 0)) {
 						jump();
 					}else if(isJumping) {
-						x += xVel / 4 + 0.4;
+						x += xVel / 4 + 1;
 					}else{
 						x += xVel;
 					}
@@ -148,7 +148,7 @@ public class Character {
 					if(i.isControlPressed(15, 0)) {
 						jump();
 					}else if(isJumping) {
-						x -= xVel / 4 + 0.4;
+						x -= xVel / 4 + 1;
 					}else{
 						x -= xVel;
 					}

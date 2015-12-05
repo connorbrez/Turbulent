@@ -37,47 +37,40 @@ public class Trigger {
 		}
 	}
 
-	public void addCollider(Character c){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, width, height)) {
+	public boolean addCollider(Character c){
+		if(Main.leftBoxCollider(c, this)) {
 			isTriggered = true;
+			return true;
+		}else if(Main.topBoxCollider(c, this)) {
+			isTriggered = true;
+			return true;
 
-		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
+		}else if(Main.rightBoxCollider(c, this)) {
 			isTriggered = true;
+			return true;
 
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, 10)) {
+		}else if(Main.bottomBoxCollider(c, this)) {
 			isTriggered = true;
-
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
-				height)) {
-			isTriggered = true;
-
-		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-			isTriggered = true;
-
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width, y, width, height)) {
-			isTriggered = true;
-
-		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-			isTriggered = true;
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height, width, height)) {
-			isTriggered = true;
-
-		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
-			isTriggered = true;
-
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-				y + height - 10, width, 10)) {
-			isTriggered = true;
+			return true;
 
 		}else{
-			if(getType() == AREA) {
+			if(t == AREA) {
 				isTriggered = false;
+				return false;
+
 			}
+			return false;
 		}
 
 	}
 
+	public void setTriggerRadius(float _x, float _y, float w, float h){
+		x=_x;
+		y=_y;
+		width=w;
+		height=h;
+	}
+	
 	public int getType(){
 		return t;
 	}

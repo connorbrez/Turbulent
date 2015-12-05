@@ -15,6 +15,7 @@ import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Switch;
+import com.connorbrezinsky.turbulent.Object;
 
 public class LevelSeven implements GameState {
 
@@ -64,8 +65,9 @@ public class LevelSeven implements GameState {
 				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
 				new Image("res/animation/finish/phase12.png") };
 
-		levelFinish = new Platform(obj1.getX() + (100 / 2 - (20 / 2)), obj1.getY() - 60, 20, 60, Platform.FINISH,
-				Level.aLevelFinish, iLevelFinish, Level.duration);
+		levelFinish = new Platform(obj1.getX() + (100 / 2 - (20 / 2)), obj1.getY() - 60, 20, 60, iLevelFinish,
+				Level.duration);
+		levelFinish.setType(Object.FINISH);
 		sLoader = new SpriteLoader(new SpriteSheet("res/sprites.png", 20, 20));
 
 		switchOne.addSprite(sLoader.getImage(2));
@@ -73,26 +75,26 @@ public class LevelSeven implements GameState {
 		switchThree.addSprite(sLoader.getImage(2));
 		switchFour.addSprite(sLoader.getImage(2));
 
-		obj1.addImage(sLoader.getImage(0));
-		obj2.addImage(sLoader.getImage(6));
-		obj3.addImage(sLoader.getImage(6));
-		obj4.addImage(sLoader.getImage(6));
-		obj5.addImage(sLoader.getImage(6));
-		obj6.addImage(sLoader.getImage(6));
-		obj7.addImage(sLoader.getImage(6));
-		obj8.addImage(sLoader.getImage(6));
-		obj9.addImage(sLoader.getImage(6));
-		obj10.addImage(sLoader.getImage(6));
-		obj11.addImage(sLoader.getImage(6));
-		obj12.addImage(sLoader.getImage(6));
-		obj13.addImage(sLoader.getImage(6));
-		obj14.addImage(sLoader.getImage(6));
-		obj15.addImage(sLoader.getImage(6));
-		obj16.addImage(sLoader.getImage(6));
+		obj1.addSprite(sLoader.getImage(0));
+		obj2.addSprite(sLoader.getImage(6));
+		obj3.addSprite(sLoader.getImage(6));
+		obj4.addSprite(sLoader.getImage(6));
+		obj5.addSprite(sLoader.getImage(6));
+		obj6.addSprite(sLoader.getImage(6));
+		obj7.addSprite(sLoader.getImage(6));
+		obj8.addSprite(sLoader.getImage(6));
+		obj9.addSprite(sLoader.getImage(6));
+		obj10.addSprite(sLoader.getImage(6));
+		obj11.addSprite(sLoader.getImage(6));
+		obj12.addSprite(sLoader.getImage(6));
+		obj13.addSprite(sLoader.getImage(6));
+		obj14.addSprite(sLoader.getImage(6));
+		obj15.addSprite(sLoader.getImage(6));
+		obj16.addSprite(sLoader.getImage(6));
 
-		doorWalls[0].addImage(sLoader.getImage(0));
-		doorWalls[1].addImage(sLoader.getImage(0));
-		doorWalls[2].addImage(sLoader.getImage(0));
+		doorWalls[0].addSprite(sLoader.getImage(0));
+		doorWalls[1].addSprite(sLoader.getImage(0));
+		doorWalls[2].addSprite(sLoader.getImage(0));
 	}
 
 	@Override
@@ -125,7 +127,7 @@ public class LevelSeven implements GameState {
 		doorWalls[1].render(g);
 		doorWalls[2].render(g);
 		g.setColor(Color.black);
-		g.drawString("23", obj1.getX()+40, obj1.getY()-3);
+		g.drawString("23", obj1.getX() + 40, obj1.getY() - 3);
 
 		player.render(g);
 	}
@@ -204,7 +206,7 @@ public class LevelSeven implements GameState {
 		levelFinish.addCollider(player);
 		levelFinish.setNextLevel(Level.stage[8]);
 		if(levelFinish.isFinished(player)) {
-			//levelFinish.goToNextLevel(arg1);
+			// levelFinish.goToNextLevel(arg1);
 		}
 		Level.goToLevel(i, arg1);
 

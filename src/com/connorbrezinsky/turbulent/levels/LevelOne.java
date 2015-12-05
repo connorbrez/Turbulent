@@ -13,6 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Object;
+
 
 
 public class LevelOne implements GameState {
@@ -49,8 +51,9 @@ public class LevelOne implements GameState {
 				Level.aLoader.getSubImage(9,0), Level.aLoader.getSubImage(1,1), Level.aLoader.getSubImage(2,1) };
 		Level.aLoader.endUse();
 
-		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
+		Level.levelFinish = new Platform(700, 600 - 60, 20, 60,  iLevelFinish,
 				Level.duration);
+		Level.levelFinish.setType(Object.FINISH);
 
 	}
 

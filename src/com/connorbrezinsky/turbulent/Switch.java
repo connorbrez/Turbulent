@@ -1,161 +1,47 @@
 package com.connorbrezinsky.turbulent;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-public class Switch {
+public class Switch extends Object {
 
-	public float x, y, width, height;
-	public int type;
-	public Color color;
-	public int actionButton = Input.KEY_E;
-	public int actionButtonController = 17;
-	public boolean triggered = false;
-	boolean isAnimated = false;
-	Animation obj;
-	boolean hasSprite = false;
-	Image sprite;
-
-	public static int PRESSURE = 0;
-	public static int ACTION = 1;
-
-	public Switch(int _x, int _y, int _w, int _h, Color c) {
+	public Switch(float _x, float _y, float w, float h, Color c) {
+		super(_x, _y, w, h, c);
 		x = _x;
 		y = _y;
-		width = _w;
-		height = _h;
+		width = w;
+		height = h;
 		color = c;
 	}
 
-	public Switch(float _x, float _y, float w, float h, Animation a, Image[] img, int[] d) {
+	public Switch(float _x, float _y, float w, float h, Image[] i, int[] d) {
+		super(_x, _y, w, h, i, d);
 		x = _x;
 		y = _y;
 		width = w;
 		height = h;
-		obj = a;
-		isAnimated = true;
-		obj = new Animation(img, d, true);
-
 	}
 
 	public Switch(float _x, float _y, float w, float h) {
-		x = _x;
-		y = _y;
-		width = w;
-		height = h;
-		hasSprite = true;
-		sprite = null;
-
-	}
-
-	public void addSprite(Image img){
-		sprite = img;
-	}
-
-	public void changeSprite(Image img){
-		sprite = img;
-	}
-
-	public void changeSprite(Image img, int _x, int _y){
-		sprite = img;
-		x = _x;
-		y = _y;
-	}
-
-	public void changeSprite(Image img, int _x, int _y, int w, int h){
-		sprite = img;
+		super(_x, _y, w, h);
 		x = _x;
 		y = _y;
 		width = w;
 		height = h;
 	}
 
-	public void render(Graphics g){
-		if(isAnimated) {
-			if(obj != null) {
-				obj.draw(x, y, width, height);
-			}else{
-				g.setColor(Color.magenta);
-				g.drawString("null", x, y);
-			}
-		}else if(hasSprite) {
-			if(sprite != null) {
-				sprite.draw(x, y, width, height);
-			}else{
-				g.setColor(Color.magenta);
-				g.drawString("null", x, y);
-			}
-		}else{
-			g.setColor(color);
-			g.fillRect(x, y, width, height);
+	public int type;
+	public Color color;
 
-		}
-	}
+	public boolean triggered = false;
 
-	public void addCollider(Character c){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
-			if(height <= 5) {
-				c.y = y - c.height - 1;
-			}else{
-				c.x = x - c.getWidth() - 0.1F;
+	float tX, tY, tW, tH;
+	boolean cTrigRadius = false;
 
-			}
-
-		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-			if(height <= 5) {
-				c.y = y - c.height - 1;
-			}else{
-				c.x = x - c.getWidth() - 0.1F;
-
-			}
-
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, 10)) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-
-		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-			c.y = y - c.getHeight();
-			c.yVel = 0;
-			c.isJumping = false;
-
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
-			if(height <= 5) {
-				c.y = y - c.height - 1;
-			}else{
-				c.x = x + width + 0.1F;
-
-			}
-
-		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-			if(height <= 5) {
-				c.y = y - c.height - 1;
-			}else{
-				c.x = x + width + 0.1F;
-			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
-			c.y = y + height;
-			c.yVel = 0;
-
-		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
-			c.y = y + height;
-			c.yVel = 0;
-
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-				y + height - 10, width, 10)) {
-			c.y = y + height;
-			c.yVel = 0;
-		}
-	}
+	public static int PRESSURE = 0;
+	public static int ACTION = 1;
 
 	public void addCollider(PhysicsObject c){
 
@@ -167,30 +53,25 @@ public class Switch {
 
 		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
 				y, width, 10)) {
-			c.y = y - c.getHeight();
 			c.yVel = 0;
+			c.y = y - c.getHeight();
 		}else
 			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
-			c.y = y - c.getHeight();
 			c.yVel = 0;
-
+			c.y = y - c.getHeight();
 		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-			c.y = y - c.getHeight();
 			c.yVel = 0;
-
+			c.y = y - c.getHeight();
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
 			c.x = x + width + 0.1F;
-
 		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
 			c.x = x + width + 0.1F;
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
 			c.y = y + height;
 			c.yVel = 0;
-
 		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
 			c.y = y + height;
 			c.yVel = 0;
-
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
 				y + height - 10, width, 10)) {
 			c.y = y + height;
@@ -198,92 +79,122 @@ public class Switch {
 		}
 	}
 
+	public void addCollider(Character c, PhysicsObject pObj){
+		if(Main.leftBoxCollider(c, this)) {
+			c.x = x - c.getWidth() - 0.5F;
+			c.moving = false;
+			if(height <= 5) {
+				c.y = y;
+			}
+		}else if(Main.topBoxCollider(c, this)) {
+			c.y = y - c.getHeight() - 0.5F;
+			c.yVel = 0;
+			c.isJumping = false;
+		}else if(Main.rightBoxCollider(c, this)) {
+			c.moving = false;
+			c.x = x + width - 0.5F;
+			if(height <= 5) {
+				c.y = y;
+			}
+		}else if(Main.bottomBoxCollider(c, this)) {
+			c.y = y + height - 0.5F;
+			c.yVel = 0;
+		}
+
+		if(pObj.canPickup) {
+			if(Main.addCollisonBox(pObj.getX() + pObj.getWidth(), pObj.getY(), pObj.getWidth(), pObj.getHeight(), x, y,
+					10, height)) {
+				pObj.x = x - pObj.getWidth() - 0.1F;
+
+			}else if(pObj.x + pObj.width > x && pObj.x + pObj.width < x + 10 && pObj.y < y
+					&& pObj.y + pObj.height > y + height) {
+				pObj.x = x - c.getWidth() - 0.1F;
+
+			}else if(Main.addCollisonBox(pObj.getX() + pObj.getWidth(), pObj.getY() + pObj.getHeight(), pObj.getWidth(),
+					pObj.getHeight(), x, y, width, 10)) {
+				pObj.y = y - pObj.getHeight();
+				pObj.yVel = 0;
+			}else if(Main.addCollisonBox(pObj.getX(), pObj.getY() + pObj.getHeight(), pObj.getWidth(), pObj.getHeight(),
+					x, y, width, 10)) {
+				pObj.y = y - pObj.getHeight();
+				pObj.yVel = 0;
+
+			}else
+				if(pObj.x < x && pObj.x + pObj.width > x && pObj.y + pObj.height > y && pObj.y + pObj.height < y + 10) {
+				pObj.y = y - pObj.getHeight();
+				pObj.yVel = 0;
+
+			}else if(Main.addCollisonBox(pObj.getX(), pObj.getY(), pObj.getWidth(), pObj.getHeight(), x + width - 10, y,
+					10, height)) {
+				pObj.x = x + width + 0.1F;
+
+			}else if(pObj.x > x && pObj.x < x + 10 && pObj.y < y && pObj.y + pObj.height > y + height) {
+				pObj.x = x + width + 0.1F;
+			}else if(Main.addCollisonBox(pObj.getX(), pObj.getY(), pObj.getWidth(), pObj.getHeight(), x,
+					y + height - 10, width, 10)) {
+				pObj.y = y + height;
+				pObj.yVel = 0;
+
+			}else if(pObj.x < x && pObj.x + pObj.width > x && pObj.y < y + height - 10
+					&& pObj.y + pObj.height > y + height - 10) {
+				pObj.y = y + height;
+				pObj.yVel = 0;
+
+			}else if(Main.addCollisonBox(pObj.getX() + pObj.getHeight(), pObj.getY(), pObj.getWidth(), pObj.getHeight(),
+					x, y + height - 10, width, 10)) {
+				pObj.y = y + height;
+				pObj.yVel = 0;
+			}
+		}
+	}
+
+	public void setCustomActionRadius(float _x, float _y, float w, float h){
+		tX = _x;
+		tY = _y;
+		tW = w;
+		tH = h;
+		cTrigRadius = true;
+	}
+
+	public void showTrigRadius(Graphics g, Color c){
+		g.setColor(c);
+		if(cTrigRadius) {
+			g.drawRect(getX()-tX, getY()-tY, width+tW, height+tH);
+		}else{
+			g.drawRect(x - 25, y - 25, width + 45, height + 45);
+
+		}
+	}
+
 	public void init(Character c, int t, Input i){
 		type = t;
-		if(Main.addCollisonBox(c.getX() + c.getWidth() + 15, c.getY(), c.getWidth() + 15, c.getHeight() + 15, x, y,
-				width, height)) {
-			if(getTypeAsInt() == 0) {
-				triggered = false;
-			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
-				}
-			}
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, height)) {
-			if(getTypeAsInt() == 0) {
-				triggered = true;
-			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
-				}
+		Trigger trig = new Trigger(this.getX() - 25, this.getY() - 25, this.getWidth() + 45, this.getHeight() + 45,
+				Trigger.AREA);
+		if(cTrigRadius) {
+			trig.setTriggerRadius(getX()-tX, getY()-tY, width+tW, height+tH);
+		}
 
+		trig.addBasicCollider(c);
+
+		if(trig.isTriggered && type == ACTION) {
+			if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
+				System.out.println("pressed");
+
+				if(triggered) {
+					triggered = false;
+				}else{
+					triggered = true;
+				}
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
-				height)) {
-			if(getTypeAsInt() == 0) {
+		}else if(type == PRESSURE) {
+
+			if(Main.topBoxCollider(c, this)) {
 				triggered = true;
-			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
-				}
-			}
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, width, height)) {
-			if(getTypeAsInt() == 0) {
-				triggered = false;
-			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
-				}
-			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth() + 15, c.getHeight() + 15, x, y + height - 9,
-				width, height)) {
-			if(getTypeAsInt() == 0) {
-				triggered = false;
-			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
-				}
-			}
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight() + 15, c.getY(), c.getWidth() + 15, c.getHeight() + 5, x,
-				y + height - 9, width, height)) {
-			if(getTypeAsInt() == 0) {
-				triggered = false;
-			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
-				}
-			}
-		}else{
-			if(getTypeAsInt() == 0) {
+			}else{
 				triggered = false;
 			}
 		}
+
 	}
 
 	public void init(PhysicsObject c, int t, Input i){
@@ -337,7 +248,7 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
+				if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -350,21 +261,21 @@ public class Switch {
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
-					if(triggered) {
-						triggered = false;
-					}else{
-						triggered = true;
-					}
+				if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
+					triggered = false;
+				}else{
+					triggered = true;
 				}
 
 			}
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
+
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
+				if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -372,11 +283,13 @@ public class Switch {
 					}
 				}
 			}
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, 10, height)) {
+		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 9, y, 10, height))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
+				if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -385,11 +298,13 @@ public class Switch {
 				}
 			}
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y + height - 9, width,
-				10)) {
+				10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
+				if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -398,11 +313,13 @@ public class Switch {
 				}
 			}
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x,
-				y + height - 9, width, 10)) {
+				y + height - 9, width, 10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}else if(getTypeAsInt() == 1) {
-				if(Main.getKeyPress(i, actionButton) || i.isControlPressed(17)) {
+				if(Main.getKeyPress(i, Object.ACTION_KEY) || i.isControlPressed(Object.ACTION_BUTTON)) {
 					if(triggered) {
 						triggered = false;
 					}else{
@@ -412,61 +329,59 @@ public class Switch {
 			}
 
 		}else if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y,
-				10, height)) {
+				10, height))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}
 
 		}else if(Main.addCollisonBox(o.getX() + o.getWidth() + 1, o.getY() + o.getHeight() + 1, o.getWidth() + 1,
-				o.getHeight() + 1, x, y, width, 10)) {
+				o.getHeight() + 1, x, y, width, 10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 
 			}
 		}else if(Main.addCollisonBox(o.getX(), o.getY() + o.getHeight() + 1, o.getWidth() + 1, o.getHeight() + 1, x, y,
-				width, 10)) {
+				width, 10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = true;
 
 			}
-		}else if(Main.addCollisonBox(o.getX(), o.getY(), o.getWidth(), o.getHeight(), x + width - 9, y, 10, height)) {
+		}else if(Main.addCollisonBox(o.getX(), o.getY(), o.getWidth(), o.getHeight(), x + width - 9, y, 10, height))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 
 			}
 		}else if(Main.addCollisonBox(o.getX(), o.getY(), o.getWidth() + 1, o.getHeight() + 1, x, y + height - 9, width,
-				10)) {
+				10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 
 			}
 		}else if(Main.addCollisonBox(o.getX() + o.getHeight() + 1, o.getY(), o.getWidth() + 1, o.getHeight() + 1, x,
-				y + height - 9, width, 10)) {
+				y + height - 9, width, 10))
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}
-		}else{
+		}else
+
+		{
 			if(getTypeAsInt() == 0) {
 				triggered = false;
 			}
 		}
 
-	}
-
-	public float getX(){
-		return x;
-	}
-
-	public float getY(){
-		return y;
-	}
-
-	public float getWidth(){
-		return width;
-	}
-
-	public float getHeight(){
-		return height;
 	}
 
 	public String getTypeAsString(){
@@ -492,20 +407,6 @@ public class Switch {
 		}else{
 			return false;
 		}
-	}
-
-	public void setActionButton(int key){
-		this.actionButton = key;
-	}
-
-	public void setColor(Color c){
-		color = c;
-	}
-
-	public void destroy(){
-		x = -100;
-		y = x;
-		color = Color.transparent;
 	}
 
 }

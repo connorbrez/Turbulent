@@ -18,6 +18,8 @@ import com.connorbrezinsky.turbulent.PhysicsObject;
 import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Switch;
+import com.connorbrezinsky.turbulent.Object;
+
 
 public class LevelSix implements GameState {
 
@@ -89,10 +91,11 @@ public class LevelSix implements GameState {
 		cube.addPlayer(player);
 		
 		
-		obj0.addImage(sLoader.getImage(0));
-		obj00.addImage(sLoader.getImage(0));
+		obj0.addSprite(sLoader.getImage(0));
+		obj00.addSprite(sLoader.getImage(0));
 
-		finish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish, Level.duration);
+		finish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
+		finish.setType(Object.FINISH);
 	}
 
 	@Override
@@ -119,8 +122,8 @@ public class LevelSix implements GameState {
 		g.fillRect(100,490,75,50);
 		pickup.draw(105,500);
 		
-		g.fillRect(pressureSwitch.x-10, 350-60, 40, 60);
-		downarrow.draw(pressureSwitch.x-2,350-50);
+		g.fillRect(pressureSwitch.getX()-10, 350-60, 40, 60);
+		downarrow.draw(pressureSwitch.getX()-2,350-50);
 		pressureSwitch.render(g);
 		
 		cube.setSpawnerPos(sx, 600-50);
@@ -140,7 +143,8 @@ public class LevelSix implements GameState {
 		pressureSwitch.addCollider(player);
 		pressureSwitch.addCollider(cube);
 		cube.addPhysics();
-		cube.init(i, player);
+		cube.addPlayer(player);
+		cube.init(i);
 
 		obj0.addCollider(player, cube);
 		obj00.addCollider(player,cube);

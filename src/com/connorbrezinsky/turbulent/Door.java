@@ -2,55 +2,68 @@ package com.connorbrezinsky.turbulent;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
-public class Door {
+public class Door extends Object {
 
-	public int x, y, width, height;
+	public float x, y, width, height;
 	public Color color;
 	public boolean isOpen = false;
 
 	public Door(int _x, int _y, int w, int h, Color c) {
+		super(_x, _y, w, h, c);
 		x = _x;
 		y = _y;
 		width = 5;
 		height = h;
 		color = c;
 	}
+	
+	public Door(float _x, float _y, float w, float h, Image[] i, int[] d) {
+		super(_x, _y, w, h, i, d);
+		x=_x;
+		y=_y;
+		width=w;
+		height=h;
+	}
+	
+	public Door(float _x, float _y, float w, float h) {
+		super(_x, _y, w, h);
+		x=_x;
+		y=_y;
+		width=w;
+		height=h;
+	}
 
 	public void render(Graphics g){
 		g.setColor(color);
 		if(!isOpen) {
 			g.fillRect(x, y, width, height);
-		}else{
-			// g.fillRect(x, y, width, height);
 		}
 	}
 
 	public void addCollider(Character c){
 		if(!isOpen) {
-			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 3, height)) {
-				c.x = x - c.getWidth();
-			}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(),
-					x, y, width, 3)) {
-				c.y = y - c.getHeight();
+			if(Main.leftBoxCollider(c, this)) {
+				c.x = x - c.getWidth() - 0F;
+				c.moving = false;
+				if(height <= 5) {
+					c.y = y;
+				}
+			}else if(Main.topBoxCollider(c, this)) {
+				c.y = y - c.getHeight() - 0;
 				c.yVel = 0;
 				c.isJumping = false;
-			}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
-					3)) {
-				c.y = y - c.getHeight();
-				c.yVel = 0;
-				c.isJumping = false;
+			}else if(Main.rightBoxCollider(c, this)) {
+				c.moving = false;
+				c.x = x + width + 0;
+				if(height <= 5) {
+					c.y = y;
+				}
 
-			}else
-				if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 5, y, 3, height)) {
-				c.x = x + width;
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 3, width,
-					3)) {
-				c.y = y + height;
-			}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-					y + height - 3, width, 10)) {
-				c.y = y + height;
-			}else{
+			}else if(Main.bottomBoxCollider(c, this)) {
+				c.y = y + height + 0;
+				c.yVel = 0;
 
 			}
 		}
@@ -80,8 +93,5 @@ public class Door {
 		}
 	}
 
-	public void setColor(Color c){
-		color = c;
-	}
 
 }

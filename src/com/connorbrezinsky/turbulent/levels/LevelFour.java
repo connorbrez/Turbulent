@@ -17,6 +17,8 @@ import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Switch;
 import com.connorbrezinsky.turbulent.Trigger;
+import com.connorbrezinsky.turbulent.Object;
+
 
 
 public class LevelFour implements GameState {
@@ -25,11 +27,11 @@ public class LevelFour implements GameState {
 	Image e_key;
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 
-	public Platform obj1 = new Platform(150, 530, 40, 10, Color.orange, Platform.NORMAL);
-	public Platform obj2 = new Platform(200, 480, 30, 10, Color.orange, Platform.NORMAL);
-	public Platform obj3 = new Platform(250, 400, 100, 10, Color.red, Platform.NORMAL);
-	public Platform obj4 = new Platform(600, 0, 200, 600 - 70, Color.black, Platform.NORMAL);
-	public Platform roof = new Platform(0, 0, 800, 300, Color.black, Platform.NORMAL);
+	public Platform obj1 = new Platform(150, 530, 40, 10, Color.orange);
+	public Platform obj2 = new Platform(200, 480, 30, 10, Color.orange);
+	public Platform obj3 = new Platform(250, 400, 100, 10, Color.red);
+	public Platform obj4 = new Platform(600, 0, 200, 600 - 70, Color.black);
+	public Platform roof = new Platform(0, 0, 800, 300, Color.black);
 
 	public Trigger bgColorSwitch = new Trigger(250, 0, 100, 410, Trigger.NORMAL);
 
@@ -66,8 +68,9 @@ public class LevelFour implements GameState {
 				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
 				new Image("res/animation/finish/phase12.png") };
 
-		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, Platform.FINISH, Level.aLevelFinish, iLevelFinish,
+		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish,
 				Level.duration);
+		Level.levelFinish.setType(Object.FINISH);
 		
 		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"),20,20));
 		
@@ -94,6 +97,7 @@ public class LevelFour implements GameState {
 		obj3.render(g);
 		obj4.render(g);
 		roof.render(g);
+		this.sFinishDoor.showTrigRadius(g, Color.white);
 
 		finishDoor.render(g);
 
@@ -119,6 +123,7 @@ public class LevelFour implements GameState {
 		roof.addCollider(player);
 
 		bgColorSwitch.addBasicCollider(player);
+		
 
 		finishDoor.addCollider(player);
 		finishDoor.addSwitch(sFinishDoor);
