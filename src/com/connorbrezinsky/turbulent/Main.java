@@ -116,48 +116,18 @@ public class Main extends StateBasedGame {
 		}
 	}
 	
-	public static boolean leftBoxCollider(Character c, Switch p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
-				p.height)) {
-			return true;
-
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
-			return true;
-
-		}else{
-			return false;
-		}
-	}
-
-	public static boolean bottomBoxCollider(Character c, Switch p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
-				10)) {
-			return true;
-		}else
-			if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10) {
-			return true;
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)) {
+	public static boolean checkCollison(Character c, Object o){
+		if(c.getX()>o.getX() && c.getX()+c.getWidth() < o.getX()+o.getWidth() && c.getY()>o.getY()&&c.getY()+c.getHeight()<o.getY()+o.getHeight()){
 			return true;
 		}else{
 			return false;
 		}
 	}
 
-	public static boolean topBoxCollider(Character c, Switch p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)) {
-			return true;
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)) {
-			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-
+	
+	
+	
+	
 	public static boolean rightBoxCollider(Character c, Trigger p){
 
 		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
