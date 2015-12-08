@@ -19,7 +19,6 @@ import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Switch;
 
-
 public class LevelFive implements GameState {
 
 	Color bg = Color.black;
@@ -85,7 +84,9 @@ public class LevelFive implements GameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-
+		player.setSpawn(100, 550);
+		
+		
 		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
 				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
 				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
@@ -97,16 +98,15 @@ public class LevelFive implements GameState {
 		dropjump_white = new Image("res/dropjump_4.png");
 		dropjump_black1 = new Image("res/dropjump_1.png");
 		dropjump_black2 = new Image("res/dropjump_2.png");
-		
-		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish,
-				Level.duration);
+
+		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
 
 		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
 
 		doorSwitch0.addSprite(sLoader.getImage(2));
 		doorSwitch1.addSprite(sLoader.getImage(4));
-
+		
 		sDoor0.addSprite(sLoader.getImage(4));
 		colorSwitch.addSprite(sLoader.getImage(3));
 
@@ -114,7 +114,7 @@ public class LevelFive implements GameState {
 		spike2.addSprite(sLoader.getImage(7));
 
 		this.colorSwitch.setCustomActionRadius(25, 25, 55, 55);
-		
+
 	}
 
 	@Override
@@ -150,22 +150,19 @@ public class LevelFive implements GameState {
 		obj14.render(g);
 		obj15.render(g);
 
-		
-		
 		if(colorSwitch.triggered) {
 			sDoor0.render(g);
 			door0.render(g);
 			doorSwitch1.render(g);
 			spike1.render(g);
 			spike2.render(g);
-			dropjump_black2.draw(90,270);
-			dropjump_black1.draw(525,235);
+			dropjump_black2.draw(90, 270);
+			dropjump_black1.draw(525, 235);
 		}else{
 			doorSwitch0.render(g);
-			dropjump_white.draw(310,500);
+			dropjump_white.draw(310, 500);
 		}
 
-		
 		player.render(g);
 
 	}
@@ -183,13 +180,13 @@ public class LevelFive implements GameState {
 		player.addWorldCollider();
 
 		colorSwitch.addCollider(player);
-		colorSwitch.init(player, Switch.ACTION, i);
+		colorSwitch.addListener(player, Switch.ACTION, i);
 
 		Level.levelFinish.addCollider(player);
 		Level.levelFinish.setNextLevel(6);
 		finishDoor.addCollider(player);
 
-		sDoor0.init(player, Switch.ACTION, i);
+		sDoor0.addListener(player, Switch.ACTION, i);
 		sDoor0.addCollider(player);
 
 		obj0.addCollider(player);
@@ -199,7 +196,7 @@ public class LevelFive implements GameState {
 		obj1.addCollider(player);
 
 		if(colorSwitch.isTriggered()) {
-			doorSwitch1.init(player, Switch.ACTION, i);
+			doorSwitch1.addListener(player, Switch.ACTION, i);
 			bg = Color.white;
 			colorSwitch.setColor(Color.black);
 			setObjColor(Color.orange);
@@ -219,15 +216,14 @@ public class LevelFive implements GameState {
 			door0.addCollider(player);
 			door0.addSwitch(sDoor0);
 			doorSwitch1.addCollider(player);
-			
 
 			colorSwitch.changeSprite(sLoader.getImage(5));
-			
+
 			spike1.addCollider(player);
 			spike2.addCollider(player);
 
 		}else{
-			this.doorSwitch0.init(player, Switch.ACTION, i);
+			this.doorSwitch0.addListener(player, Switch.ACTION, i);
 			bg = Color.black;
 			colorSwitch.setColor(Color.white);
 			setObjColor(Color.green);
@@ -240,7 +236,7 @@ public class LevelFive implements GameState {
 			obj5.addCollider(player);
 
 			this.doorSwitch0.addCollider(player);
-			
+
 		}
 
 		if(doorSwitch0.isTriggered()) {

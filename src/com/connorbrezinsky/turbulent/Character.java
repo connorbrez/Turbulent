@@ -2,6 +2,7 @@ package com.connorbrezinsky.turbulent;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -19,6 +20,7 @@ public class Character {
 	public boolean canMove = true;
 	public Rectangle rPl;
 	public String direction = LEFT;
+	Image sprite;
 
 	public static String LEFT = "left";
 	public static String RIGHT = "right";
@@ -35,6 +37,14 @@ public class Character {
 
 	}
 
+	public Character(float _x, float _y, float w, float h) {
+		x = _x;
+		y = _y;
+		width = w;
+		height = h;
+
+	}
+
 	public Character(float _x, float _y, float w, float h, boolean test) {
 		x = _x;
 		y = _y;
@@ -45,10 +55,16 @@ public class Character {
 
 	}
 
+	public void addSprite(Image s){
+		sprite = s;
+	}
+
 	public void render(Graphics g){
 		if(!isTesting) {
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
+		}else if(sprite != null) {
+			sprite.draw(x, y, width, height);
 		}else{
 			Level.characterTest.draw(x, y, width, height);
 		}
@@ -87,6 +103,7 @@ public class Character {
 			x = Main.viewportWidth - 21;
 		}else if(y < 0) {
 			y = 1;
+			this.yVel = 0;
 		}
 	}
 
@@ -95,10 +112,10 @@ public class Character {
 		if(i.isKeyDown(left)) {
 			direction = LEFT;
 			moving = true;
-			if(moving){
-			xVel = xSpeed;
+			if(moving) {
+				xVel = xSpeed;
 			}else{
-				xVel=0;
+				xVel = 0;
 			}
 			if(i.isKeyPressed(jump)) {
 				jump();
@@ -110,10 +127,10 @@ public class Character {
 		}else if(i.isKeyDown(right)) {
 			moving = true;
 			direction = RIGHT;
-			if(moving){
-				xVel=xSpeed;
+			if(moving) {
+				xVel = xSpeed;
 			}else{
-				xVel=0;
+				xVel = 0;
 			}
 			if(i.isKeyPressed(jump)) {
 				jump();
@@ -125,10 +142,9 @@ public class Character {
 		}else if(i.isKeyPressed(jump)) {
 			jump();
 		}else{
-			xVel=0;
+			xVel = 0;
 		}
 
-		
 		try{
 			if(i.getControllerCount() > 0) {
 
@@ -162,7 +178,6 @@ public class Character {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	
 
 	}
 
@@ -175,13 +190,24 @@ public class Character {
 
 	}
 
+	float sx, sy = 1000;
+
+	public void setSpawn(float _x, float _y){
+		sx = _x;
+		sy = _y;
+	}
+
 	public void kill(){
-		setPos(40, 550);
+		if(sx >= 1000 & sy >= 1000) {
+			setPos(100, 550);
+		}else{
+			setPos(sx, sy);
+		}
 	}
 
 	public void addPhysics(){
 
-		yVel += gravity;
+		yVel += gravity; 
 		y += yVel;
 
 		if(yVel > 150) {
@@ -241,16 +267,16 @@ public class Character {
 		ySpeed = yS;
 	}
 
-	public void setPos(int _x, int _y){
+	public void setPos(float _x, float _y){
 		x = _x;
 		y = _y;
 	}
 
-	public void setX(int _x){
+	public void setX(float _x){
 		x = _x;
 	}
 
-	public void setY(int _y){
+	public void setY(float _y){
 		y = _y;
 	}
 

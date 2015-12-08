@@ -128,6 +128,10 @@ public class LevelSeven implements GameState {
 		doorWalls[2].render(g);
 		g.setColor(Color.black);
 		g.drawString("23", obj1.getX() + 40, obj1.getY() - 3);
+		
+	
+		
+
 
 		player.render(g);
 	}
@@ -140,13 +144,13 @@ public class LevelSeven implements GameState {
 		player.addWorldCollider();
 
 		switchOne.addCollider(player);
-		switchOne.init(player, Switch.ACTION, i);
+		switchOne.addListener(player, Switch.ACTION, i);
 		switchTwo.addCollider(player);
-		switchTwo.init(player, Switch.ACTION, i);
+		switchTwo.addListener(player, Switch.ACTION, i);
 		switchThree.addCollider(player);
-		switchThree.init(player, Switch.ACTION, i);
+		switchThree.addListener(player, Switch.ACTION, i);
 		switchFour.addCollider(player);
-		switchFour.init(player, Switch.ACTION, i);
+		switchFour.addListener(player, Switch.ACTION, i);
 
 		if(switchThree.isTriggered() && switchTwo.isTriggered() && !switchFour.isTriggered()
 				&& !switchOne.isTriggered()) {
@@ -206,7 +210,7 @@ public class LevelSeven implements GameState {
 		levelFinish.addCollider(player);
 		levelFinish.setNextLevel(Level.stage[8]);
 		if(levelFinish.isFinished(player)) {
-			// levelFinish.goToNextLevel(arg1);
+			 levelFinish.goToNextLevel(arg1);
 		}
 		Level.goToLevel(i, arg1);
 

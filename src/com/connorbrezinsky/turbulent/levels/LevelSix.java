@@ -86,7 +86,7 @@ public class LevelSix implements GameState {
 		
 		SpriteSheet spritesheet = new SpriteSheet(new Image("res/sprites.png"), 20, 20);
 		sLoader = new SpriteLoader(spritesheet);
-		objSpawner = new ObjectSpawner(Level.aObjectSpawner, iPhysSpawner, Level.objSDuration);
+		objSpawner = new ObjectSpawner(iPhysSpawner, Level.objSDuration);
 		sx = cube.getX()-10;
 		cube.addPlayer(player);
 		
@@ -139,12 +139,12 @@ public class LevelSix implements GameState {
 		player.addPhysics();
 		player.addWorldCollider();
 		
-		pressureSwitch.init(player, cube, Switch.PRESSURE, i);
+		pressureSwitch.addListener(player, cube, Switch.PRESSURE, i);
 		pressureSwitch.addCollider(player);
 		pressureSwitch.addCollider(cube);
 		cube.addPhysics();
 		cube.addPlayer(player);
-		cube.init(i);
+		cube.addListener(i);
 
 		obj0.addCollider(player, cube);
 		obj00.addCollider(player,cube);

@@ -7,6 +7,10 @@ public class SpriteLoader {
 
 	SpriteSheet sprites;
 
+	
+	// TODO make animation loader
+	
+	
 	public SpriteLoader(SpriteSheet s) {
 		sprites = s;
 	}
@@ -49,31 +53,31 @@ public class SpriteLoader {
 				return sprites.getSubImage(image, 0);
 			}else if(image >= 10 && image <= 19) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 1);
+				return sprites.getSubImage(image-10, 1);
 			}else if(image >= 20 && image <= 29) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 2);
+				return sprites.getSubImage(image-20, 2);
 			}else if(image >= 30 && image <= 39) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 3);
+				return sprites.getSubImage(image-30, 3);
 			}else if(image >= 40 && image <= 49) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 4);
+				return sprites.getSubImage(image-40, 4);
 			}else if(image >= 50 && image <= 59) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 5);
+				return sprites.getSubImage(image-50, 5);
 			}else if(image >= 60 && image <= 69) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 6);
+				return sprites.getSubImage(image-60, 6);
 			}else if(image >= 70 && image <= 79) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 7);
+				return sprites.getSubImage(image-70, 7);
 			}else if(image >= 80 && image <= 89) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 8);
+				return sprites.getSubImage(image-80, 8);
 			}else if(image >= 90 && image <= 99) {
 				sprites.endUse();
-				return sprites.getSubImage(image, 9);
+				return sprites.getSubImage(image-90, 9);
 			}else{
 				System.err.println("Error: No Image #" + image);
 				sprites.endUse();

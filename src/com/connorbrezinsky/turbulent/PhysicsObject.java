@@ -133,8 +133,6 @@ public class PhysicsObject {
 	public void render(Graphics g){
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
-		g.setColor(Color.blue);
-		g.fillRect(x, y + (height / 2), width, height / 2);
 		if(!canPickup) {
 			g.setColor(Color.red);
 			g.drawRect(x, y, width, height);
@@ -147,8 +145,6 @@ public class PhysicsObject {
 
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
-		g.setColor(Color.blue);
-		g.fillRect(x, y + (height / 2), width, height / 2);
 		if(!canPickup) {
 			g.setColor(Color.red);
 			g.drawRect(x, y, width, height);
@@ -233,7 +229,7 @@ public class PhysicsObject {
 		spawnerY = sy;
 	}
 
-	public void init(Input i){
+	public void addListener(Input i){
 		Trigger trig = new Trigger(x - 5, y - 5, width + 5, height + 5, Trigger.AREA);
 
 		

@@ -19,8 +19,6 @@ import com.connorbrezinsky.turbulent.Switch;
 import com.connorbrezinsky.turbulent.Trigger;
 import com.connorbrezinsky.turbulent.Object;
 
-
-
 public class LevelFour implements GameState {
 
 	Color bg = Color.black;
@@ -37,9 +35,9 @@ public class LevelFour implements GameState {
 
 	public Door finishDoor = new Door(620, 600 - 100, 10, 100, Color.black);
 
-	public Switch sFinishDoor ;
+	public Switch sFinishDoor;
 	boolean isActive = false;
-	
+
 	SpriteLoader sLoader;
 
 	public LevelFour(int s) {
@@ -48,12 +46,12 @@ public class LevelFour implements GameState {
 
 	@Override
 	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		
+
 	}
 
 	@Override
 	public int getID(){
-				return 4;
+		return 4;
 	}
 
 	@Override
@@ -68,15 +66,14 @@ public class LevelFour implements GameState {
 				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
 				new Image("res/animation/finish/phase12.png") };
 
-		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish,
-				Level.duration);
+		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
-		
-		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"),20,20));
-		
+
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+
 		sFinishDoor = new Switch(320, 400 - 30, 20, 20);
 		sFinishDoor.addSprite(sLoader.getImage(2));
-		
+
 	}
 
 	@Override
@@ -97,15 +94,11 @@ public class LevelFour implements GameState {
 		obj3.render(g);
 		obj4.render(g);
 		roof.render(g);
-		this.sFinishDoor.showTrigRadius(g, Color.white);
 
 		finishDoor.render(g);
 
-
 		Level.levelFinish.render(g);
 		player.render(g);
-		
-	
 
 	}
 
@@ -123,12 +116,11 @@ public class LevelFour implements GameState {
 		roof.addCollider(player);
 
 		bgColorSwitch.addBasicCollider(player);
-		
 
 		finishDoor.addCollider(player);
 		finishDoor.addSwitch(sFinishDoor);
 
-		this.sFinishDoor.init(player, Switch.ACTION, i);
+		this.sFinishDoor.addListener(player, Switch.ACTION, i);
 		this.sFinishDoor.addCollider(player);
 
 		Level.levelFinish.addCollider(player);
@@ -149,11 +141,11 @@ public class LevelFour implements GameState {
 			isActive = false;
 
 		}
-		
-		if(sFinishDoor.isTriggered()){
+
+		if(sFinishDoor.isTriggered()) {
 			sFinishDoor.changeSprite(sLoader.getImage(3));
 		}else{
-		
+
 			sFinishDoor.changeSprite(sLoader.getImage(2));
 		}
 
@@ -162,112 +154,112 @@ public class LevelFour implements GameState {
 
 	@Override
 	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-		
+
 	}
 
 	@Override
 	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-		
+
 	}
 
 	@Override
 	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-		
+
 	}
 
 	@Override
 	public void mousePressed(int arg0, int arg1, int arg2){
-		
+
 	}
 
 	@Override
 	public void mouseReleased(int arg0, int arg1, int arg2){
-		
+
 	}
 
 	@Override
 	public void mouseWheelMoved(int arg0){
-		
+
 	}
 
 	@Override
 	public void inputEnded(){
-		
+
 	}
 
 	@Override
 	public void inputStarted(){
-		
+
 	}
 
 	@Override
 	public boolean isAcceptingInput(){
-				return false;
+		return false;
 	}
 
 	@Override
 	public void setInput(Input arg0){
-		
+
 	}
 
 	@Override
 	public void keyPressed(int arg0, char arg1){
-		
+
 	}
 
 	@Override
 	public void keyReleased(int arg0, char arg1){
-		
+
 	}
 
 	@Override
 	public void controllerButtonPressed(int arg0, int arg1){
-		
+
 	}
 
 	@Override
 	public void controllerButtonReleased(int arg0, int arg1){
-		
+
 	}
 
 	@Override
 	public void controllerDownPressed(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerDownReleased(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerLeftPressed(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerLeftReleased(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerRightPressed(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerRightReleased(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerUpPressed(int arg0){
-		
+
 	}
 
 	@Override
 	public void controllerUpReleased(int arg0){
-		
+
 	}
 
 }

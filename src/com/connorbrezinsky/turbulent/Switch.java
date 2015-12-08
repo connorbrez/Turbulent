@@ -81,13 +81,13 @@ public class Switch extends Object {
 
 	public void addCollider(Character c, PhysicsObject pObj){
 		if(Main.leftBoxCollider(c, this)) {
-			c.x = x - c.getWidth() - 0.5F;
+			c.x = x - c.getWidth() - 1F;
 			c.moving = false;
 			if(height <= 5) {
 				c.y = y;
 			}
 		}else if(Main.topBoxCollider(c, this)) {
-			c.y = y - c.getHeight() - 0.5F;
+			c.y = y - c.getHeight() ;
 			c.yVel = 0;
 			c.isJumping = false;
 		}else if(Main.rightBoxCollider(c, this)) {
@@ -161,14 +161,14 @@ public class Switch extends Object {
 		if(cTrigRadius) {
 			g.drawRect(getX()-tX, getY()-tY, width+tW, height+tH);
 		}else{
-			g.drawRect(x - 25, y - 25, width + 45, height + 45);
+			g.drawRect(x - 30, y - 30, width + 60, height + 60);
 
 		}
 	}
 
-	public void init(Character c, int t, Input i){
+	public void addListener(Character c, int t, Input i){
 		type = t;
-		Trigger trig = new Trigger(this.getX() - 25, this.getY() - 25, this.getWidth() + 45, this.getHeight() + 45,
+		Trigger trig = new Trigger(this.getX() - 25, this.getY() - 25, this.getWidth() + 60, this.getHeight() + 60,
 				Trigger.AREA);
 		if(cTrigRadius) {
 			trig.setTriggerRadius(getX()-tX, getY()-tY, width+tW, height+tH);
@@ -197,7 +197,7 @@ public class Switch extends Object {
 
 	}
 
-	public void init(PhysicsObject c, int t, Input i){
+	public void addListener(PhysicsObject c, int t, Input i){
 		type = t;
 		if(Main.addCollisonBox(c.getX() + c.getWidth() + 1, c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
 				height)) {
@@ -241,7 +241,7 @@ public class Switch extends Object {
 
 	}
 
-	public void init(Character c, PhysicsObject o, int t, Input i){
+	public void addListener(Character c, PhysicsObject o, int t, Input i){
 		type = t;
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth() + 1, c.getHeight() + 1, x, y, 10,
 				height)) {
@@ -382,6 +382,11 @@ public class Switch extends Object {
 			}
 		}
 
+	}
+	
+	public void setPos(float _x, float _y){
+		x=_x;
+		y=_y;
 	}
 
 	public String getTypeAsString(){

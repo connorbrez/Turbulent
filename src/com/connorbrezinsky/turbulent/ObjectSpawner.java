@@ -11,12 +11,11 @@ public class ObjectSpawner {
 	PhysicsObject physObj;
 	boolean hasPhysObj = true;
 
-	public ObjectSpawner(Animation a, Image[] img, int[] d) {
+	public ObjectSpawner(Image[] img, int[] d) {
 
 		
 		width = 30;
 		height = 50;
-		obj = a;
 		obj = new Animation(img, d, true);
 
 	}

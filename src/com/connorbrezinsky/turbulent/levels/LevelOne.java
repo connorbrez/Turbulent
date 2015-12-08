@@ -10,10 +10,11 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Object;
+import com.connorbrezinsky.turbulent.Platform;
+import com.connorbrezinsky.turbulent.SpriteLoader;
 
 
 
@@ -24,6 +25,8 @@ public class LevelOne implements GameState {
 
 	public Image move;
 	
+	
+	SpriteLoader sLoader;
 
 	public LevelOne(int s) {
 
@@ -44,6 +47,8 @@ public class LevelOne implements GameState {
 		move = new Image("res/move.png");
 
 		Level.aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
+		
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"),20,20));
 
 		Level.aLoader.startUse();
 		Image[] iLevelFinish = { Level.aLoader.getSubImage(0,0), Level.aLoader.getSubImage(1,0), Level.aLoader.getSubImage(2,0), Level.aLoader.getSubImage(3,0),
@@ -54,7 +59,8 @@ public class LevelOne implements GameState {
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60,  iLevelFinish,
 				Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
-
+		
+		
 	}
 
 	@Override
