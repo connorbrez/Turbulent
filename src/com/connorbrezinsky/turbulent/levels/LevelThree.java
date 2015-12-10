@@ -11,8 +11,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Platform;
+import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.Character;
-import com.connorbrezinsky.turbulent.Object;
 
 
 public class LevelThree implements GameState {

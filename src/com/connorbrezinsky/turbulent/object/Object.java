@@ -1,4 +1,4 @@
-package com.connorbrezinsky.turbulent;
+package com.connorbrezinsky.turbulent.object;
 
 
 import org.newdawn.slick.Animation;
@@ -7,6 +7,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
+
+import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Main;
 
 public class Object {
 
@@ -18,8 +21,11 @@ public class Object {
 
 	public boolean isAnimated, hasSprite = false;
 
-	float x, y, width, height;
-	Color color;
+	public float x;
+	public float y;
+	public float width;
+	public float height;
+	protected Color color;
 	Animation a;
 	Image img;
 

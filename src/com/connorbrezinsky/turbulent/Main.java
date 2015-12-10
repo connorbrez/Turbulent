@@ -18,6 +18,8 @@ import com.connorbrezinsky.turbulent.levels.LevelTen;
 import com.connorbrezinsky.turbulent.levels.LevelThree;
 import com.connorbrezinsky.turbulent.levels.LevelTwo;
 import com.connorbrezinsky.turbulent.levels.TestChamber;
+import com.connorbrezinsky.turbulent.object.Object;
+import com.connorbrezinsky.turbulent.object.Switch;
 
 public class Main extends StateBasedGame {
 

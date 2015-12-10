@@ -6,12 +6,17 @@ import org.newdawn.slick.Input;
 
 public class PhysicsObject {
 
-	float x, y, width, height, spawnerX, spawnerY;
-	float yVel = 0;
+	public float x;
+	public float y;
+	public float width;
+	public float height;
+	float spawnerX;
+	float spawnerY;
+	public float yVel = 0;
 	float xVel = 0;
 	float gravity = 0.5F;
 	Color color;
-	boolean canPickup = true;
+	public boolean canPickup = true;
 	boolean hasSpawner = false;
 	boolean goneFromSpawner = true;
 	int actionKey = Input.KEY_E;

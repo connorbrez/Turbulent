@@ -12,7 +12,7 @@ import com.connorbrezinsky.turbulent.Character;
 
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Platform;
-import com.connorbrezinsky.turbulent.Object;
+import com.connorbrezinsky.turbulent.object.Object;
 
 
 public class LevelTen implements GameState {

@@ -24,8 +24,8 @@ public class Character {
 
 	public static String LEFT = "left";
 	public static String RIGHT = "right";
-	boolean isTesting = false;
-	boolean moving = false;
+	public boolean isTesting = false;
+	public boolean moving = false;
 
 	public Character(float _x, float _y, float w, float h, Color c) {
 		x = _x;

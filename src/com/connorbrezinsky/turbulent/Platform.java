@@ -4,6 +4,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.connorbrezinsky.turbulent.object.Object;
+
 public class Platform extends Object {
 
 

@@ -1,8 +1,11 @@
-package com.connorbrezinsky.turbulent;
+package com.connorbrezinsky.turbulent.object;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+
+import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Main;
 
 public class Door extends Object {
 

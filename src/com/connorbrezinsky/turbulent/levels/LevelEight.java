@@ -11,36 +11,39 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
-import com.connorbrezinsky.turbulent.Door;
 import com.connorbrezinsky.turbulent.Hazard;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.Object;
 import com.connorbrezinsky.turbulent.ObjectSpawner;
 import com.connorbrezinsky.turbulent.PhysicsObject;
 import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
-import com.connorbrezinsky.turbulent.Switch;
+import com.connorbrezinsky.turbulent.Turbulence;
+import com.connorbrezinsky.turbulent.object.Door;
+import com.connorbrezinsky.turbulent.object.Object;
+import com.connorbrezinsky.turbulent.object.Switch;
 
 public class LevelEight implements GameState {
 
 	int stage = 0;
 
 	Color bg = Color.white;
-	public Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
-	public SpriteSheet aLoader;
-	public SpriteLoader sLoader;
+	Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
+	SpriteSheet aLoader;
+	SpriteLoader sLoader;
 
-	public PhysicsObject finishCube = new PhysicsObject(200, 600 - 20, 10, 10, Color.blue, true);
-	public ObjectSpawner fcSpawner;
+	PhysicsObject finishCube = new PhysicsObject(200, 600 - 20, 10, 10, Color.blue, true);
+	ObjectSpawner fcSpawner;
 
-	public Platform[] walls = { new Platform(165, 600 - 80, 10, 80, Color.red),
+	Turbulence t = new Turbulence();
+	
+	Platform[] walls = { new Platform(165, 600 - 80, 10, 80, Color.red),
 			new Platform(165, 600 - 80, 80, 10, Color.red), new Platform(165 + 70, 600 - 80, 10, 80, Color.red) };
 
 	Door finishDoor = new Door(620, 520, 10, 80, Color.blue);
 
 	Platform obj0 = new Platform(590, 0, 250, 520, Color.black);
 	Platform obj1 = new Platform(450, 550, 100, 10, Color.black);
-	// Stage 1
+	// Stage 1 objects
 	Platform obj2 = new Platform(0, 300, 50, 300, Color.white);
 	Platform obj3 = new Platform(100, 300, 50, 300, Color.white);
 	Platform obj4 = new Platform(650, 350, 150, 350, Color.white);
@@ -67,7 +70,7 @@ public class LevelEight implements GameState {
 	Hazard spike1 = new Hazard(50, 600 - 20, 20F, 13);
 	Hazard spike2 = new Hazard(62, 600 - 20, 20F, 13);
 	Hazard spike3 = new Hazard(80, 600 - 20, 20F, 13);
-	// TODO Stage 2
+	// Stage 2 objects
 	Platform obj20 = new Platform(0, 600 - 100, 200, 100, Color.white);
 	Platform obj21 = new Platform(300, 600 - 150, 20, 150);
 	Hazard[] spikeStrip = { new Hazard(200, 600 - 20, 20F, 13), new Hazard(220, 600 - 20, 20F, 13),
@@ -91,17 +94,17 @@ public class LevelEight implements GameState {
 	Platform obj37 = new Platform(300, 200, 10, 10);
 	Platform obj38 = new Platform(200, 200, 10, 10);
 	Platform obj39 = new Platform(100, 200, 10, 10);
-
 	PhysicsObject sTwoCube = new PhysicsObject(45, 500 - 20, 10, 10, Color.red, true);
 	ObjectSpawner sTwoSpawner;
 	Switch sTwoSwitch = new Switch(50 - 20, 200 - 5, 40, 5, Color.red);
 	// TODO Stage 3
+	Platform obj40 = new Platform(800-100, 200,100,150, Color.white);
 
-	public Switch[] lSwitch = { new Switch(460, 550 - 50, 20, 20), new Switch(490, 550 - 50, 20, 20),
+	Switch[] lSwitch = { new Switch(460, 550 - 50, 20, 20), new Switch(490, 550 - 50, 20, 20),
 			new Switch(520, 550 - 50, 20, 20) };
-	public Switch finishSwitch = new Switch(Main.getMidX(40), 600 - 5, 40, 5, Color.blue);
-	public Switch sBack = new Switch(-20, -20, 20, 20);
-	public float sx_1;
+	Switch finishSwitch = new Switch(Main.getMidX(40), 600 - 5, 40, 5, Color.blue);
+	Switch sBack = new Switch(-20, -20, 20, 20);
+	float sx_1;
 	float sx_2;
 	float sx_3;
 
@@ -128,6 +131,8 @@ public class LevelEight implements GameState {
 		sx_2 = sOneCube.getX() - 10;
 		sx_3 = sTwoCube.getX() - 10;
 
+		lSwitch[2].triggered=true;
+		
 		aLoader.startUse();
 		Image[] iLevelFinish = { aLoader.getSubImage(0, 0), aLoader.getSubImage(1, 0), aLoader.getSubImage(2, 0),
 				aLoader.getSubImage(3, 0), aLoader.getSubImage(4, 0), aLoader.getSubImage(5, 0),
@@ -305,6 +310,17 @@ public class LevelEight implements GameState {
 		}else if(lSwitch[2].isTriggered()) {
 			stage = 3;
 			bg = Color.black;
+			
+			if(!t.isActive()){
+				obj40.render(g);
+
+			}else if(t.isActive(t.x)){
+				
+			}else if(t.isActive(t.y)){
+				
+			}else if(t.isActive(t.c)){
+				
+			}
 		}
 
 		player.render(g);
@@ -470,6 +486,8 @@ public class LevelEight implements GameState {
 			spikeStrip[4].addCollider(player);
 
 		}else if(lSwitch[2].isTriggered()) {
+			t.addListener(i);
+			
 		}
 
 		Level.goToLevel(i, arg1);

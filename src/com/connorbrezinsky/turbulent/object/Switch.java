@@ -1,9 +1,14 @@
-package com.connorbrezinsky.turbulent;
+package com.connorbrezinsky.turbulent.object;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+
+import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.PhysicsObject;
+import com.connorbrezinsky.turbulent.Trigger;
 
 public class Switch extends Object {
 
