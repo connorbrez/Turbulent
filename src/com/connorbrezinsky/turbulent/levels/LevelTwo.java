@@ -10,12 +10,13 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.Platform;
-import com.connorbrezinsky.turbulent.Trigger;
 import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Hazard;
+import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Object;
-
+import com.connorbrezinsky.turbulent.Platform;
+import com.connorbrezinsky.turbulent.SpriteLoader;
+import com.connorbrezinsky.turbulent.Trigger;
 
 public class LevelTwo implements GameState {
 
@@ -23,10 +24,15 @@ public class LevelTwo implements GameState {
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 	Image space_key;
 
-	public Platform obj_1 = new Platform(350 - 20, 600 - 30, 20, 30, Color.lightGray);
+	SpriteLoader sLoader;
+
+	public Platform obj_1 = new Platform(400-65, 600 - 30, 20, 30, Color.lightGray);
 	public Platform obj_2 = new Platform(400 - 20, 600 - 50, 20, 50, Color.darkGray);
-	public Platform obj_3 = new Platform(450 - 20, 600 - 30, 20, 30, Color.lightGray);
+	public Platform obj_3 = new Platform(400+25, 600 - 30, 20, 30, Color.lightGray);
 	public Trigger obj2ColorTrigger = new Trigger(400 - 40, 0, 60, 600, Trigger.AREA);
+
+	Hazard[] spikes = { new Hazard(400-43, 600 - 20, 20F, 13), new Hazard(403, 600 - 20, 20F, 13),
+			};
 
 	public LevelTwo(int s) {
 
@@ -47,6 +53,7 @@ public class LevelTwo implements GameState {
 		space_key = new Image("res/space.png");
 
 		Level.aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
 
 		Level.aLoader.startUse();
 		Image[] iLevelFinish = { Level.aLoader.getSubImage(0, 0), Level.aLoader.getSubImage(1, 0),
@@ -56,10 +63,15 @@ public class LevelTwo implements GameState {
 				Level.aLoader.getSubImage(2, 1) };
 		Level.aLoader.endUse();
 
-		
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
 		
+		spikes[0].addSprite(sLoader.getImage(7));
+		spikes[1].addSprite(sLoader.getImage(7));
+		
+		player.setSpawn(60, 600-40);
+
+
 	}
 
 	@Override
@@ -74,6 +86,9 @@ public class LevelTwo implements GameState {
 		obj_1.render(g);
 		obj_2.render(g);
 		obj_3.render(g);
+		
+		spikes[0].render(g);
+		spikes[1].render(g);
 
 		space_key.draw(10, 400);
 
@@ -94,6 +109,8 @@ public class LevelTwo implements GameState {
 		obj_1.addCollider(player);
 		obj_2.addCollider(player);
 		obj_3.addCollider(player);
+		spikes[0].addCollider(player);
+		spikes[1].addCollider(player);;
 
 		obj2ColorTrigger.addBasicCollider(player);
 
