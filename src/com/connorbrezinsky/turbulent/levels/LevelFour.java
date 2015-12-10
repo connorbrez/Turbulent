@@ -12,11 +12,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.Platform;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Trigger;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
+import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 
 public class LevelFour implements GameState {

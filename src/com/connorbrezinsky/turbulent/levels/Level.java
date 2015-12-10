@@ -7,7 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.connorbrezinsky.turbulent.Platform;
+import com.connorbrezinsky.turbulent.object.Platform;
 
 public class Level {
 

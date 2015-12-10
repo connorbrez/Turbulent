@@ -1,10 +1,12 @@
-package com.connorbrezinsky.turbulent;
+package com.connorbrezinsky.turbulent.object;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.connorbrezinsky.turbulent.object.Object;
+import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.PhysicsObject;
 
 public class Platform extends Object {
 
