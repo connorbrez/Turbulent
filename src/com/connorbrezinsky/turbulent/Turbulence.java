@@ -4,8 +4,9 @@ import org.newdawn.slick.Input;
 
 public class Turbulence {
 
-	public boolean x, y, c = false;
+	public boolean z, x, c = false;
 	int key[] = { Input.KEY_Z, Input.KEY_X, Input.KEY_C };
+	
 
 	public Turbulence() {
 
@@ -13,13 +14,13 @@ public class Turbulence {
 
 	public void addListener(Input i){
 		if(Main.getKeyPress(i, key[0])) {
-			if(x){
+			if(z){
 				setLevel(0);
 			}else{
 				setLevel(1);
 			}
 		}else if(Main.getKeyPress(i, key[1])) {
-			if(y){
+			if(x){
 				setLevel(0);
 			}else{
 				setLevel(2);
@@ -35,8 +36,8 @@ public class Turbulence {
 		
 	}
 
-	public boolean isActive(boolean xyc){
-		if(xyc){
+	public boolean isActive(boolean zxc){
+		if(zxc){
 			return true;
 		}else{
 			return false;
@@ -44,33 +45,35 @@ public class Turbulence {
 	}
 	
 	public boolean isActive(){
-		if(x||y||c){
+		if(z||x||c){
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
+	
+	
 	public void setLevel(int xyc){
 		switch(xyc){
 		case 0:
+			z = false;
 			x = false;
-			y = false;
 			c = false;
 			break;
 		case 1:
-			x = true;
-			y = false;
+			z = true;
+			x = false;
 			c = false;
 			break;
 		case 2:
-			x = false;
-			y = true;
+			z = false;
+			x = true;
 			c = false;
 			break;
 		case 3:
+			z = false;
 			x = false;
-			y = false;
 			c = true;
 			break;
 		default:

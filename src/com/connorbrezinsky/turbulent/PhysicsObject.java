@@ -18,7 +18,7 @@ public class PhysicsObject {
 	Color color;
 	public boolean canPickup = true;
 	boolean hasSpawner = false;
-	boolean goneFromSpawner = true;
+	public boolean goneFromSpawner = true;
 	int actionKey = Input.KEY_E;
 	Character char_;
 
@@ -47,10 +47,10 @@ public class PhysicsObject {
 	public void addPlayerCollider(Character c){
 		if(goneFromSpawner && canPickup) {
 			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
-				c.x = x - c.getWidth()-2;
+				c.x = x - c.getWidth() - 2;
 
 			}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-				c.x = x - c.getWidth() -2;
+				c.x = x - c.getWidth() - 2;
 
 			}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(),
 					x, y, width, 10)) {
@@ -235,23 +235,23 @@ public class PhysicsObject {
 	}
 
 	public void addListener(Input i){
-		Trigger trig = new Trigger(x - 5, y - 5, width + 5, height + 5, Trigger.AREA);
+		Trigger trig = new Trigger(x - 5, y - 5, width + 15, height + 15, Trigger.AREA);
 
-		
-		if(char_!=null){
-		
-		trig.addCollider(char_);
+		if(char_ != null) {
 
-		if(trig.isTriggered) {
-			if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
-				pickup(char_);
+			trig.addCollider(char_);
+			
+
+			if(trig.isTriggered) {
+				if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
+					pickup(char_);
+				}
+			}else if(!canPickup) {
+				carry(char_);
+				if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
+					canPickup = true;
+				}
 			}
-		}else if(!canPickup) {
-			carry(char_);
-			if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
-				canPickup = true;
-			}
-		}
 		}
 	}
 

@@ -35,9 +35,9 @@ public class LevelEight implements GameState {
 	ObjectSpawner fcSpawner;
 
 	Turbulence t = new Turbulence();
-	
-	Platform[] walls = { new Platform(165, 600 - 80, 10, 80, Color.red),
-			new Platform(165, 600 - 80, 80, 10, Color.red), new Platform(165 + 70, 600 - 80, 10, 80, Color.red) };
+
+	Platform[] walls = { new Platform(165, 600 - 80, 10, 80, Color.red), new Platform(165, 600 - 80, 80, 10, Color.red),
+			new Platform(165 + 70, 600 - 80, 10, 80, Color.red) };
 
 	Door finishDoor = new Door(620, 520, 10, 80, Color.blue);
 
@@ -98,7 +98,24 @@ public class LevelEight implements GameState {
 	ObjectSpawner sTwoSpawner;
 	Switch sTwoSwitch = new Switch(50 - 20, 200 - 5, 40, 5, Color.red);
 	// TODO Stage 3
-	Platform obj40 = new Platform(800-100, 200,100,150, Color.white);
+	Platform obj40 = new Platform(800 - 100, 200, 100, 150, Color.white);
+	Platform obj41 = new Platform(Main.getMidX(50), 540, 50, 10, Color.white);
+	Platform obj42 = new Platform(250, 490, 50, 10, Color.white);
+	Platform obj43 = new Platform(150, 420, 50, 10, Color.white);
+	Platform obj44 = new Platform(0, 350, 100, 10, Color.white);
+	Platform obj45 = new Platform(160, 270, 50, 10, Color.white);
+	Platform obj46 = new Platform(240, 210, 310, 10, Color.white);
+	Platform obj47 = new Platform(600, 210, 50, 10, Color.white);
+
+	Hazard[] spikes = { new Hazard(300, 210 - 20, 20F, 13), new Hazard(390, 210 - 20, 20F, 13F),
+			new Hazard(480, 210 - 20, 20F, 13F) };
+	Hazard spike4 = new Hazard(305F, 520F, 20F, 13F);
+
+	Object sCover = new Object(305, 540.5F, 20, 10, Color.white);
+
+	PhysicsObject sThreeCube = new PhysicsObject(45, 350 - 20, 10, 10, Color.red, true);
+	ObjectSpawner sThreeSpawner;
+	Switch sThreeSwitch = new Switch(750 - 20, 200 - 5, 40, 5, Color.red);
 
 	Switch[] lSwitch = { new Switch(460, 550 - 50, 20, 20), new Switch(490, 550 - 50, 20, 20),
 			new Switch(520, 550 - 50, 20, 20) };
@@ -107,6 +124,7 @@ public class LevelEight implements GameState {
 	float sx_1;
 	float sx_2;
 	float sx_3;
+	float sx_4;
 
 	public LevelEight(int s) {
 
@@ -130,9 +148,9 @@ public class LevelEight implements GameState {
 		sx_1 = finishCube.getX() - 10;
 		sx_2 = sOneCube.getX() - 10;
 		sx_3 = sTwoCube.getX() - 10;
+		sx_4 = sThreeCube.getX() - 10;
 
-		lSwitch[2].triggered=true;
-		
+
 		aLoader.startUse();
 		Image[] iLevelFinish = { aLoader.getSubImage(0, 0), aLoader.getSubImage(1, 0), aLoader.getSubImage(2, 0),
 				aLoader.getSubImage(3, 0), aLoader.getSubImage(4, 0), aLoader.getSubImage(5, 0),
@@ -152,9 +170,11 @@ public class LevelEight implements GameState {
 		fcSpawner = new ObjectSpawner(iPhysSpawner, Level.objSDuration);
 		sOneSpawner = fcSpawner;
 		sTwoSpawner = fcSpawner;
+		sThreeSpawner = fcSpawner;
 
 		sOneCube.setSpawnerPos(sx_2, 600 - 50);
 		sTwoCube.setSpawnerPos(sx_3, 500 - 50);
+		sThreeCube.setSpawnerPos(sx_3, sThreeCube.getY() - 50 + 20);
 
 		lSwitch[0].setCustomActionRadius(5, 20, 10, 80);
 		lSwitch[1].setCustomActionRadius(5, 20, 10, 80);
@@ -186,6 +206,10 @@ public class LevelEight implements GameState {
 		obj38.addSprite(sLoader.getImage(8));
 		obj39.addSprite(sLoader.getImage(8));
 		sBack.addSprite(sLoader.getImage(2));
+		spike4.addSprite(sLoader.getImage(7));
+		spikes[0].addSprite(sLoader.getImage(7));
+		spikes[1].addSprite(sLoader.getImage(7));
+		spikes[2].addSprite(sLoader.getImage(7));
 
 	}
 
@@ -220,8 +244,16 @@ public class LevelEight implements GameState {
 				g.drawString("S2", 490, 550 - 70);
 			}
 
+			if(!sThreeSwitch.isTriggered()){
 			g.setColor(Color.black);
 			g.drawString("S3", 520, 550 - 70);
+			}else{
+				g.setColor(Color.green);
+				g.drawString("S3", 520, 550-70);
+			}
+			
+		
+			
 			lSwitch[0].render(g);
 			lSwitch[1].render(g);
 			lSwitch[2].render(g);
@@ -310,17 +342,45 @@ public class LevelEight implements GameState {
 		}else if(lSwitch[2].isTriggered()) {
 			stage = 3;
 			bg = Color.black;
-			
-			if(!t.isActive()){
-				obj40.render(g);
+			obj40.render(g);
+			obj44.render(g);
 
-			}else if(t.isActive(t.x)){
-				
-			}else if(t.isActive(t.y)){
-				
-			}else if(t.isActive(t.c)){
-				
+			if(sThreeCube.goneFromSpawner){
+				sThreeCube.render(g);
 			}
+
+				if(!t.isActive()) {
+					sThreeCube.render(g, sThreeSpawner);
+					sThreeSwitch.render(g);
+
+				}else if(t.isActive(t.z)) {
+					obj40.render(g);
+					obj41.render(g);
+					obj45.render(g);
+					obj46.render(g);
+					spikes[0].render(g);
+					spikes[1].render(g);
+					spikes[2].render(g);
+
+				}else if(t.isActive(t.x)) {
+					obj40.render(g);
+					obj41.render(g);
+					obj42.render(g);
+					spike4.render(g);
+					sCover.render(g);
+					obj46.render(g);
+					spikes[0].render(g);
+					spikes[1].render(g);
+					spikes[2].render(g);
+
+					obj47.render(g);
+				}else if(t.isActive(t.c)) {
+					obj40.render(g);
+					obj42.render(g);
+					obj43.render(g);
+				}else if(t.isActive()) {
+
+				}
 		}
 
 		player.render(g);
@@ -354,6 +414,8 @@ public class LevelEight implements GameState {
 			}
 			sBack.triggered = false;
 		}
+		
+		
 
 		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()) {
 			sBack.setPos(-20, -20);
@@ -375,6 +437,12 @@ public class LevelEight implements GameState {
 			obj0.addCollider(player);
 			obj1.addCollider(player, finishCube);
 
+			if(sOneSwitch.isTriggered() && sTwoSwitch.isTriggered() && sThreeSwitch.isTriggered()){
+				walls[0].destroy();
+				walls[1].destroy();
+				walls[2].destroy();
+			}
+			
 			finishDoor.addCollider(player);
 			finishDoor.addSwitch(finishSwitch);
 
@@ -487,7 +555,68 @@ public class LevelEight implements GameState {
 
 		}else if(lSwitch[2].isTriggered()) {
 			t.addListener(i);
+			sBack.setPos(800 - 160, 600 - 30);
+			player.setSpawn(550, 600 - 40);
+
+			obj40.addCollider(player);
+			obj44.addCollider(player);
+
+			sThreeCube.addListener(i);
+			sThreeCube.addPhysics();
+			sThreeCube.addPlayer(player);
+			sThreeCube.addPlayerCollider(player);
 			
+		
+
+			if(!t.isActive()) {
+
+				obj40.setColor(Color.white);
+				obj44.setColor(Color.white);
+				sThreeSwitch.addCollider(player);
+				sThreeSwitch.addCollider(sThreeCube);
+				sThreeSwitch.addListener(player, sThreeCube, Switch.PRESSURE, i);
+
+			}else if(t.isActive(t.z)) {
+				obj40.setColor(Color.orange);
+				obj41.setColor(Color.orange);
+				obj44.setColor(Color.orange);
+				obj45.setColor(Color.orange);
+				obj46.setColor(Color.orange);
+
+				obj41.addCollider(player);
+				obj45.addCollider(player);
+				obj46.addCollider(player);
+
+				spikes[0].addCollider(player);
+				spikes[1].addCollider(player);
+				spikes[2].addCollider(player);
+
+			}else if(t.isActive(t.x)) {
+				obj40.setColor(Color.yellow);
+				obj44.setColor(Color.yellow);
+
+				obj41.addCollider(player);
+				obj41.setColor(Color.yellow);
+				obj42.addCollider(player);
+				obj42.setColor(Color.yellow);
+				spike4.addCollider(player);
+				sCover.addCollider(player);
+				sCover.setColor(Color.yellow);
+				obj47.addCollider(player);
+				obj47.setColor(Color.yellow);
+				obj46.addCollider(player);
+				obj46.setColor(Color.yellow);
+			}else if(t.isActive(t.c)) {
+				obj40.setColor(Color.pink);
+				obj44.setColor(Color.pink);
+
+				obj43.addCollider(player);
+				obj43.setColor(Color.pink);
+				obj42.addCollider(player);
+				obj42.setColor(Color.pink);
+
+			}
+
 		}
 
 		Level.goToLevel(i, arg1);

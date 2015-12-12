@@ -116,11 +116,9 @@ public class Hazard {
 			c.kill();
 		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
 			c.y = y + height;
-			c.kill();
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
 				y + height - 10, width, 10)) {
 			c.y = y + height;
-			c.kill();
 		}else{
 
 		}

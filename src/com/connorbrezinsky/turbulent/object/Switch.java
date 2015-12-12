@@ -48,111 +48,6 @@ public class Switch extends Object {
 	public static int PRESSURE = 0;
 	public static int ACTION = 1;
 
-	public void addCollider(PhysicsObject c){
-
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
-			c.x = x - c.getWidth() - 0.1F;
-
-		}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x - c.getWidth() - 0.1F;
-
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, 10)) {
-			c.yVel = 0;
-			c.y = y - c.getHeight();
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
-			c.yVel = 0;
-			c.y = y - c.getHeight();
-		}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-			c.yVel = 0;
-			c.y = y - c.getHeight();
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
-			c.x = x + width + 0.1F;
-		}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-			c.x = x + width + 0.1F;
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
-			c.y = y + height;
-			c.yVel = 0;
-		}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
-			c.y = y + height;
-			c.yVel = 0;
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-				y + height - 10, width, 10)) {
-			c.y = y + height;
-			c.yVel = 0;
-		}
-	}
-
-	public void addCollider(Character c, PhysicsObject pObj){
-		if(Main.leftBoxCollider(c, this)) {
-			c.x = x - c.getWidth() - 1F;
-			c.moving = false;
-			if(height <= 5) {
-				c.y = y;
-			}
-		}else if(Main.topBoxCollider(c, this)) {
-			c.y = y - c.getHeight() ;
-			c.yVel = 0;
-			c.isJumping = false;
-		}else if(Main.rightBoxCollider(c, this)) {
-			c.moving = false;
-			c.x = x + width - 0.5F;
-			if(height <= 5) {
-				c.y = y;
-			}
-		}else if(Main.bottomBoxCollider(c, this)) {
-			c.y = y + height - 0.5F;
-			c.yVel = 0;
-		}
-
-		if(pObj.canPickup) {
-			if(Main.addCollisonBox(pObj.getX() + pObj.getWidth(), pObj.getY(), pObj.getWidth(), pObj.getHeight(), x, y,
-					10, height)) {
-				pObj.x = x - pObj.getWidth() - 0.1F;
-
-			}else if(pObj.x + pObj.width > x && pObj.x + pObj.width < x + 10 && pObj.y < y
-					&& pObj.y + pObj.height > y + height) {
-				pObj.x = x - c.getWidth() - 0.1F;
-
-			}else if(Main.addCollisonBox(pObj.getX() + pObj.getWidth(), pObj.getY() + pObj.getHeight(), pObj.getWidth(),
-					pObj.getHeight(), x, y, width, 10)) {
-				pObj.y = y - pObj.getHeight();
-				pObj.yVel = 0;
-			}else if(Main.addCollisonBox(pObj.getX(), pObj.getY() + pObj.getHeight(), pObj.getWidth(), pObj.getHeight(),
-					x, y, width, 10)) {
-				pObj.y = y - pObj.getHeight();
-				pObj.yVel = 0;
-
-			}else
-				if(pObj.x < x && pObj.x + pObj.width > x && pObj.y + pObj.height > y && pObj.y + pObj.height < y + 10) {
-				pObj.y = y - pObj.getHeight();
-				pObj.yVel = 0;
-
-			}else if(Main.addCollisonBox(pObj.getX(), pObj.getY(), pObj.getWidth(), pObj.getHeight(), x + width - 10, y,
-					10, height)) {
-				pObj.x = x + width + 0.1F;
-
-			}else if(pObj.x > x && pObj.x < x + 10 && pObj.y < y && pObj.y + pObj.height > y + height) {
-				pObj.x = x + width + 0.1F;
-			}else if(Main.addCollisonBox(pObj.getX(), pObj.getY(), pObj.getWidth(), pObj.getHeight(), x,
-					y + height - 10, width, 10)) {
-				pObj.y = y + height;
-				pObj.yVel = 0;
-
-			}else if(pObj.x < x && pObj.x + pObj.width > x && pObj.y < y + height - 10
-					&& pObj.y + pObj.height > y + height - 10) {
-				pObj.y = y + height;
-				pObj.yVel = 0;
-
-			}else if(Main.addCollisonBox(pObj.getX() + pObj.getHeight(), pObj.getY(), pObj.getWidth(), pObj.getHeight(),
-					x, y + height - 10, width, 10)) {
-				pObj.y = y + height;
-				pObj.yVel = 0;
-			}
-		}
-	}
-
 	public void setCustomActionRadius(float _x, float _y, float w, float h){
 		tX = _x;
 		tY = _y;
@@ -164,7 +59,7 @@ public class Switch extends Object {
 	public void showTrigRadius(Graphics g, Color c){
 		g.setColor(c);
 		if(cTrigRadius) {
-			g.drawRect(getX()-tX, getY()-tY, width+tW, height+tH);
+			g.drawRect(getX() - tX, getY() - tY, width + tW, height + tH);
 		}else{
 			g.drawRect(x - 30, y - 30, width + 60, height + 60);
 
@@ -176,7 +71,7 @@ public class Switch extends Object {
 		Trigger trig = new Trigger(this.getX() - 25, this.getY() - 25, this.getWidth() + 60, this.getHeight() + 60,
 				Trigger.AREA);
 		if(cTrigRadius) {
-			trig.setTriggerRadius(getX()-tX, getY()-tY, width+tW, height+tH);
+			trig.setTriggerRadius(getX() - tX, getY() - tY, width + tW, height + tH);
 		}
 
 		trig.addBasicCollider(c);
@@ -388,10 +283,10 @@ public class Switch extends Object {
 		}
 
 	}
-	
+
 	public void setPos(float _x, float _y){
-		x=_x;
-		y=_y;
+		x = _x;
+		y = _y;
 	}
 
 	public String getTypeAsString(){
