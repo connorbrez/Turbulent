@@ -29,7 +29,9 @@ public class LevelEight implements GameState {
 	Color bg = Color.white;
 	Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
 	SpriteSheet aLoader;
-	SpriteLoader sLoader;
+	SpriteLoader[] sLoader = new SpriteLoader[10];
+	SpriteLoader turbulenceControlls;
+	Image turbulenceControllsOne;
 
 	PhysicsObject finishCube = new PhysicsObject(200, 600 - 20, 10, 10, Color.blue, true);
 	ObjectSpawner fcSpawner;
@@ -144,7 +146,13 @@ public class LevelEight implements GameState {
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
 
 		aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
-		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+		sLoader[0] = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+		sLoader[1] = new SpriteLoader(new SpriteSheet(new Image("res/turbulence_controlls_2.png"),23,25));
+		
+		turbulenceControllsOne = new Image("res/turbulence_controlls_1.png");
+		
+		
+		
 		sx_1 = finishCube.getX() - 10;
 		sx_2 = sOneCube.getX() - 10;
 		sx_3 = sTwoCube.getX() - 10;
@@ -180,36 +188,36 @@ public class LevelEight implements GameState {
 		lSwitch[1].setCustomActionRadius(5, 20, 10, 80);
 		lSwitch[2].setCustomActionRadius(5, 20, 10, 80);
 
-		lSwitch[0].addSprite(sLoader.getImage(4));
-		lSwitch[1].addSprite(sLoader.getImage(4));
-		lSwitch[2].addSprite(sLoader.getImage(4));
-		spike1.addSprite(sLoader.getImage(7));
-		spike2.addSprite(sLoader.getImage(7));
-		spike3.addSprite(sLoader.getImage(7));
-		obj10[0].addSprite(sLoader.getImage(8));
-		obj10[1].addSprite(sLoader.getImage(8));
-		obj10[2].addSprite(sLoader.getImage(8));
-		obj15[0].addSprite(sLoader.getImage(11));
-		obj15[1].addSprite(sLoader.getImage(11));
-		obj15[2].addSprite(sLoader.getImage(11));
-		obj19.addSprite(sLoader.getImage(8));
-		oSprite.addSprite(sLoader.getImage(8));
-		obj21.addSprite(sLoader.getImage(11));
-		spikeStrip[0].addSprite(sLoader.getImage(7));
-		spikeStrip[1].addSprite(sLoader.getImage(7));
-		spikeStrip[2].addSprite(sLoader.getImage(7));
-		spikeStrip[3].addSprite(sLoader.getImage(7));
-		spikeStrip[4].addSprite(sLoader.getImage(7));
-		obj35.addSprite(sLoader.getImage(8));
-		obj36.addSprite(sLoader.getImage(8));
-		obj37.addSprite(sLoader.getImage(8));
-		obj38.addSprite(sLoader.getImage(8));
-		obj39.addSprite(sLoader.getImage(8));
-		sBack.addSprite(sLoader.getImage(2));
-		spike4.addSprite(sLoader.getImage(7));
-		spikes[0].addSprite(sLoader.getImage(7));
-		spikes[1].addSprite(sLoader.getImage(7));
-		spikes[2].addSprite(sLoader.getImage(7));
+		lSwitch[0].addSprite(sLoader[0].getImage(4));
+		lSwitch[1].addSprite(sLoader[0].getImage(4));
+		lSwitch[2].addSprite(sLoader[0].getImage(4));
+		spike1.addSprite(sLoader[0].getImage(7));
+		spike2.addSprite(sLoader[0].getImage(7));
+		spike3.addSprite(sLoader[0].getImage(7));
+		obj10[0].addSprite(sLoader[0].getImage(8));
+		obj10[1].addSprite(sLoader[0].getImage(8));
+		obj10[2].addSprite(sLoader[0].getImage(8));
+		obj15[0].addSprite(sLoader[0].getImage(11));
+		obj15[1].addSprite(sLoader[0].getImage(11));
+		obj15[2].addSprite(sLoader[0].getImage(11));
+		obj19.addSprite(sLoader[0].getImage(8));
+		oSprite.addSprite(sLoader[0].getImage(8));
+		obj21.addSprite(sLoader[0].getImage(11));
+		spikeStrip[0].addSprite(sLoader[0].getImage(7));
+		spikeStrip[1].addSprite(sLoader[0].getImage(7));
+		spikeStrip[2].addSprite(sLoader[0].getImage(7));
+		spikeStrip[3].addSprite(sLoader[0].getImage(7));
+		spikeStrip[4].addSprite(sLoader[0].getImage(7));
+		obj35.addSprite(sLoader[0].getImage(8));
+		obj36.addSprite(sLoader[0].getImage(8));
+		obj37.addSprite(sLoader[0].getImage(8));
+		obj38.addSprite(sLoader[0].getImage(8));
+		obj39.addSprite(sLoader[0].getImage(8));
+		sBack.addSprite(sLoader[0].getImage(2));
+		spike4.addSprite(sLoader[0].getImage(7));
+		spikes[0].addSprite(sLoader[0].getImage(7));
+		spikes[1].addSprite(sLoader[0].getImage(7));
+		spikes[2].addSprite(sLoader[0].getImage(7));
 
 	}
 
@@ -352,8 +360,16 @@ public class LevelEight implements GameState {
 				if(!t.isActive()) {
 					sThreeCube.render(g, sThreeSpawner);
 					sThreeSwitch.render(g);
+					g.setColor(Color.gray);
+					g.fillRect(70, 510, this.turbulenceControllsOne.getWidth()+20, this.turbulenceControllsOne.getHeight()+20);
+					this.turbulenceControllsOne.draw(80, 520);
+					
 
 				}else if(t.isActive(t.z)) {
+					g.setColor(Color.gray);
+					g.fillRect(70, 510, sLoader[1].getImage(0).getWidth()+20, sLoader[1].getImage(0).getHeight()+20);
+					sLoader[1].draw(80, 520, 0);
+					
 					obj40.render(g);
 					obj41.render(g);
 					obj45.render(g);
@@ -363,6 +379,9 @@ public class LevelEight implements GameState {
 					spikes[2].render(g);
 
 				}else if(t.isActive(t.x)) {
+					g.setColor(Color.gray);
+					g.fillRect(70, 510, sLoader[1].getImage(1).getWidth()+20, sLoader[1].getImage(1).getHeight()+20);
+					sLoader[1].draw(80, 520, 1);
 					obj40.render(g);
 					obj41.render(g);
 					obj42.render(g);
@@ -375,6 +394,9 @@ public class LevelEight implements GameState {
 
 					obj47.render(g);
 				}else if(t.isActive(t.c)) {
+					g.setColor(Color.gray);
+					g.fillRect(70, 510, sLoader[1].getImage(2).getWidth()+20, sLoader[1].getImage(2).getHeight()+20);
+					sLoader[1].draw(80, 520, 2);
 					obj40.render(g);
 					obj42.render(g);
 					obj43.render(g);
@@ -451,23 +473,23 @@ public class LevelEight implements GameState {
 			walls[2].addCollider(player, finishCube);
 
 			if(lSwitch[0].isTriggered()) {
-				lSwitch[0].changeSprite(sLoader.getImage(5));
+				lSwitch[0].changeSprite(sLoader[0].getImage(5));
 
 			}else{
-				lSwitch[0].changeSprite(sLoader.getImage(4));
+				lSwitch[0].changeSprite(sLoader[0].getImage(4));
 			}
 
 			if(lSwitch[1].isTriggered()) {
-				lSwitch[1].changeSprite(sLoader.getImage(5));
+				lSwitch[1].changeSprite(sLoader[0].getImage(5));
 			}else{
 
-				lSwitch[1].changeSprite(sLoader.getImage(4));
+				lSwitch[1].changeSprite(sLoader[0].getImage(4));
 			}
 
 			if(lSwitch[2].isTriggered()) {
-				lSwitch[2].changeSprite(sLoader.getImage(5));
+				lSwitch[2].changeSprite(sLoader[0].getImage(5));
 			}else{
-				lSwitch[2].changeSprite(sLoader.getImage(4));
+				lSwitch[2].changeSprite(sLoader[0].getImage(4));
 			}
 
 			Level.levelFinish.addCollider(player, finishCube);
