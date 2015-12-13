@@ -489,7 +489,7 @@ public class LevelEight implements GameState {
 			Level.levelFinish.addCollider(player, finishCube);
 			Level.levelFinish.setNextLevel(Level.stage[9]);
 			if(Level.levelFinish.isFinished(player)) {
-				Level.levelFinish.goToNextLevel(arg1);
+			//	Level.levelFinish.goToNextLevel(arg1);
 			}
 		}else if(lSwitch[0].isTriggered()) {
 			player.setSpawn(200, 580);
