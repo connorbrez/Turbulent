@@ -29,7 +29,7 @@ public class LevelEight implements GameState {
 	Color bg = Color.white;
 	Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
 	SpriteSheet aLoader;
-	SpriteLoader[] sLoader = new SpriteLoader[10];
+	SpriteLoader sLoader;
 	SpriteLoader turbulenceControlls;
 	Image turbulenceControllsOne;
 
@@ -99,7 +99,7 @@ public class LevelEight implements GameState {
 	PhysicsObject sTwoCube = new PhysicsObject(45, 500 - 20, 10, 10, Color.red, true);
 	ObjectSpawner sTwoSpawner;
 	Switch sTwoSwitch = new Switch(50 - 20, 200 - 5, 40, 5, Color.red);
-	// TODO Stage 3
+	// Stage 3
 	Platform obj40 = new Platform(800 - 100, 200, 100, 150, Color.white);
 	Platform obj41 = new Platform(Main.getMidX(50), 540, 50, 10, Color.white);
 	Platform obj42 = new Platform(250, 490, 50, 10, Color.white);
@@ -146,18 +146,16 @@ public class LevelEight implements GameState {
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
 
 		aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
-		sLoader[0] = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
-		sLoader[1] = new SpriteLoader(new SpriteSheet(new Image("res/turbulence_controlls_2.png"),23,25));
-		
+		SpriteSheet[] s = { new SpriteSheet(new Image("res/sprites.png"), 20, 20),
+				new SpriteSheet(new Image("res/turbulence_controlls_2.png"), 23, 25) };
+		sLoader = new SpriteLoader(s);
+
 		turbulenceControllsOne = new Image("res/turbulence_controlls_1.png");
-		
-		
-		
+
 		sx_1 = finishCube.getX() - 10;
 		sx_2 = sOneCube.getX() - 10;
 		sx_3 = sTwoCube.getX() - 10;
 		sx_4 = sThreeCube.getX() - 10;
-
 
 		aLoader.startUse();
 		Image[] iLevelFinish = { aLoader.getSubImage(0, 0), aLoader.getSubImage(1, 0), aLoader.getSubImage(2, 0),
@@ -188,36 +186,36 @@ public class LevelEight implements GameState {
 		lSwitch[1].setCustomActionRadius(5, 20, 10, 80);
 		lSwitch[2].setCustomActionRadius(5, 20, 10, 80);
 
-		lSwitch[0].addSprite(sLoader[0].getImage(4));
-		lSwitch[1].addSprite(sLoader[0].getImage(4));
-		lSwitch[2].addSprite(sLoader[0].getImage(4));
-		spike1.addSprite(sLoader[0].getImage(7));
-		spike2.addSprite(sLoader[0].getImage(7));
-		spike3.addSprite(sLoader[0].getImage(7));
-		obj10[0].addSprite(sLoader[0].getImage(8));
-		obj10[1].addSprite(sLoader[0].getImage(8));
-		obj10[2].addSprite(sLoader[0].getImage(8));
-		obj15[0].addSprite(sLoader[0].getImage(11));
-		obj15[1].addSprite(sLoader[0].getImage(11));
-		obj15[2].addSprite(sLoader[0].getImage(11));
-		obj19.addSprite(sLoader[0].getImage(8));
-		oSprite.addSprite(sLoader[0].getImage(8));
-		obj21.addSprite(sLoader[0].getImage(11));
-		spikeStrip[0].addSprite(sLoader[0].getImage(7));
-		spikeStrip[1].addSprite(sLoader[0].getImage(7));
-		spikeStrip[2].addSprite(sLoader[0].getImage(7));
-		spikeStrip[3].addSprite(sLoader[0].getImage(7));
-		spikeStrip[4].addSprite(sLoader[0].getImage(7));
-		obj35.addSprite(sLoader[0].getImage(8));
-		obj36.addSprite(sLoader[0].getImage(8));
-		obj37.addSprite(sLoader[0].getImage(8));
-		obj38.addSprite(sLoader[0].getImage(8));
-		obj39.addSprite(sLoader[0].getImage(8));
-		sBack.addSprite(sLoader[0].getImage(2));
-		spike4.addSprite(sLoader[0].getImage(7));
-		spikes[0].addSprite(sLoader[0].getImage(7));
-		spikes[1].addSprite(sLoader[0].getImage(7));
-		spikes[2].addSprite(sLoader[0].getImage(7));
+		lSwitch[0].addSprite(sLoader.getImage(4, 0));
+		lSwitch[1].addSprite(sLoader.getImage(4, 0));
+		lSwitch[2].addSprite(sLoader.getImage(4, 0));
+		spike1.addSprite(sLoader.getImage(7, 0));
+		spike2.addSprite(sLoader.getImage(7, 0));
+		spike3.addSprite(sLoader.getImage(7, 0));
+		obj10[0].addSprite(sLoader.getImage(8, 0));
+		obj10[1].addSprite(sLoader.getImage(8, 0));
+		obj10[2].addSprite(sLoader.getImage(8, 0));
+		obj15[0].addSprite(sLoader.getImage(11, 0));
+		obj15[1].addSprite(sLoader.getImage(11, 0));
+		obj15[2].addSprite(sLoader.getImage(11, 0));
+		obj19.addSprite(sLoader.getImage(8, 0));
+		oSprite.addSprite(sLoader.getImage(8, 0));
+		obj21.addSprite(sLoader.getImage(11, 0));
+		spikeStrip[0].addSprite(sLoader.getImage(7, 0));
+		spikeStrip[1].addSprite(sLoader.getImage(7, 0));
+		spikeStrip[2].addSprite(sLoader.getImage(7, 0));
+		spikeStrip[3].addSprite(sLoader.getImage(7, 0));
+		spikeStrip[4].addSprite(sLoader.getImage(7, 0));
+		obj35.addSprite(sLoader.getImage(8, 0));
+		obj36.addSprite(sLoader.getImage(8, 0));
+		obj37.addSprite(sLoader.getImage(8, 0));
+		obj38.addSprite(sLoader.getImage(8, 0));
+		obj39.addSprite(sLoader.getImage(8, 0));
+		sBack.addSprite(sLoader.getImage(2, 0));
+		spike4.addSprite(sLoader.getImage(7, 0));
+		spikes[0].addSprite(sLoader.getImage(7, 0));
+		spikes[1].addSprite(sLoader.getImage(7, 0));
+		spikes[2].addSprite(sLoader.getImage(7, 0));
 
 	}
 
@@ -252,16 +250,14 @@ public class LevelEight implements GameState {
 				g.drawString("S2", 490, 550 - 70);
 			}
 
-			if(!sThreeSwitch.isTriggered()){
-			g.setColor(Color.black);
-			g.drawString("S3", 520, 550 - 70);
+			if(!sThreeSwitch.isTriggered()) {
+				g.setColor(Color.black);
+				g.drawString("S3", 520, 550 - 70);
 			}else{
 				g.setColor(Color.green);
-				g.drawString("S3", 520, 550-70);
+				g.drawString("S3", 520, 550 - 70);
 			}
-			
-		
-			
+
 			lSwitch[0].render(g);
 			lSwitch[1].render(g);
 			lSwitch[2].render(g);
@@ -353,56 +349,56 @@ public class LevelEight implements GameState {
 			obj40.render(g);
 			obj44.render(g);
 
-			if(sThreeCube.goneFromSpawner){
+			if(sThreeCube.goneFromSpawner) {
 				sThreeCube.render(g);
 			}
 
-				if(!t.isActive()) {
-					sThreeCube.render(g, sThreeSpawner);
-					sThreeSwitch.render(g);
-					g.setColor(Color.gray);
-					g.fillRect(70, 510, this.turbulenceControllsOne.getWidth()+20, this.turbulenceControllsOne.getHeight()+20);
-					this.turbulenceControllsOne.draw(80, 520);
-					
+			if(!t.isActive()) {
+				sThreeCube.render(g, sThreeSpawner);
+				sThreeSwitch.render(g);
+				g.setColor(Color.gray);
+				g.fillRect(70, 510, this.turbulenceControllsOne.getWidth() + 20,
+						this.turbulenceControllsOne.getHeight() + 20);
+				this.turbulenceControllsOne.draw(80, 520);
 
-				}else if(t.isActive(t.z)) {
-					g.setColor(Color.gray);
-					g.fillRect(70, 510, sLoader[1].getImage(0).getWidth()+20, sLoader[1].getImage(0).getHeight()+20);
-					sLoader[1].draw(80, 520, 0);
-					
-					obj40.render(g);
-					obj41.render(g);
-					obj45.render(g);
-					obj46.render(g);
-					spikes[0].render(g);
-					spikes[1].render(g);
-					spikes[2].render(g);
+			}else if(t.isActive(t.z)) {
+				g.setColor(Color.gray);
+				g.fillRect(70, 510, sLoader.getImage(0, 1).getWidth() + 20, sLoader.getImage(0, 1).getHeight() + 20);
+				sLoader.draw(80, 520, 0, 1);
 
-				}else if(t.isActive(t.x)) {
-					g.setColor(Color.gray);
-					g.fillRect(70, 510, sLoader[1].getImage(1).getWidth()+20, sLoader[1].getImage(1).getHeight()+20);
-					sLoader[1].draw(80, 520, 1);
-					obj40.render(g);
-					obj41.render(g);
-					obj42.render(g);
-					spike4.render(g);
-					sCover.render(g);
-					obj46.render(g);
-					spikes[0].render(g);
-					spikes[1].render(g);
-					spikes[2].render(g);
+				obj40.render(g);
+				obj41.render(g);
+				obj45.render(g);
+				obj46.render(g);
+				spikes[0].render(g);
+				spikes[1].render(g);
+				spikes[2].render(g);
 
-					obj47.render(g);
-				}else if(t.isActive(t.c)) {
-					g.setColor(Color.gray);
-					g.fillRect(70, 510, sLoader[1].getImage(2).getWidth()+20, sLoader[1].getImage(2).getHeight()+20);
-					sLoader[1].draw(80, 520, 2);
-					obj40.render(g);
-					obj42.render(g);
-					obj43.render(g);
-				}else if(t.isActive()) {
+			}else if(t.isActive(t.x)) {
+				g.setColor(Color.gray);
+				g.fillRect(70, 510, sLoader.getImage(1, 1).getWidth() + 20, sLoader.getImage(1, 1).getHeight() + 20);
+				sLoader.draw(80, 520, 1, 1);
+				obj40.render(g);
+				obj41.render(g);
+				obj42.render(g);
+				spike4.render(g);
+				sCover.render(g);
+				obj46.render(g);
+				spikes[0].render(g);
+				spikes[1].render(g);
+				spikes[2].render(g);
 
-				}
+				obj47.render(g);
+			}else if(t.isActive(t.c)) {
+				g.setColor(Color.gray);
+				g.fillRect(70, 510, sLoader.getImage(2, 1).getWidth() + 20, sLoader.getImage(2, 1).getHeight() + 20);
+				sLoader.draw(80, 520, 2, 1);
+				obj40.render(g);
+				obj42.render(g);
+				obj43.render(g);
+			}else if(t.isActive()) {
+
+			}
 		}
 
 		player.render(g);
@@ -436,8 +432,6 @@ public class LevelEight implements GameState {
 			}
 			sBack.triggered = false;
 		}
-		
-		
 
 		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()) {
 			sBack.setPos(-20, -20);
@@ -459,12 +453,12 @@ public class LevelEight implements GameState {
 			obj0.addCollider(player);
 			obj1.addCollider(player, finishCube);
 
-			if(sOneSwitch.isTriggered() && sTwoSwitch.isTriggered() && sThreeSwitch.isTriggered()){
+			if(sOneSwitch.isTriggered() && sTwoSwitch.isTriggered() && sThreeSwitch.isTriggered()) {
 				walls[0].destroy();
 				walls[1].destroy();
 				walls[2].destroy();
 			}
-			
+
 			finishDoor.addCollider(player);
 			finishDoor.addSwitch(finishSwitch);
 
@@ -473,23 +467,23 @@ public class LevelEight implements GameState {
 			walls[2].addCollider(player, finishCube);
 
 			if(lSwitch[0].isTriggered()) {
-				lSwitch[0].changeSprite(sLoader[0].getImage(5));
+				lSwitch[0].changeSprite(sLoader.getImage(5, 0));
 
 			}else{
-				lSwitch[0].changeSprite(sLoader[0].getImage(4));
+				lSwitch[0].changeSprite(sLoader.getImage(4, 0));
 			}
 
 			if(lSwitch[1].isTriggered()) {
-				lSwitch[1].changeSprite(sLoader[0].getImage(5));
+				lSwitch[1].changeSprite(sLoader.getImage(5, 0));
 			}else{
 
-				lSwitch[1].changeSprite(sLoader[0].getImage(4));
+				lSwitch[1].changeSprite(sLoader.getImage(4, 0));
 			}
 
 			if(lSwitch[2].isTriggered()) {
-				lSwitch[2].changeSprite(sLoader[0].getImage(5));
+				lSwitch[2].changeSprite(sLoader.getImage(5, 0));
 			}else{
-				lSwitch[2].changeSprite(sLoader[0].getImage(4));
+				lSwitch[2].changeSprite(sLoader.getImage(4, 0));
 			}
 
 			Level.levelFinish.addCollider(player, finishCube);
@@ -587,8 +581,6 @@ public class LevelEight implements GameState {
 			sThreeCube.addPhysics();
 			sThreeCube.addPlayer(player);
 			sThreeCube.addPlayerCollider(player);
-			
-		
 
 			if(!t.isActive()) {
 
