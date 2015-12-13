@@ -1,10 +1,15 @@
-package com.connorbrezinsky.turbulent;
+package com.connorbrezinsky.turbulent.object;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-public class PhysicsObject {
+import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.ObjectSpawner;
+import com.connorbrezinsky.turbulent.Trigger;
+
+public class PhysicsObject extends Object {
 
 	public float x;
 	public float y;
@@ -23,6 +28,7 @@ public class PhysicsObject {
 	Character char_;
 
 	public PhysicsObject(float _x, float _y, float w, float h, Color c) {
+		super(_x, _y, w, h, c);
 		x = _x;
 		y = _y;
 		width = w;
@@ -31,6 +37,7 @@ public class PhysicsObject {
 	}
 
 	public PhysicsObject(float _x, float _y, float w, float h, Color c, boolean spawner) {
+		super(_x, _y, w, h, c);
 		x = _x;
 		y = _y;
 		width = w;
@@ -46,45 +53,15 @@ public class PhysicsObject {
 
 	public void addPlayerCollider(Character c){
 		if(goneFromSpawner && canPickup) {
-			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+			if(Main.leftBoxCollider(c, this)) {
 				c.x = x - c.getWidth() - 2;
-
-			}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
-				c.x = x - c.getWidth() - 2;
-
-			}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(),
-					x, y, width, 10)) {
+			}else if(Main.topBoxCollider(c, this)) {
 				c.y = y - c.getHeight();
 				c.yVel = 0;
 				c.isJumping = false;
-			}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
-					10)) {
-				c.y = y - c.getHeight();
-				c.yVel = 0;
-				c.isJumping = false;
-
-			}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
-				c.y = y - c.getHeight();
-				c.yVel = 0;
-				c.isJumping = false;
-
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10,
-					height)) {
+			}else if(Main.rightBoxCollider(c, this)) {
 				c.x = x + width + 0.1F;
-
-			}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
-				c.x = x + width + 0.1F;
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
-					10)) {
-				c.y = y + height;
-				c.yVel = 0;
-
-			}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
-				c.y = y + height;
-				c.yVel = 0;
-
-			}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
-					y + height - 10, width, 10)) {
+			}else if(Main.bottomBoxCollider(c, this)) {
 				c.y = y + height;
 				c.yVel = 0;
 			}
@@ -173,16 +150,24 @@ public class PhysicsObject {
 
 	}
 
+	public void respawn(){
+		if(canPickup) {
+			goneFromSpawner = false;
+			canPickup = true;
+			this.setPos(this.spawnerX + 10, this.spawnerY + 30);
+		}
+	}
+
 	public void carry(Character c){
 		if(char_ != null && char_.direction == Character.LEFT) {
 			this.x = c.x + c.width + 10;
-			this.y = c.y;
+			this.y = c.y - 3;
 		}else if(char_ != null && char_.direction == Character.RIGHT) {
-			this.x = c.x - c.width - 8.1F;
-			this.y = c.y;
+			this.x = c.x - 20;
+			this.y = c.y - 3;
 		}else{
 			this.x = c.x + c.width + 10;
-			this.y = c.y;
+			this.y = c.y - 3;
 		}
 	}
 
@@ -234,15 +219,24 @@ public class PhysicsObject {
 		spawnerY = sy;
 	}
 
+	public void showTriggerArea(Graphics g){
+		g.setColor(Color.red);
+		g.drawRect(x - 40, y - 40, width + 80, height + 80);
+
+	}
+
 	public void addListener(Input i){
-		Trigger trig = new Trigger(x - 5, y - 5, width + 15, height + 15, Trigger.AREA);
+		Trigger trig = new Trigger(x - 40, y - 40, width + 80, height + 80, Trigger.AREA);
 
 		if(char_ != null) {
 
-			trig.addCollider(char_);
-			
+			trig.addBasicCollider(char_);
 
-			if(trig.isTriggered) {
+			if(Main.getKeyPress(i, Input.KEY_R) && goneFromSpawner) {
+				respawn();
+			}
+
+			if(trig.isTriggered && canPickup) {
 				if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
 					pickup(char_);
 				}
@@ -251,6 +245,7 @@ public class PhysicsObject {
 				if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
 					canPickup = true;
 				}
+
 			}
 		}
 	}

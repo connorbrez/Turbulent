@@ -19,7 +19,7 @@ import com.connorbrezinsky.turbulent.levels.LevelThree;
 import com.connorbrezinsky.turbulent.levels.LevelTwo;
 import com.connorbrezinsky.turbulent.levels.TestChamber;
 import com.connorbrezinsky.turbulent.object.Object;
-import com.connorbrezinsky.turbulent.object.Switch;
+import com.connorbrezinsky.turbulent.object.PhysicsObject;
 
 public class Main extends StateBasedGame {
 
@@ -184,7 +184,54 @@ public class Main extends StateBasedGame {
 		}
 	}
 
-	public static boolean rightBoxCollider(Character c, Switch p){
+	
+
+	
+	// TODO add simpler physObj collision functions here
+
+	public static boolean leftBoxCollider(PhysicsObject c, Object p){
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
+				p.height)) {
+			return true;
+
+		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+			return true;
+
+		}else{
+			return false;
+		}
+	}
+
+	public static boolean bottomBoxCollider(PhysicsObject c, Object p){
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
+				10)) {
+			return true;
+		}else
+			if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10) {
+			return true;
+		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
+				p.y + p.height - 10, p.width, 10)) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static boolean topBoxCollider(PhysicsObject c, Object p){
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
+				p.width, 10)) {
+			return true;
+		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
+				10)) {
+			return true;
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static boolean rightBoxCollider(PhysicsObject c, Object p){
 
 		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
 				p.height)) {
@@ -195,24 +242,13 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-
 	
-	// TODO add simpler physObj collision functions here
-
-	public static boolean rightBoxCollider(PhysicsObject c){
-		return false;
-	}
-
-	public static boolean leftBoxCollider(PhysicsObject c){
-		return false;
-	}
-
-	public static boolean topBoxCollider(PhysicsObject c){
-		return false;
-	}
-
-	public static boolean bottomBoxCollider(PhysicsObject c){
-		return false;
+	public static boolean checkCollison(PhysicsObject c, Object o){
+		if(c.getX()>o.getX() && c.getX()+c.getWidth() < o.getX()+o.getWidth() && c.getY()>o.getY()&&c.getY()+c.getHeight()<o.getY()+o.getHeight()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public static boolean getKeyPress(Input i, int key){

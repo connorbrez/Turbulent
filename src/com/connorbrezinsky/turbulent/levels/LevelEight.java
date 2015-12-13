@@ -14,11 +14,11 @@ import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Hazard;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.ObjectSpawner;
-import com.connorbrezinsky.turbulent.PhysicsObject;
 import com.connorbrezinsky.turbulent.SpriteLoader;
 import com.connorbrezinsky.turbulent.Turbulence;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
+import com.connorbrezinsky.turbulent.object.PhysicsObject;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 
@@ -495,9 +495,9 @@ public class LevelEight implements GameState {
 			player.setSpawn(200, 580);
 			sBack.setPos(160, 600 - 30);
 
-			spike1.addCollider(player);
-			spike2.addCollider(player);
-			spike3.addCollider(player);
+			spike1.addCollider(player, sOneCube);
+			spike2.addCollider(player, sOneCube);
+			spike3.addCollider(player, sOneCube);
 
 			sOneCube.addListener(i);
 			sOneCube.addPhysics();
@@ -563,11 +563,11 @@ public class LevelEight implements GameState {
 			sTwoSwitch.addListener(player, sTwoCube, Switch.PRESSURE, i);
 			sTwoSwitch.addCollider(player, sTwoCube);
 
-			spikeStrip[0].addCollider(player);
-			spikeStrip[1].addCollider(player);
-			spikeStrip[2].addCollider(player);
-			spikeStrip[3].addCollider(player);
-			spikeStrip[4].addCollider(player);
+			spikeStrip[0].addCollider(player, sTwoCube);
+			spikeStrip[1].addCollider(player, sTwoCube);
+			spikeStrip[2].addCollider(player, sTwoCube);
+			spikeStrip[3].addCollider(player, sTwoCube);
+			spikeStrip[4].addCollider(player, sTwoCube);
 
 		}else if(lSwitch[2].isTriggered()) {
 			t.addListener(i);
@@ -597,36 +597,36 @@ public class LevelEight implements GameState {
 				obj45.setColor(Color.orange);
 				obj46.setColor(Color.orange);
 
-				obj41.addCollider(player);
-				obj45.addCollider(player);
-				obj46.addCollider(player);
+				obj41.addCollider(player, sThreeCube);
+				obj45.addCollider(player, sThreeCube);
+				obj46.addCollider(player, sThreeCube);
 
-				spikes[0].addCollider(player);
-				spikes[1].addCollider(player);
-				spikes[2].addCollider(player);
+				spikes[0].addCollider(player, sThreeCube);
+				spikes[1].addCollider(player, sThreeCube);
+				spikes[2].addCollider(player, sThreeCube);
 
 			}else if(t.isActive(t.x)) {
 				obj40.setColor(Color.yellow);
 				obj44.setColor(Color.yellow);
 
-				obj41.addCollider(player);
+				obj41.addCollider(player, sThreeCube);
 				obj41.setColor(Color.yellow);
-				obj42.addCollider(player);
+				obj42.addCollider(player, sThreeCube);
 				obj42.setColor(Color.yellow);
-				spike4.addCollider(player);
-				sCover.addCollider(player);
+				spike4.addCollider(player, sThreeCube);
+				sCover.addCollider(player, sThreeCube);
 				sCover.setColor(Color.yellow);
-				obj47.addCollider(player);
+				obj47.addCollider(player, sThreeCube);
 				obj47.setColor(Color.yellow);
-				obj46.addCollider(player);
+				obj46.addCollider(player, sThreeCube);
 				obj46.setColor(Color.yellow);
 			}else if(t.isActive(t.c)) {
 				obj40.setColor(Color.pink);
 				obj44.setColor(Color.pink);
 
-				obj43.addCollider(player);
+				obj43.addCollider(player, sThreeCube);
 				obj43.setColor(Color.pink);
-				obj42.addCollider(player);
+				obj42.addCollider(player, sThreeCube);
 				obj42.setColor(Color.pink);
 
 			}

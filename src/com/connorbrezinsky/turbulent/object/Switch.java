@@ -7,7 +7,6 @@ import org.newdawn.slick.Input;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.PhysicsObject;
 import com.connorbrezinsky.turbulent.Trigger;
 
 public class Switch extends Object {
