@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/jars/jinput.jar"/>
+	<classpathentry kind="lib" path="libs/jars/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Turbulent/libs/native/macosx"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/jars/slick.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Volumes/Workspace/libs/java/slick/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
