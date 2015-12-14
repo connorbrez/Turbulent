@@ -117,19 +117,16 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
+
 	public static boolean checkCollison(Character c, Object o){
-		if(c.getX()>o.getX() && c.getX()+c.getWidth() < o.getX()+o.getWidth() && c.getY()>o.getY()&&c.getY()+c.getHeight()<o.getY()+o.getHeight()){
+		if(c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
+				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()) {
 			return true;
 		}else{
 			return false;
 		}
 	}
 
-	
-	
-	
-	
 	public static boolean rightBoxCollider(Character c, Trigger p){
 
 		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
@@ -141,7 +138,7 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
+
 	public static boolean leftBoxCollider(Character c, Trigger p){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
 				p.height)) {
@@ -183,11 +180,6 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-
-	
-
-	
-	// TODO add simpler physObj collision functions here
 
 	public static boolean leftBoxCollider(PhysicsObject c, Object p){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
@@ -242,9 +234,10 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
+
 	public static boolean checkCollison(PhysicsObject c, Object o){
-		if(c.getX()>o.getX() && c.getX()+c.getWidth() < o.getX()+o.getWidth() && c.getY()>o.getY()&&c.getY()+c.getHeight()<o.getY()+o.getHeight()){
+		if(c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
+				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()) {
 			return true;
 		}else{
 			return false;
@@ -258,10 +251,10 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
+
 	public static boolean getControllerPress(Input i, int button){
-		if(i.getControllerCount()>1){
-			if(i.isControlPressed(button)){
+		if(i.getControllerCount() > 1) {
+			if(i.isControlPressed(button)) {
 				i.clearControlPressedRecord();
 				return true;
 			}else{

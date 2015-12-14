@@ -17,7 +17,7 @@ import com.connorbrezinsky.turbulent.object.Platform;
 public class LevelNine implements GameState {
 
 	Color bg = Color.black;
-	public Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
+	Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
 
 	public LevelNine(int s) {
 
@@ -55,6 +55,7 @@ public class LevelNine implements GameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
+
 		Level.levelFinish.render(g);
 		player.render(g);
 	}
@@ -65,8 +66,10 @@ public class LevelNine implements GameState {
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
+		
 		Level.levelFinish.addCollider(player);
 		Level.levelFinish.setNextLevel(Level.stage[10]);
+		
 		if(Level.levelFinish.isFinished(player)) {
 			Level.levelFinish.goToNextLevel(arg1);
 		}
