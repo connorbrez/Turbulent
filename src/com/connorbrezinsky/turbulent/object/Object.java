@@ -45,6 +45,12 @@ public class Object {
 		isAnimated = true;
 	}
 
+	
+	@Override
+	public String toString() {
+	  return getClass().getSimpleName() + "("+x+", "+y+", "+width+", "+height+", "+color+");";
+	}
+	
 	public Object(float _x, float _y, float w, float h) {
 		x = _x;
 		y = _y;

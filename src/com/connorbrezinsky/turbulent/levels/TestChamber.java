@@ -1,5 +1,6 @@
 package com.connorbrezinsky.turbulent.levels;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -12,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.SpriteLoader;
+import com.connorbrezinsky.turbulent.builder.LevelBuilder;
 
 public class TestChamber implements GameState {
 
@@ -55,6 +57,14 @@ public class TestChamber implements GameState {
 		bg.draw();
 		player.render(g);
 		
+		Input i = arg0.getInput();
+		int mx = i.getAbsoluteMouseX();
+		int my = i.getAbsoluteMouseY();
+			g.setColor(Color.black);
+			g.drawRect(mx-25, my-5, 50, 10);
+			
+			
+			LevelBuilder.renderPlatforms(g);
 		
 	
 	}
@@ -65,6 +75,9 @@ public class TestChamber implements GameState {
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
+		
+		LevelBuilder.addBuilder(i);
+		LevelBuilder.addColliders(player);
 		
 		Level.goToLevel(i, arg1);
 

@@ -39,6 +39,9 @@ public class Platform extends Object {
 		width=w;
 		height=h;
 	}
+	
+	
+	
 
 	public boolean isFinished(Character c){
 		if(getType() == Object.FINISH) {
