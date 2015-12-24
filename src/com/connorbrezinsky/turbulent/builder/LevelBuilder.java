@@ -1,6 +1,8 @@
 package com.connorbrezinsky.turbulent.builder;
 
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import org.newdawn.slick.gui.TextField;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.object.Door;
+import com.connorbrezinsky.turbulent.gui.Gui;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
@@ -35,12 +37,12 @@ public class LevelBuilder {
 	public static TextField height;
 
 	static int p = 0;
-	Switch[] switches = new Switch[200];
-	Door[] doors = new Door[200];
+
 
 	private static UnicodeFont font = getNewFont("Arial", 16);
 
 	public static List<Object> objects = new ArrayList<>();
+	public static Gui guiTest = new Gui(0,0,800,600);
 
 	public LevelBuilder() {
 
@@ -65,9 +67,15 @@ public class LevelBuilder {
 				isActive = true;
 			}
 		}
+		
+		
 
 		if(isActive) {
 			if(i.isMousePressed(0)) {
+				
+				
+				
+				
 				switch(toolActive){
 
 				case TOOL_PLATFORM:
