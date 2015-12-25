@@ -1,6 +1,5 @@
 package com.connorbrezinsky.turbulent.gui;
 
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +33,9 @@ public class Gui {
 	}
 
 	public void addSprite(Image s){
-		i=s;
+		i = s;
 	}
-	
-	
+
 	public void render(Graphics g){
 		if(i == null) {
 			g.setColor(color);
@@ -50,8 +48,6 @@ public class Gui {
 			gc.render(g);
 		}
 	}
+
 	
-	public void addListener(MouseListener e){
-		
-	}
 }

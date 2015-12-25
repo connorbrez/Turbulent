@@ -1,8 +1,6 @@
 package com.connorbrezinsky.turbulent.builder;
 
 import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +11,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.gui.Gui;
+import com.connorbrezinsky.turbulent.gui.GuiComponent;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
@@ -38,11 +34,10 @@ public class LevelBuilder {
 
 	static int p = 0;
 
-
 	private static UnicodeFont font = getNewFont("Arial", 16);
 
 	public static List<Object> objects = new ArrayList<>();
-	public static Gui guiTest = new Gui(0,0,800,600);
+	public static GuiComponent guiTest = new GuiComponent(0, 0, 800, 600);
 
 	public LevelBuilder() {
 
@@ -67,15 +62,9 @@ public class LevelBuilder {
 				isActive = true;
 			}
 		}
-		
-		
 
 		if(isActive) {
 			if(i.isMousePressed(0)) {
-				
-				
-				
-				
 				switch(toolActive){
 
 				case TOOL_PLATFORM:
@@ -123,17 +112,8 @@ public class LevelBuilder {
 	}
 
 	public static void guiListener(Input i){
-		int mx = i.getAbsoluteMouseX();
-		int my = i.getAbsoluteMouseY();
-
-		width.addListener(new ComponentListener(){
-
-			@Override
-			public void componentActivated(AbstractComponent source){
-				System.out.println("width");
-			}
-
-		});
+		final int mx = i.getAbsoluteMouseX();
+		final int my = i.getAbsoluteMouseY();
 
 		if(mx < 80 && my > 200 && my < 200 + 200) {
 			isActive = false;
@@ -150,15 +130,12 @@ public class LevelBuilder {
 				toolActive = TOOL_SWITCH;
 			}
 		}
+
 	}
 
 	public static void placeObject(int x, int y, int w, int h){
 		objects.add(new Platform(x, y, w, h, Color.black));
 		System.out.println("Platform obj" + p + " = new " + objects.get(p));
-		/*
-		 * System.out.println("obj"+p+".render();");
-		 * System.out.println("obj"+p+".addCollider();");
-		 */
 
 		p++;
 

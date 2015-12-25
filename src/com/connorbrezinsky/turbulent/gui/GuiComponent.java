@@ -3,6 +3,7 @@ package com.connorbrezinsky.turbulent.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 
 public class GuiComponent {
 
@@ -46,7 +47,7 @@ public class GuiComponent {
 	}
 
 	public void addText(String s){
-
+		
 	}
 
 	public void addSprite(Image s){
@@ -58,12 +59,20 @@ public class GuiComponent {
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
 		}else{
-			i.draw(x,y,width,height);
+			i.draw(x, y, width, height);
 		}
 	}
 
-	public void addListener(){
-
+	public boolean getClick(Input i){
+		if(i.isMousePressed(0)) {
+			if(i.getMouseX() > x && i.getMouseX() < x + width && i.getMouseY() > y && i.getMouseY() < y + height) {
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 
 }
