@@ -55,29 +55,34 @@ public class TestChamber implements GameState {
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
+		Input i = arg0.getInput();
+		
 		bg.draw();
 		player.render(g);
+		player.addBasicController(i, Input.KEY_D, Input.KEY_A, Input.KEY_SPACE);
+		player.addPhysics();
 
-		Input i = arg0.getInput();
 
-		LevelBuilder.renderObjects(g);
+		/*LevelBuilder.renderObjects(g);
 		LevelBuilder.renderGui(arg0, g);
-		LevelBuilder.showObjectOutline(g, i);
+		LevelBuilder.showObjectOutline(g, i);*/
 
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException{
 		Input i = arg0.getInput();
-		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
-		player.addPhysics();
-		player.addWorldCollider();
+		
+			player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
+			player.addPhysics();
+			player.addWorldCollider();
+		
 
-		LevelBuilder.addBuilder(i);
+		/*LevelBuilder.addBuilder(i);
 		LevelBuilder.addColliders(player);
 		LevelBuilder.guiListener(i);
 
-		Level.goToLevel(i, arg1);
+		Level.goToLevel(i, arg1);*/
 
 	}
 

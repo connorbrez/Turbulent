@@ -8,8 +8,11 @@ import org.newdawn.slick.Input;
 public class GuiComponent {
 
 	int x, y, width, height;
+	String text = "";
 
-	Color color;
+	boolean isActive = false;
+
+	Color color, tColor, bColor;
 	Image i;
 
 	public GuiComponent(Gui gui, int _x, int _y, int w, int h, Color c) {
@@ -19,6 +22,7 @@ public class GuiComponent {
 		width = w;
 		height = h;
 		color = c;
+		tColor = Color.black;
 	}
 
 	public GuiComponent(int _x, int _y, int w, int h, Color c) {
@@ -27,6 +31,7 @@ public class GuiComponent {
 		width = w;
 		height = h;
 		color = c;
+		tColor = Color.black;
 	}
 
 	public GuiComponent(Gui gui, int _x, int _y, int w, int h) {
@@ -36,6 +41,7 @@ public class GuiComponent {
 		width = w;
 		height = h;
 		color = Color.white;
+		tColor = Color.black;
 	}
 
 	public GuiComponent(int _x, int _y, int w, int h) {
@@ -44,10 +50,12 @@ public class GuiComponent {
 		width = w;
 		height = h;
 		color = Color.white;
+		tColor = Color.black;
 	}
 
-	public void addText(String s){
-		
+	public GuiComponent setText(String s){
+		text = s;
+		return this;
 	}
 
 	public void addSprite(Image s){
@@ -58,21 +66,43 @@ public class GuiComponent {
 		if(i == null) {
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
+			g.setColor(tColor);
+			g.drawString(text, x + ((width / 2) - ((text.length() * 5))), y + 4);
 		}else{
 			i.draw(x, y, width, height);
+			g.setColor(tColor);
+			g.drawString(text, x + ((width / 2) - ((text.length() * 5))), y + 4);
 		}
 	}
 
+	public void changeColor(Color c){
+		tColor = c;
+	}
+
+	public void changeBackgroundColor(Color c){
+		color = c;
+	}
+
+	public void setBorderColor(Color c){
+		bColor = c;
+	}
+
+	public void setActive(){
+		isActive=true;
+	}
+	
+	public void setActive(boolean a){
+		isActive=a;
+	}
+
 	public boolean getClick(Input i){
-		if(i.isMousePressed(0)) {
-			if(i.getMouseX() > x && i.getMouseX() < x + width && i.getMouseY() > y && i.getMouseY() < y + height) {
-				return true;
-			}else{
-				return false;
-			}
+		if(i.getMouseX() > x && i.getMouseX() < x + width && i.getMouseY() > y && i.getMouseY() < y + height
+				&& i.isMousePressed(0)) {
+			return true;
 		}else{
 			return false;
 		}
+
 	}
 
 }

@@ -11,10 +11,13 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.gui.Gui;
 import com.connorbrezinsky.turbulent.gui.GuiComponent;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
@@ -28,16 +31,17 @@ public class LevelBuilder {
 	static final int TOOL_SWITCH = 1;
 
 	public static int TOGGLE_KEY = Input.KEY_L;
-	static boolean isActive = true;
-	public static TextField width;
-	public static TextField height;
+	public static boolean isActive = true;
+	public static TextField tfWidth;
+	public static TextField tfHeight;
 
 	static int p = 0;
 
-	private static UnicodeFont font = getNewFont("Arial", 16);
 
 	public static List<Object> objects = new ArrayList<>();
-	public static GuiComponent guiTest = new GuiComponent(0, 0, 800, 600);
+	public static Gui toolSelection = new Gui(0, 200, 90, 200, Color.black);
+	public static GuiComponent toolPlatform = new GuiComponent(toolSelection, 5, 220, 80, 20).setText("Platform");
+	public static GuiComponent toolSwitch = new GuiComponent(toolSelection, 5, 245, 80, 20).setText("Switch");
 
 	public LevelBuilder() {
 
@@ -47,7 +51,7 @@ public class LevelBuilder {
 	public static UnicodeFont getNewFont(String fontName, int fontSize){
 		UnicodeFont returnFont = new UnicodeFont(new Font(fontName, Font.PLAIN, fontSize));
 		returnFont.addAsciiGlyphs();
-		returnFont.getEffects().add(new ColorEffect(java.awt.Color.white));
+		returnFont.getEffects().add(new ColorEffect(java.awt.Color.black));
 		return (returnFont);
 	}
 
@@ -79,58 +83,74 @@ public class LevelBuilder {
 		}
 	}
 
-	// TODO implement gui classes / finish gui classes
-
 	public static void initGui(GameContainer arg0) throws SlickException{
-		font.loadGlyphs();
-		width = new TextField(arg0, font, 5, 300, 30, 20);
-		height = new TextField(arg0, font, 40, 300, 30, 20);
+	
+		tfWidth = new TextField(arg0, arg0.getDefaultFont(), 5, 300, 30, 20);
+		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 40, 300, 30, 20);
+		tfHeight.setMaxLength(3);
+		tfWidth.setMaxLength(3);
+		tfWidth.setFocus(true);
+		tfHeight.setFocus(true);
+		
+ 		
+		tfHeight.addListener(new ComponentListener(){
+
+			@Override
+			public void componentActivated(AbstractComponent source){
+				tfHeight.setFocus(true);
+				System.out.println("height: " + tfHeight.getText());
+			}
+
+		});
+		
+		
+		tfWidth.addListener(new ComponentListener(){
+
+			@Override
+			public void componentActivated(AbstractComponent source){
+				tfWidth.setFocus(true);
+				System.out.println("width: " + tfWidth.getText());				
+			}
+			
+		});
+
 	}
 
 	public static void renderGui(GameContainer arg0, Graphics g){
-		g.fillRect(0, 200, 80, 200);
+		toolSelection.render(g);
 
 		if(toolActive == TOOL_PLATFORM) {
-			g.setColor(Color.white);
-			g.drawString("Switch", 5, 240);
-			g.setColor(Color.green);
-			g.drawString("Platform", 5, 220);
 
-			width.setBorderColor(Color.orange);
-			height.setBorderColor(Color.orange);
+			tfWidth.setBorderColor(Color.orange);
+			tfHeight.setBorderColor(Color.orange);
 			g.setColor(Color.white);
-			height.setBackgroundColor(Color.white);
-			width.setBackgroundColor(Color.white);
-			width.render(arg0, g);
-			height.render(arg0, g);
-		}else if(toolActive == TOOL_SWITCH) {
-			g.setColor(Color.white);
-			g.drawString("Platform", 5, 220);
-			g.setColor(Color.green);
-			g.drawString("Switch", 5, 240);
+			tfHeight.setBackgroundColor(Color.white);
+			tfWidth.setBackgroundColor(Color.white);
+			tfHeight.setTextColor(Color.black);
+			tfWidth.setTextColor(Color.black);
+			tfWidth.render(arg0, g);
+			tfHeight.render(arg0, g);
 		}
 	}
 
-	public static void guiListener(Input i){
+	public static void guiListener(Input i) throws SlickException{
 		final int mx = i.getAbsoluteMouseX();
 		final int my = i.getAbsoluteMouseY();
-
+		
+	
+		
+		
 		if(mx < 80 && my > 200 && my < 200 + 200) {
 			isActive = false;
 		}else{
 			isActive = true;
 		}
 
-		if(mx > 5 && mx < 80 && my > 210 && my < 240) {
-			if(i.isMousePressed(0)) {
-				toolActive = TOOL_PLATFORM;
-			}
-		}else if(mx > 5 && mx < 80 && my > 230 && my < 260) {
-			if(i.isMousePressed(0)) {
-				toolActive = TOOL_SWITCH;
-			}
+		if(toolPlatform.getClick(i)) {
+			toolActive = TOOL_PLATFORM;
+		}else if(toolSwitch.getClick(i)) {
+			toolActive = TOOL_SWITCH;
 		}
-
 	}
 
 	public static void placeObject(int x, int y, int w, int h){

@@ -272,6 +272,8 @@ public class Main extends StateBasedGame {
 		 * addState this.addState(new State(state));
 		 */
 
+		
+		this.addState(new Splash(0));
 		this.addState(new LevelOne(Level.stage[1]));
 		this.addState(new LevelTwo(Level.stage[2]));
 		this.addState(new LevelThree(Level.stage[3]));
@@ -293,6 +295,7 @@ public class Main extends StateBasedGame {
 		 * Init state this.getState(state).init(GameContaniner, this);
 		 */
 
+		this.getState(0).init(arg0, this);
 		this.getState(Level.stage[1]).init(arg0, this);
 		this.getState(Level.stage[2]).init(arg0, this);
 		this.getState(Level.stage[3]).init(arg0, this);
