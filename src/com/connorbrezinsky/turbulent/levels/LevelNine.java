@@ -8,9 +8,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import com.connorbrezinsky.turbulent.Character;
 
+import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.builder.LevelBuilder;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 
@@ -19,7 +20,7 @@ public class LevelNine implements GameState {
 	Color bg = Color.black;
 	Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
 
-	
+	LevelBuilder lb = new LevelBuilder();
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
@@ -33,14 +34,22 @@ public class LevelNine implements GameState {
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
+	lb.initGui(arg0);
+	
 	}
+	
+	
 
 	
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
+		lb.renderObjects(g);
 
+		lb.renderGui(arg0, g);
+		
+		
 		Level.levelFinish.render(g);
 		player.render(g);
 	}
@@ -52,6 +61,10 @@ public class LevelNine implements GameState {
 		player.addPhysics();
 		player.addWorldCollider();
 
+		lb.addBuilder(i);
+		lb.addColliders(player);
+		lb.guiListener(i);
+		
 		Level.levelFinish.addCollider(player);
 		Level.levelFinish.setNextLevel(Level.stage[10]);
 

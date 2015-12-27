@@ -62,7 +62,7 @@ public class Level {
 		}else if(i.isKeyPressed(Input.KEY_0)) {
 			arg1.enterState(stage[10]);
 		}else if(i.isKeyPressed(Input.KEY_T)) {
-			arg1.enterState(1926);
+		//	arg1.enterState(1926);
 		}
 
 	}

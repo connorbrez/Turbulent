@@ -10,7 +10,6 @@ public class GuiComponent {
 	int x, y, width, height;
 	String text = "";
 
-	boolean isActive = false;
 
 	Color color, tColor, bColor;
 	Image i;
@@ -52,12 +51,8 @@ public class GuiComponent {
 		color = Color.white;
 		tColor = Color.black;
 	}
-
-	public GuiComponent setText(String s){
-		text = s;
-		return this;
-	}
-
+	
+	
 	public void addSprite(Image s){
 		i = s;
 	}
@@ -75,24 +70,10 @@ public class GuiComponent {
 		}
 	}
 
-	public void changeColor(Color c){
-		tColor = c;
-	}
+	
 
 	public void changeBackgroundColor(Color c){
 		color = c;
-	}
-
-	public void setBorderColor(Color c){
-		bColor = c;
-	}
-
-	public void setActive(){
-		isActive=true;
-	}
-	
-	public void setActive(boolean a){
-		isActive=a;
 	}
 
 	public boolean getClick(Input i){

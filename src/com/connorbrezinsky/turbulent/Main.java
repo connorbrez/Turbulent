@@ -4,6 +4,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.levels.Level;
@@ -264,6 +265,37 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
+	
+	public static boolean getClick(Input i, Rectangle r){
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY() && i.getMouseY() < r.getY() + r.getHeight()
+				&& i.isMousePressed(0)) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public static boolean getClick(Input i, Object r){
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY() && i.getMouseY() < r.getY() + r.getHeight()
+				&& i.isMousePressed(0)) {
+			
+			return true;
+		}else{
+			
+			return false;
+		}
+	}
+	
+	public static boolean getClick(Input i, Object r, Boolean b){
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY() && i.getMouseY() < r.getY() + r.getHeight()
+				) {
+			
+			return true;
+		}else{
+			
+			return false;
+		}
+	}
 
 	public Main(String name) {
 		super("Turbulent v" + VERSION);
@@ -272,7 +304,6 @@ public class Main extends StateBasedGame {
 		 * addState this.addState(new State(state));
 		 */
 
-		
 		this.addState(new Splash(0));
 		this.addState(new LevelOne(Level.stage[1]));
 		this.addState(new LevelTwo(Level.stage[2]));

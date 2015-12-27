@@ -12,7 +12,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.SpriteLoader;
-import com.connorbrezinsky.turbulent.builder.LevelBuilder;
 
 public class TestChamber implements GameState {
 
@@ -20,6 +19,8 @@ public class TestChamber implements GameState {
 	public Character player = new Character(Main.getMidX(20), 600 - 30, 20, 20, true);
 	SpriteLoader sLoader;
 	Image darkPink;
+
+	// TODO make the level builder a lot less heavy on load times
 
 	public TestChamber(int s) {
 
@@ -44,8 +45,7 @@ public class TestChamber implements GameState {
 
 		Level.characterTest = sLoader.getImage(1);
 
-		LevelBuilder.initGui(arg0);
-
+		
 	}
 
 	@Override
@@ -56,33 +56,33 @@ public class TestChamber implements GameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		Input i = arg0.getInput();
-		
+
 		bg.draw();
 		player.render(g);
 		player.addBasicController(i, Input.KEY_D, Input.KEY_A, Input.KEY_SPACE);
 		player.addPhysics();
 
-
-		/*LevelBuilder.renderObjects(g);
-		LevelBuilder.renderGui(arg0, g);
-		LevelBuilder.showObjectOutline(g, i);*/
+		/*
+		 * LevelBuilder.renderObjects(g); LevelBuilder.renderGui(arg0, g);
+		 * LevelBuilder.showObjectOutline(g, i);
+		 */
 
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException{
 		Input i = arg0.getInput();
-		
-			player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
-			player.addPhysics();
-			player.addWorldCollider();
-		
 
-		/*LevelBuilder.addBuilder(i);
-		LevelBuilder.addColliders(player);
-		LevelBuilder.guiListener(i);
+		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
+		player.addPhysics();
+		player.addWorldCollider();
 
-		Level.goToLevel(i, arg1);*/
+		/*
+		 * LevelBuilder.addBuilder(i); LevelBuilder.addColliders(player);
+		 * LevelBuilder.guiListener(i);
+		 * 
+		 * Level.goToLevel(i, arg1);
+		 */
 
 	}
 

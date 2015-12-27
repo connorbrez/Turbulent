@@ -18,17 +18,18 @@ import org.newdawn.slick.gui.TextField;
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.gui.Gui;
-import com.connorbrezinsky.turbulent.gui.GuiComponent;
+import com.connorbrezinsky.turbulent.gui.GuiButton;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 
 public class LevelBuilder {
 
-	static int toolActive = 0;
+	static int toolActive = 1;
 
-	static final int TOOL_PLATFORM = 0;
-	static final int TOOL_SWITCH = 1;
+	static final int TOOL_REMOVE = 0;
+	static final int TOOL_PLATFORM = 1;
+	static final int TOOL_SWITCH = 2;
 
 	public static int TOGGLE_KEY = Input.KEY_L;
 	public static boolean isActive = true;
@@ -37,11 +38,11 @@ public class LevelBuilder {
 
 	static int p = 0;
 
-
 	public static List<Object> objects = new ArrayList<>();
-	public static Gui toolSelection = new Gui(0, 200, 90, 200, Color.black);
-	public static GuiComponent toolPlatform = new GuiComponent(toolSelection, 5, 220, 80, 20).setText("Platform");
-	public static GuiComponent toolSwitch = new GuiComponent(toolSelection, 5, 245, 80, 20).setText("Switch");
+	public static Gui toolSelection = new Gui(0, 200, 90, 200, Color.gray);
+	public static GuiButton toolRemove = new GuiButton(toolSelection, 5, 220, 80, 20).setText("Remove");
+	public static GuiButton toolPlatform = new GuiButton(toolSelection, 5, 245, 80, 20).setText("Platform");
+	public static GuiButton toolSwitch = new GuiButton(toolSelection, 5, 270, 80, 20).setText("Switch");
 
 	public LevelBuilder() {
 
@@ -55,9 +56,9 @@ public class LevelBuilder {
 		return (returnFont);
 	}
 
-	public static void addBuilder(Input i) throws SlickException{
-		int mouseX = i.getMouseX();
-		int mouseY = i.getMouseY();
+	public void addBuilder(Input i) throws SlickException{
+		int mx = i.getMouseX();
+		int my = i.getMouseY();
 
 		if(Main.getKeyPress(i, Input.KEY_L)) {
 			if(isActive) {
@@ -71,11 +72,27 @@ public class LevelBuilder {
 			if(i.isMousePressed(0)) {
 				switch(toolActive){
 
+				case TOOL_REMOVE:
+					System.out.println("Clicked for Remove");
+					for(Object obj : objects){
+						if(Main.getClick(i, obj, null)) {
+							System.out.println("Removing obj: " + obj.toString());
+							try{
+								objects.remove(obj);
+							}catch(Exception e){
+								System.out.println("Error removing obj " + obj.toString());
+								e.printStackTrace();
+							}
+							break;
+						}
+					}
+					break;
+
 				case TOOL_PLATFORM:
-					placeObject(mouseX - 25, mouseY - 5, 50, 10);
+					placeObject(mx - 25, my - 5, 50, 10);
 					break;
 				case TOOL_SWITCH:
-					placeSwitch(mouseX - 10, mouseY - 10, 20, 20);
+					placeSwitch(mx - 10, my - 10, 20, 20);
 					break;
 
 				}
@@ -83,16 +100,15 @@ public class LevelBuilder {
 		}
 	}
 
-	public static void initGui(GameContainer arg0) throws SlickException{
-	
-		tfWidth = new TextField(arg0, arg0.getDefaultFont(), 5, 300, 30, 20);
-		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 40, 300, 30, 20);
+	public void initGui(GameContainer arg0) throws SlickException{
+
+		tfWidth = new TextField(arg0, arg0.getDefaultFont(), 5, 350, 30, 20);
+		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 40, 350, 30, 20);
 		tfHeight.setMaxLength(3);
 		tfWidth.setMaxLength(3);
 		tfWidth.setFocus(true);
 		tfHeight.setFocus(true);
-		
- 		
+
 		tfHeight.addListener(new ComponentListener(){
 
 			@Override
@@ -102,21 +118,20 @@ public class LevelBuilder {
 			}
 
 		});
-		
-		
+
 		tfWidth.addListener(new ComponentListener(){
 
 			@Override
 			public void componentActivated(AbstractComponent source){
 				tfWidth.setFocus(true);
-				System.out.println("width: " + tfWidth.getText());				
+				System.out.println("width: " + tfWidth.getText());
 			}
-			
+
 		});
 
 	}
 
-	public static void renderGui(GameContainer arg0, Graphics g){
+	public void renderGui(GameContainer arg0, Graphics g){
 		toolSelection.render(g);
 
 		if(toolActive == TOOL_PLATFORM) {
@@ -133,55 +148,54 @@ public class LevelBuilder {
 		}
 	}
 
-	public static void guiListener(Input i) throws SlickException{
-		final int mx = i.getAbsoluteMouseX();
-		final int my = i.getAbsoluteMouseY();
-		
-	
-		
-		
+	public void guiListener(Input i) throws SlickException{
+		int mx = i.getAbsoluteMouseX();
+		int my = i.getAbsoluteMouseY();
+
 		if(mx < 80 && my > 200 && my < 200 + 200) {
 			isActive = false;
 		}else{
 			isActive = true;
 		}
 
-		if(toolPlatform.getClick(i)) {
+		if(toolRemove.getClick(i)) {
+			toolActive = TOOL_REMOVE;
+		}else if(toolPlatform.getClick(i)) {
 			toolActive = TOOL_PLATFORM;
 		}else if(toolSwitch.getClick(i)) {
 			toolActive = TOOL_SWITCH;
 		}
 	}
 
-	public static void placeObject(int x, int y, int w, int h){
-		objects.add(new Platform(x, y, w, h, Color.black));
+	public void placeObject(int x, int y, int w, int h){
+		objects.add(new Platform(x, y, w, h, Color.white));
 		System.out.println("Platform obj" + p + " = new " + objects.get(p));
 
 		p++;
 
 	}
 
-	public static void placeSwitch(int x, int y, int w, int h){
-		objects.add(new Switch(x, y, w, h, Color.black));
+	public void placeSwitch(int x, int y, int w, int h){
+		objects.add(new Switch(x, y, w, h, Color.white));
 		System.out.println("Switch sw" + p + " = new " + objects.get(p));
 		p++;
 
 	}
 
-	public static void renderObjects(Graphics g){
+	public void renderObjects(Graphics g){
 		for(Object obj : objects){
 			obj.render(g);
 		}
 
 	}
 
-	public static void addColliders(Character p){
+	public void addColliders(Character p){
 		for(Object obj : objects){
 			obj.addCollider(p);
 		}
 	}
 
-	public static void showObjectOutline(Graphics g, Input i){
+	public void showObjectOutline(Graphics g, Input i){
 		int mx = i.getAbsoluteMouseX();
 		int my = i.getAbsoluteMouseY();
 
