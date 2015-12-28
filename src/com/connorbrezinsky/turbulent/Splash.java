@@ -26,13 +26,14 @@ public class Splash extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
 		// TODO make better logo
-		logo = new Image("res/logo.png");
+		logo = new Image("res/loading.png");
 	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
-		g.setBackground(Color.lightGray);
-		logo.draw(400 - (logo.getWidth() / 2), 300 - (logo.getHeight() / 2));
+		g.setBackground(Color.white);
+		//logo.draw(400 - (logo.getWidth() / 2), 300 - (logo.getHeight() / 2));
+		logo.draw(0,0);
 
 	}
 
