@@ -43,11 +43,12 @@ public class LevelNine extends BasicGameState {
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
+		Input i = arg0.getInput();
 		g.setBackground(bg);
 		lb.renderObjects(g);
 
 		lb.renderGui(arg0, g);
-
+		lb.showObjectOutline(g, i, Color.white);
 		Level.levelFinish.render(g);
 		player.render(g);
 	}
@@ -60,6 +61,7 @@ public class LevelNine extends BasicGameState {
 		player.addWorldCollider();
 
 		lb.addBuilder(i);
+		
 		lb.addColliders(player);
 		lb.guiListener(i);
 

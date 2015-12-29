@@ -40,7 +40,7 @@ public class LevelBuilder {
 
 	public float platWidth = 50;
 	public float platHeight = 10;
-	
+
 	public static List<Object> objects = new ArrayList<>();
 	public static Gui toolSelection = new Gui(0, 200, 90, 200, Color.gray);
 	public static GuiButton toolRemove = new GuiButton(toolSelection, 5, 220, 80, 20).setText("Remove");
@@ -92,7 +92,7 @@ public class LevelBuilder {
 					break;
 
 				case TOOL_PLATFORM:
-					placeObject(mx - (platWidth/2), my - (platHeight/2), platWidth, platHeight);
+					placeObject(mx - (platWidth / 2), my - (platHeight / 2), platWidth, platHeight);
 					break;
 				case TOOL_SWITCH:
 					placeSwitch(mx - 10, my - 10, 20, 20);
@@ -115,7 +115,7 @@ public class LevelBuilder {
 			@Override
 			public void componentActivated(AbstractComponent source){
 				if(!Float.isNaN(Float.parseFloat(tfHeight.getText()))){
-					platHeight=Float.parseFloat(tfHeight.getText());
+					platHeight = Float.parseFloat(tfHeight.getText());
 				}
 			}
 		});
@@ -125,7 +125,7 @@ public class LevelBuilder {
 			@Override
 			public void componentActivated(AbstractComponent source){
 				if(!Float.isNaN(Float.parseFloat(tfWidth.getText()))){
-					platWidth=Float.parseFloat(tfWidth.getText());
+					platWidth = Float.parseFloat(tfWidth.getText());
 				}
 			}
 
@@ -182,11 +182,8 @@ public class LevelBuilder {
 		if(Main.getClick(i, tfWidth)){
 			activeTf = WIDTH;
 		}else if(Main.getClick(i, tfHeight)){
-			System.out.println("height");
 			activeTf = HEIGHT;
 		}
-
-		System.out.println(activeTf);
 
 		if(activeTf == WIDTH){
 			tfWidth.setFocus(true);
@@ -223,17 +220,17 @@ public class LevelBuilder {
 		}
 	}
 
-	public void showObjectOutline(Graphics g, Input i){
+	public void showObjectOutline(Graphics g, Input i, Color c){
 		int mx = i.getAbsoluteMouseX();
 		int my = i.getAbsoluteMouseY();
 
 		switch(toolActive){
 		case TOOL_PLATFORM:
-			g.setColor(Color.black);
-			g.drawRect(mx - 25, my - 5, 50, 10);
+			g.setColor(c);
+			g.drawRect(mx - (platWidth / 2), my - (platHeight / 2), platWidth, platHeight);
 			break;
 		case TOOL_SWITCH:
-			g.setColor(Color.black);
+			g.setColor(c);
 			g.drawRect(mx - 10, my - 10, 20, 20);
 			break;
 		}
