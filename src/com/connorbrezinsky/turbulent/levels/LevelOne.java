@@ -7,19 +7,22 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.state.GameState;
+import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.SpriteLoader;
+import com.connorbrezinsky.turbulent.State;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 
 
 
-public class LevelOne implements GameState {
+public class LevelOne extends BasicGameState {
 
+	public State levelOne = new State(this);
+	
 	Color bg = Color.black;
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 
@@ -39,7 +42,7 @@ public class LevelOne implements GameState {
 
 	@Override
 	public int getID(){
-				return 1;
+				return levelOne.getId();
 	}
 
 	@Override
@@ -86,8 +89,8 @@ public class LevelOne implements GameState {
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
+		
 
-		// Level.addWallCollison(player);
 
 		Level.levelFinish.addCollider(player);
 		Level.levelFinish.setNextLevel(Level.stage[2]);
@@ -98,114 +101,6 @@ public class LevelOne implements GameState {
 		Level.goToLevel(i, arg1);
 	}
 
-	@Override
-	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-		
-	}
-
-	@Override
-	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-		
-	}
-
-	@Override
-	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-		
-	}
-
-	@Override
-	public void mousePressed(int arg0, int arg1, int arg2){
-		
-	}
-
-	@Override
-	public void mouseReleased(int arg0, int arg1, int arg2){
-		
-	}
-
-	@Override
-	public void mouseWheelMoved(int arg0){
-		
-	}
-
-	@Override
-	public void inputEnded(){
-		
-	}
-
-	@Override
-	public void inputStarted(){
-		
-	}
-
-	@Override
-	public boolean isAcceptingInput(){
-				return false;
-	}
-
-	@Override
-	public void setInput(Input arg0){
-		
-	}
-
-	@Override
-	public void keyPressed(int arg0, char arg1){
-		
-	}
-
-	@Override
-	public void keyReleased(int arg0, char arg1){
-		
-	}
-
-	@Override
-	public void controllerButtonPressed(int arg0, int arg1){
-		
-	}
-
-	@Override
-	public void controllerButtonReleased(int arg0, int arg1){
-		
-	}
-
-	@Override
-	public void controllerDownPressed(int arg0){
-		
-	}
-
-	@Override
-	public void controllerDownReleased(int arg0){
-		
-	}
-
-	@Override
-	public void controllerLeftPressed(int arg0){
-		
-	}
-
-	@Override
-	public void controllerLeftReleased(int arg0){
-		
-	}
-
-	@Override
-	public void controllerRightPressed(int arg0){
-		
-	}
-
-	@Override
-	public void controllerRightReleased(int arg0){
-		
-	}
-
-	@Override
-	public void controllerUpPressed(int arg0){
-		
-	}
-
-	@Override
-	public void controllerUpReleased(int arg0){
-		
-	}
+	
 
 }

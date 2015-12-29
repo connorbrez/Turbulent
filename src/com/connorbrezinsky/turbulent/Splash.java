@@ -13,6 +13,10 @@ public class Splash extends BasicGameState {
 	int timeElapsed;
 	static final int DELAY = 1000;
 
+	State splash = new State(this);
+	public int id = splash.getId();
+	
+	
 	Image logo;
 
 	public Splash(int id) {
@@ -20,7 +24,7 @@ public class Splash extends BasicGameState {
 	}
 
 	public int getID(){
-		return 0;
+		return id;
 	}
 
 	@Override

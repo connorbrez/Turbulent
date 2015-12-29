@@ -32,12 +32,15 @@ public class LevelBuilder {
 	static final int TOOL_SWITCH = 2;
 
 	public static int TOGGLE_KEY = Input.KEY_L;
-	public static boolean isActive = true;
+	public boolean isActive = true;
 	public static TextField tfWidth;
 	public static TextField tfHeight;
 
 	static int p = 0;
 
+	public float platWidth = 50;
+	public float platHeight = 10;
+	
 	public static List<Object> objects = new ArrayList<>();
 	public static Gui toolSelection = new Gui(0, 200, 90, 200, Color.gray);
 	public static GuiButton toolRemove = new GuiButton(toolSelection, 5, 220, 80, 20).setText("Remove");
@@ -60,22 +63,22 @@ public class LevelBuilder {
 		int mx = i.getMouseX();
 		int my = i.getMouseY();
 
-		if(Main.getKeyPress(i, Input.KEY_L)) {
-			if(isActive) {
+		if(Main.getKeyPress(i, Input.KEY_L)){
+			if(isActive){
 				isActive = false;
 			}else{
 				isActive = true;
 			}
 		}
 
-		if(isActive) {
-			if(i.isMousePressed(0)) {
+		if(isActive){
+			if(i.isMousePressed(0)){
 				switch(toolActive){
 
 				case TOOL_REMOVE:
 					System.out.println("Clicked for Remove");
 					for(Object obj : objects){
-						if(Main.getClick(i, obj, null)) {
+						if(Main.getClick(i, obj, null)){
 							System.out.println("Removing obj: " + obj.toString());
 							try{
 								objects.remove(obj);
@@ -89,7 +92,7 @@ public class LevelBuilder {
 					break;
 
 				case TOOL_PLATFORM:
-					placeObject(mx - 25, my - 5, 50, 10);
+					placeObject(mx - (platWidth/2), my - (platHeight/2), platWidth, platHeight);
 					break;
 				case TOOL_SWITCH:
 					placeSwitch(mx - 10, my - 10, 20, 20);
@@ -106,25 +109,24 @@ public class LevelBuilder {
 		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 40, 350, 30, 20);
 		tfHeight.setMaxLength(3);
 		tfWidth.setMaxLength(3);
-		tfWidth.setFocus(true);
-		tfHeight.setFocus(true);
 
 		tfHeight.addListener(new ComponentListener(){
 
 			@Override
 			public void componentActivated(AbstractComponent source){
-				tfHeight.setFocus(true);
-				System.out.println("height: " + tfHeight.getText());
+				if(!Float.isNaN(Float.parseFloat(tfHeight.getText()))){
+					platHeight=Float.parseFloat(tfHeight.getText());
+				}
 			}
-
 		});
 
 		tfWidth.addListener(new ComponentListener(){
 
 			@Override
 			public void componentActivated(AbstractComponent source){
-				tfWidth.setFocus(true);
-				System.out.println("width: " + tfWidth.getText());
+				if(!Float.isNaN(Float.parseFloat(tfWidth.getText()))){
+					platWidth=Float.parseFloat(tfWidth.getText());
+				}
 			}
 
 		});
@@ -134,7 +136,7 @@ public class LevelBuilder {
 	public void renderGui(GameContainer arg0, Graphics g){
 		toolSelection.render(g);
 
-		if(toolActive == TOOL_PLATFORM) {
+		if(toolActive == TOOL_PLATFORM){
 
 			tfWidth.setBorderColor(Color.orange);
 			tfHeight.setBorderColor(Color.orange);
@@ -152,22 +154,48 @@ public class LevelBuilder {
 		int mx = i.getAbsoluteMouseX();
 		int my = i.getAbsoluteMouseY();
 
-		if(mx < 80 && my > 200 && my < 200 + 200) {
+		if(mx < 80 && my > 200 && my < 200 + 200){
 			isActive = false;
 		}else{
 			isActive = true;
 		}
 
-		if(toolRemove.getClick(i)) {
+		if(toolRemove.getClick(i)){
 			toolActive = TOOL_REMOVE;
-		}else if(toolPlatform.getClick(i)) {
+		}else if(toolPlatform.getClick(i)){
 			toolActive = TOOL_PLATFORM;
-		}else if(toolSwitch.getClick(i)) {
+		}else if(toolSwitch.getClick(i)){
 			toolActive = TOOL_SWITCH;
+		}
+
+		tfListener(i);
+
+	}
+
+	int activeTf = 0;
+
+	public void tfListener(Input i){
+
+		final int WIDTH = 1;
+		final int HEIGHT = 2;
+
+		if(Main.getClick(i, tfWidth)){
+			activeTf = WIDTH;
+		}else if(Main.getClick(i, tfHeight)){
+			System.out.println("height");
+			activeTf = HEIGHT;
+		}
+
+		System.out.println(activeTf);
+
+		if(activeTf == WIDTH){
+			tfWidth.setFocus(true);
+		}else if(activeTf == HEIGHT){
+			tfHeight.setFocus(true);
 		}
 	}
 
-	public void placeObject(int x, int y, int w, int h){
+	public void placeObject(float x, float y, float w, float h){
 		objects.add(new Platform(x, y, w, h, Color.white));
 		System.out.println("Platform obj" + p + " = new " + objects.get(p));
 

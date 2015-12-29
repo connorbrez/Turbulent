@@ -7,20 +7,23 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.state.GameState;
+import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Hazard;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.SpriteLoader;
+import com.connorbrezinsky.turbulent.State;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 
-public class LevelFive implements GameState {
+public class LevelFive extends BasicGameState {
 
+	State levelFive = new State(this);
+	
 	Color bg = Color.black;
 	Image e_key;
 	Image dropjump_white;
@@ -72,14 +75,11 @@ public class LevelFive implements GameState {
 
 	}
 
-	@Override
-	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-
-	}
+	
 
 	@Override
 	public int getID(){
-		return 5;
+		return levelFive.getId();
 	}
 
 	@Override
@@ -117,10 +117,7 @@ public class LevelFive implements GameState {
 
 	}
 
-	@Override
-	public void leave(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-
-	}
+	
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
@@ -264,114 +261,5 @@ public class LevelFive implements GameState {
 		Level.goToLevel(i, arg1);
 	}
 
-	@Override
-	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-
-	}
-
-	@Override
-	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-
-	}
-
-	@Override
-	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-
-	}
-
-	@Override
-	public void mousePressed(int arg0, int arg1, int arg2){
-
-	}
-
-	@Override
-	public void mouseReleased(int arg0, int arg1, int arg2){
-
-	}
-
-	@Override
-	public void mouseWheelMoved(int arg0){
-
-	}
-
-	@Override
-	public void inputEnded(){
-
-	}
-
-	@Override
-	public void inputStarted(){
-
-	}
-
-	@Override
-	public boolean isAcceptingInput(){
-		return false;
-	}
-
-	@Override
-	public void setInput(Input arg0){
-
-	}
-
-	@Override
-	public void keyPressed(int arg0, char arg1){
-
-	}
-
-	@Override
-	public void keyReleased(int arg0, char arg1){
-
-	}
-
-	@Override
-	public void controllerButtonPressed(int arg0, int arg1){
-
-	}
-
-	@Override
-	public void controllerButtonReleased(int arg0, int arg1){
-
-	}
-
-	@Override
-	public void controllerDownPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerDownReleased(int arg0){
-
-	}
-
-	@Override
-	public void controllerLeftPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerLeftReleased(int arg0){
-
-	}
-
-	@Override
-	public void controllerRightPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerRightReleased(int arg0){
-
-	}
-
-	@Override
-	public void controllerUpPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerUpReleased(int arg0){
-
-	}
-
+	
 }

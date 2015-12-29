@@ -1,10 +1,14 @@
 package com.connorbrezinsky.turbulent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.levels.Level;
@@ -35,8 +39,11 @@ public class Main extends StateBasedGame {
 
 	public static double VERSION = 0.2;
 
+	static int sInt = 0;
+	static List<State> states = new ArrayList<>();
+
 	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh){
-		if(mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)) {
+		if(mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)){
 			return true;
 		}else{
 			return false;
@@ -58,7 +65,7 @@ public class Main extends StateBasedGame {
 		float boxH = h2;
 		float boxW = w2;
 
-		if(x1 >= boxX && x1 <= boxX + boxW && y1 >= boxY && y1 <= boxY + boxH) {
+		if(x1 >= boxX && x1 <= boxX + boxW && y1 >= boxY && y1 <= boxY + boxH){
 			return true;
 		}else{
 			return false;
@@ -66,11 +73,10 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean leftBoxCollider(Character c, Object p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
-				p.height)) {
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10, p.height)){
 			return true;
 
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
 			return true;
 
 		}else{
@@ -79,14 +85,12 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean bottomBoxCollider(Character c, Object p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
-				10)) {
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width, 10)){
 			return true;
-		}else
-			if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10) {
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10){
 			return true;
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)) {
+				p.y + p.height - 10, p.width, 10)){
 			return true;
 		}else{
 			return false;
@@ -95,12 +99,12 @@ public class Main extends StateBasedGame {
 
 	public static boolean topBoxCollider(Character c, Object p){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)) {
+				p.width, 10)){
 			return true;
 		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)) {
+				10)){
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10){
 			return true;
 		}else{
 			return false;
@@ -109,10 +113,9 @@ public class Main extends StateBasedGame {
 
 	public static boolean rightBoxCollider(Character c, Object p){
 
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
-				p.height)) {
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10, p.height)){
 			return true;
-		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
 			return true;
 		}else{
 			return false;
@@ -121,7 +124,7 @@ public class Main extends StateBasedGame {
 
 	public static boolean checkCollison(Character c, Object o){
 		if(c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
-				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()) {
+				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()){
 			return true;
 		}else{
 			return false;
@@ -130,10 +133,9 @@ public class Main extends StateBasedGame {
 
 	public static boolean rightBoxCollider(Character c, Trigger p){
 
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
-				p.height)) {
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10, p.height)){
 			return true;
-		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
 			return true;
 		}else{
 			return false;
@@ -141,11 +143,10 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean leftBoxCollider(Character c, Trigger p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
-				p.height)) {
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10, p.height)){
 			return true;
 
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
 			return true;
 
 		}else{
@@ -154,14 +155,12 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean bottomBoxCollider(Character c, Trigger p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
-				10)) {
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width, 10)){
 			return true;
-		}else
-			if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10) {
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10){
 			return true;
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)) {
+				p.y + p.height - 10, p.width, 10)){
 			return true;
 		}else{
 			return false;
@@ -170,12 +169,12 @@ public class Main extends StateBasedGame {
 
 	public static boolean topBoxCollider(Character c, Trigger p){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)) {
+				p.width, 10)){
 			return true;
 		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)) {
+				10)){
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10){
 			return true;
 		}else{
 			return false;
@@ -183,11 +182,10 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean leftBoxCollider(PhysicsObject c, Object p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
-				p.height)) {
+		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10, p.height)){
 			return true;
 
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
 			return true;
 
 		}else{
@@ -196,14 +194,12 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean bottomBoxCollider(PhysicsObject c, Object p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
-				10)) {
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width, 10)){
 			return true;
-		}else
-			if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10) {
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10){
 			return true;
 		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)) {
+				p.y + p.height - 10, p.width, 10)){
 			return true;
 		}else{
 			return false;
@@ -212,12 +208,12 @@ public class Main extends StateBasedGame {
 
 	public static boolean topBoxCollider(PhysicsObject c, Object p){
 		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)) {
+				p.width, 10)){
 			return true;
 		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)) {
+				10)){
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
+		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10){
 			return true;
 		}else{
 			return false;
@@ -226,10 +222,9 @@ public class Main extends StateBasedGame {
 
 	public static boolean rightBoxCollider(PhysicsObject c, Object p){
 
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
-				p.height)) {
+		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10, p.height)){
 			return true;
-		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
+		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
 			return true;
 		}else{
 			return false;
@@ -238,7 +233,7 @@ public class Main extends StateBasedGame {
 
 	public static boolean checkCollison(PhysicsObject c, Object o){
 		if(c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
-				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()) {
+				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()){
 			return true;
 		}else{
 			return false;
@@ -246,7 +241,7 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean getKeyPress(Input i, int key){
-		if(i.isKeyPressed(key) && i.isKeyDown(key)) {
+		if(i.isKeyPressed(key) && i.isKeyDown(key)){
 			return true;
 		}else{
 			return false;
@@ -254,8 +249,8 @@ public class Main extends StateBasedGame {
 	}
 
 	public static boolean getControllerPress(Input i, int button){
-		if(i.getControllerCount() > 1) {
-			if(i.isControlPressed(button)) {
+		if(i.getControllerCount() > 1){
+			if(i.isControlPressed(button)){
 				i.clearControlPressedRecord();
 				return true;
 			}else{
@@ -265,35 +260,57 @@ public class Main extends StateBasedGame {
 			return false;
 		}
 	}
-	
+
 	public static boolean getClick(Input i, Rectangle r){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY() && i.getMouseY() < r.getY() + r.getHeight()
-				&& i.isMousePressed(0)) {
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
 	public static boolean getClick(Input i, Object r){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY() && i.getMouseY() < r.getY() + r.getHeight()
-				&& i.isMousePressed(0)) {
-			
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
+
 			return true;
 		}else{
-			
+
 			return false;
 		}
 	}
-	
+
 	public static boolean getClick(Input i, Object r, Boolean b){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY() && i.getMouseY() < r.getY() + r.getHeight()
-				) {
-			
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight()){
+
 			return true;
 		}else{
-			
+
 			return false;
+		}
+	}
+
+	public static boolean getClick(Input i, TextField r){
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
+
+			return true;
+		}else{
+
+			return false;
+		}
+	}
+
+	public static void addTextFieldFocusListener(Input i, TextField r){
+		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
+
+			r.setFocus(true);
+		}else{
+
+			r.setFocus(false);
 		}
 	}
 
@@ -326,18 +343,8 @@ public class Main extends StateBasedGame {
 		 * Init state this.getState(state).init(GameContaniner, this);
 		 */
 
-		this.getState(0).init(arg0, this);
-		this.getState(Level.stage[1]).init(arg0, this);
-		this.getState(Level.stage[2]).init(arg0, this);
-		this.getState(Level.stage[3]).init(arg0, this);
-		this.getState(Level.stage[4]).init(arg0, this);
-		this.getState(Level.stage[5]).init(arg0, this);
-		this.getState(Level.stage[6]).init(arg0, this);
-		this.getState(Level.stage[7]).init(arg0, this);
-		this.getState(Level.stage[8]).init(arg0, this);
-		this.getState(Level.stage[9]).init(arg0, this);
-		this.getState(Level.stage[10]).init(arg0, this);
-		this.getState(Level.testChamber).init(arg0, this);
+		State.initStates(arg0, this);
+		System.out.println(states);
 
 	}
 

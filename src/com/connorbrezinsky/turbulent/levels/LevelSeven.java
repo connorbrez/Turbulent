@@ -7,17 +7,20 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.state.GameState;
+import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import com.connorbrezinsky.turbulent.Character;
 
+import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.SpriteLoader;
+import com.connorbrezinsky.turbulent.State;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 
-public class LevelSeven implements GameState {
+public class LevelSeven extends BasicGameState {
+
+	State levelSeven = new State(this);
 
 	Color bg = Color.black;
 	public Character player = new Character(100, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
@@ -52,7 +55,7 @@ public class LevelSeven implements GameState {
 
 	@Override
 	public int getID(){
-		return Level.stage[7];
+		return levelSeven.getId();
 	}
 
 	@Override
@@ -128,10 +131,6 @@ public class LevelSeven implements GameState {
 		doorWalls[2].render(g);
 		g.setColor(Color.black);
 		g.drawString("23", obj1.getX() + 40, obj1.getY() - 3);
-		
-	
-		
-
 
 		player.render(g);
 	}
@@ -153,33 +152,33 @@ public class LevelSeven implements GameState {
 		switchFour.addListener(player, Switch.ACTION, i);
 
 		if(switchThree.isTriggered() && switchTwo.isTriggered() && !switchFour.isTriggered()
-				&& !switchOne.isTriggered()) {
+				&& !switchOne.isTriggered()){
 			doorWalls[0].destroy();
 			doorWalls[1].destroy();
 			doorWalls[2].destroy();
 		}
 
-		if(switchOne.isTriggered()) {
+		if(switchOne.isTriggered()){
 			switchOne.changeSprite(sLoader.getImage(3));
 		}else{
 			switchOne.changeSprite(sLoader.getImage(2));
 
 		}
 
-		if(switchTwo.isTriggered()) {
+		if(switchTwo.isTriggered()){
 			switchTwo.changeSprite(sLoader.getImage(3));
 		}else{
 			switchTwo.changeSprite(sLoader.getImage(2));
 
 		}
 
-		if(switchThree.isTriggered()) {
+		if(switchThree.isTriggered()){
 			switchThree.changeSprite(sLoader.getImage(3));
 		}else{
 			switchThree.changeSprite(sLoader.getImage(2));
 		}
 
-		if(switchFour.isTriggered()) {
+		if(switchFour.isTriggered()){
 			switchFour.changeSprite(sLoader.getImage(3));
 		}else{
 			switchFour.changeSprite(sLoader.getImage(2));
@@ -209,8 +208,8 @@ public class LevelSeven implements GameState {
 
 		levelFinish.addCollider(player);
 		levelFinish.setNextLevel(Level.stage[8]);
-		if(levelFinish.isFinished(player)) {
-			 levelFinish.goToNextLevel(arg1);
+		if(levelFinish.isFinished(player)){
+			levelFinish.goToNextLevel(arg1);
 		}
 		Level.goToLevel(i, arg1);
 
@@ -219,125 +218,4 @@ public class LevelSeven implements GameState {
 	public LevelSeven(int s) {
 
 	}
-
-	@Override
-	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-
-	}
-
-	@Override
-	public void leave(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-
-	}
-
-	@Override
-	public void mouseClicked(int arg0, int arg1, int arg2, int arg3){
-
-	}
-
-	@Override
-	public void mouseDragged(int arg0, int arg1, int arg2, int arg3){
-
-	}
-
-	@Override
-	public void mouseMoved(int arg0, int arg1, int arg2, int arg3){
-
-	}
-
-	@Override
-	public void mousePressed(int arg0, int arg1, int arg2){
-
-	}
-
-	@Override
-	public void mouseReleased(int arg0, int arg1, int arg2){
-
-	}
-
-	@Override
-	public void mouseWheelMoved(int arg0){
-
-	}
-
-	@Override
-	public void inputEnded(){
-
-	}
-
-	@Override
-	public void inputStarted(){
-
-	}
-
-	@Override
-	public boolean isAcceptingInput(){
-		return false;
-	}
-
-	@Override
-	public void setInput(Input arg0){
-
-	}
-
-	@Override
-	public void keyPressed(int arg0, char arg1){
-
-	}
-
-	@Override
-	public void keyReleased(int arg0, char arg1){
-
-	}
-
-	@Override
-	public void controllerButtonPressed(int arg0, int arg1){
-
-	}
-
-	@Override
-	public void controllerButtonReleased(int arg0, int arg1){
-
-	}
-
-	@Override
-	public void controllerDownPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerDownReleased(int arg0){
-
-	}
-
-	@Override
-	public void controllerLeftPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerLeftReleased(int arg0){
-
-	}
-
-	@Override
-	public void controllerRightPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerRightReleased(int arg0){
-
-	}
-
-	@Override
-	public void controllerUpPressed(int arg0){
-
-	}
-
-	@Override
-	public void controllerUpReleased(int arg0){
-
-	}
-
 }
