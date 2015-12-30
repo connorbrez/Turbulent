@@ -43,8 +43,10 @@ public class PhysicsObject extends Object {
 		width = w;
 		height = h;
 		color = c;
-		hasSpawner = true;
-		goneFromSpawner = false;
+		hasSpawner = spawner;
+		if(spawner){
+			goneFromSpawner = false;
+		}
 	}
 
 	public void addPlayer(Character c){

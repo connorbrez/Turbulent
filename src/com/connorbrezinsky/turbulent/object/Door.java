@@ -13,11 +13,11 @@ public class Door extends Object {
 	public Color color;
 	public boolean isOpen = false;
 
-	public Door(int _x, int _y, int w, int h, Color c) {
+	public Door(float _x, float _y, float w, float h, Color c) {
 		super(_x, _y, w, h, c);
 		x = _x;
 		y = _y;
-		width = 5;
+		width = w;
 		height = h;
 		color = c;
 	}

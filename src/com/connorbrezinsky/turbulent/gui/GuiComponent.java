@@ -13,6 +13,7 @@ public class GuiComponent {
 
 	Color color, tColor, bColor;
 	Image i;
+	Gui g;
 
 	public GuiComponent(Gui gui, int _x, int _y, int w, int h, Color c) {
 		gui.components.add(this);
@@ -22,6 +23,7 @@ public class GuiComponent {
 		height = h;
 		color = c;
 		tColor = Color.black;
+		g = gui;
 	}
 
 	public GuiComponent(int _x, int _y, int w, int h, Color c) {
@@ -41,6 +43,7 @@ public class GuiComponent {
 		height = h;
 		color = Color.white;
 		tColor = Color.black;
+		g = gui;
 	}
 
 	public GuiComponent(int _x, int _y, int w, int h) {
@@ -62,11 +65,11 @@ public class GuiComponent {
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
 			g.setColor(tColor);
-			g.drawString(text, x + ((width / 2) - ((text.length() * 5))), y + 4);
+			g.drawString(text, x + ((width / 2) - (text.length() * 5)), y);
 		}else{
 			i.draw(x, y, width, height);
 			g.setColor(tColor);
-			g.drawString(text, x + ((width / 2) - ((text.length() * 5))), y + 4);
+			g.drawString(text, x + ((width / 2) - ((text.length() * 5))), y);
 		}
 	}
 
@@ -77,12 +80,24 @@ public class GuiComponent {
 	}
 
 	public boolean getClick(Input i){
-		if(i.getMouseX() > x && i.getMouseX() < x + width && i.getMouseY() > y && i.getMouseY() < y + height
-				&& i.isMousePressed(0)) {
-			return true;
+		if(g==null){
+			if(i.getMouseX() > x && i.getMouseX() < x + width && i.getMouseY() > y && i.getMouseY() < y + height
+					&& i.isMousePressed(0)) {
+				return true;
+			}else{
+				return false;
+			}
+		}else if(g.isVisible){
+			if(i.getMouseX() > x && i.getMouseX() < x + width && i.getMouseY() > y && i.getMouseY() < y + height
+					&& i.isMousePressed(0)) {
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
+		
 
 	}
 

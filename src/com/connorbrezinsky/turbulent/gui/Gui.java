@@ -11,6 +11,7 @@ public class Gui {
 
 	int x, y, width, height;
 	Color color;
+	public boolean isVisible = true;
 
 	Image i;
 
@@ -37,17 +38,26 @@ public class Gui {
 	}
 
 	public void render(Graphics g){
-		if(i == null) {
-			g.setColor(color);
-			g.fillRect(x, y, width, height);
-		}else{
-			i.draw(x, y, width, height);
-		}
+		if(isVisible){
+			if(i == null){
+				g.setColor(color);
+				g.fillRect(x, y, width, height);
+			}else{
+				i.draw(x, y, width, height);
+			}
 
-		for(GuiComponent gc : components){
-			gc.render(g);
+			for(GuiComponent gc : components){
+				gc.render(g);
+			}
 		}
 	}
 
+	public void hide(){
+		isVisible = false;
+	}
 	
+	public void unHide(){
+		isVisible = true;
+	}
+
 }

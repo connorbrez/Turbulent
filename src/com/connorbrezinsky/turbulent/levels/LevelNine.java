@@ -24,6 +24,8 @@ public class LevelNine extends BasicGameState {
 	Character player = new Character(40, Main.getMidY(20) + 200, 20, 20, Color.darkGray);
 
 	LevelBuilder lb = new LevelBuilder();
+	
+
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
@@ -49,6 +51,9 @@ public class LevelNine extends BasicGameState {
 
 		lb.renderGui(arg0, g);
 		lb.showObjectOutline(g, i, Color.white);
+		
+		
+		
 		Level.levelFinish.render(g);
 		player.render(g);
 	}
