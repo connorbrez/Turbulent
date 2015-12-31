@@ -4,7 +4,7 @@ The platformer where chaotic change is normal.
 
 Libraries used
 ---------------
-  - LWGJL
+  - LWJGL
   - JInput
   - Slick2d
   - Apahce Commons IO
