@@ -4,6 +4,8 @@ import org.newdawn.slick.Color;
 
 public class GuiButton extends GuiComponent {
 
+	
+	
 	public GuiButton(Gui gui, int _x, int _y, int w, int h) {
 		super(gui, _x, _y, w, h);
 	}
@@ -27,8 +29,13 @@ public class GuiButton extends GuiComponent {
 		return this;
 	}
 	
-	public void changeColor(Color c){
+	public void setColor(Color c){
 		tColor = c;
+	}
+	
+	public GuiButton setBorderColor(Color c){
+		bColor=c;
+		return this;
 	}
 
 }

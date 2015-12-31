@@ -61,11 +61,17 @@ public class GuiComponent {
 	}
 
 	public void render(Graphics g){
+		
+		
 		if(i == null) {
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
 			g.setColor(tColor);
 			g.drawString(text, x + ((width / 2) - (text.length() * 5)), y);
+			if(bColor!=null){
+				g.setColor(bColor);
+				g.drawRect(x, y, width, height);
+			}
 		}else{
 			i.draw(x, y, width, height);
 			g.setColor(tColor);
@@ -75,7 +81,7 @@ public class GuiComponent {
 
 	
 
-	public void changeBackgroundColor(Color c){
+	public void setBackgroundColor(Color c){
 		color = c;
 	}
 

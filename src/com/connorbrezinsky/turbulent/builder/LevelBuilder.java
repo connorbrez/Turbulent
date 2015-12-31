@@ -49,13 +49,24 @@ public class LevelBuilder {
 
 	static List<Object> objects = new ArrayList<>();
 	Gui toolSelection = new Gui(0, 200, 90, 200, Color.gray);
-	Gui colorGui = new Gui(0, 0, 0, 0, Color.transparent);
+	Gui colorGui = new Gui(90, 200, 95, 135, Color.gray);
 
 	GuiButton toolRemove = new GuiButton(toolSelection, 5, 220, 80, 20).setText("Remove");
 	GuiButton toolPlatform = new GuiButton(toolSelection, 5, 245, 80, 20).setText("Platform");
 	GuiButton toolSwitch = new GuiButton(toolSelection, 5, 270, 80, 20).setText("Switch");
 	GuiButton toolDoor = new GuiButton(toolSelection, 5, 295, 80, 20).setText("Door");
 	GuiButton hideGui = new GuiButton(0, 200, 15, 15).setText("-");
+	GuiButton currentColor = new GuiButton(toolSelection, 90 / 2 - 30 / 2, 375, 30, 20, objColor)
+			.setBorderColor(Color.darkGray);;
+
+	GuiButton blue = new GuiButton(colorGui, 105, 220, 30, 20, Color.blue);
+	GuiButton green = new GuiButton(colorGui, 105, 245, 30, 20, Color.green);
+	GuiButton orange = new GuiButton(colorGui, 105, 270, 30, 20, Color.orange);
+	GuiButton black = new GuiButton(colorGui, 105, 295, 30, 20, Color.black);
+	GuiButton white = new GuiButton(colorGui, 140, 220, 30, 20, Color.white);
+	GuiButton cyan = new GuiButton(colorGui, 140, 245, 30, 20, Color.cyan);
+	GuiButton red = new GuiButton(colorGui, 140, 270, 30, 20, Color.red);
+	GuiButton pink = new GuiButton(colorGui, 140, 295, 30, 20, Color.pink);
 
 	public LevelBuilder() {
 
@@ -117,8 +128,8 @@ public class LevelBuilder {
 
 	public void initGui(GameContainer arg0) throws SlickException{
 
-		tfWidth = new TextField(arg0, arg0.getDefaultFont(), 5, 350, 30, 20);
-		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 40, 350, 30, 20);
+		tfWidth = new TextField(arg0, arg0.getDefaultFont(), 10, 350, 30, 20);
+		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 50, 350, 30, 20);
 		tfHeight.setMaxLength(3);
 		tfWidth.setMaxLength(3);
 
@@ -146,12 +157,13 @@ public class LevelBuilder {
 
 	public void renderGui(GameContainer arg0, Graphics g){
 		toolSelection.render(g);
+		colorGui.render(g);
 		hideGui.render(g);
 		if(toolSelection.isVisible){
 			if(toolActive == TOOL_PLATFORM || toolActive == TOOL_DOOR){
 
-				tfWidth.setBorderColor(Color.orange);
-				tfHeight.setBorderColor(Color.orange);
+				tfWidth.setBorderColor(Color.darkGray);
+				tfHeight.setBorderColor(Color.darkGray);
 				g.setColor(Color.white);
 				tfHeight.setBackgroundColor(Color.white);
 				tfWidth.setBackgroundColor(Color.white);
@@ -163,16 +175,32 @@ public class LevelBuilder {
 		}
 	}
 
+	boolean colorGuiActive = false;
+
 	public void guiListener(Input i) throws SlickException{
 		int mx = i.getAbsoluteMouseX();
 		int my = i.getAbsoluteMouseY();
 
+		currentColor.setBackgroundColor(objColor);
+		
 		if(mx < 80 && my > 200 && my < 200 + 200 && toolSelection.isVisible){
 			isActive = false;
 		}else if(mx > 0 && mx < 15 && my > 200 && my < 215){
 			isActive = false;
+		}else if(colorGui.isVisible){
+			isActive = false;
 		}else{
 			isActive = true;
+		}
+
+		if(colorGuiActive){
+			colorGui.unHide();
+		}else{
+			colorGui.hide();
+		}
+		
+		if(colorGui.isVisible && colorGuiActive){
+			
 		}
 
 		if(toolRemove.getClick(i)){
@@ -191,14 +219,43 @@ public class LevelBuilder {
 				toolSelection.unHide();
 				hideGui.setText("-");
 			}
+		}else if(currentColor.getClick(i)){
+			if(colorGuiActive){
+				colorGuiActive=false;
+			}else{
+				colorGuiActive=true;
+			}
 		}
 
+		cgListener(i);
 		tfListener(i);
 
 	}
 
+	public void cgListener(Input i){
+		if(colorGuiActive && colorGui.isVisible){
+			if(blue.getClick(i)){
+				objColor=Color.blue;
+			}else if(red.getClick(i)){
+				objColor=Color.red;
+			}else if(green.getClick(i)){
+				objColor=Color.green;
+			}else if(orange.getClick(i)){
+				objColor=Color.orange;
+			}else if(white.getClick(i)){
+				objColor=Color.white;
+			}else if(black.getClick(i)){
+				objColor=Color.black;
+			}else if(pink.getClick(i)){
+				objColor=Color.pink;
+			}else if(cyan.getClick(i)){
+				objColor=Color.cyan;
+			}
+		}
+	}
+	
 	int activeTf = 0;
-
+	
 	public void tfListener(Input i){
 
 		final int WIDTH = 1;
@@ -224,7 +281,8 @@ public class LevelBuilder {
 		objects.add(new Platform(x, y, w, h, objColor));
 
 		try{
-			FileUtils.writeStringToFile(new File(this.getClass()+"platforms.txt"), "Platform obj" + o + " = new " + objects.get(p)+"\n", true);
+			FileUtils.writeStringToFile(new File(this.getClass() + "platforms.txt"),
+					"Platform obj" + o + " = new " + objects.get(p) + "\n", true);
 			FileUtils.writeStringToFile(new File("platforms_render.txt"), "obj" + o + ".render();\n", true);
 			FileUtils.writeStringToFile(new File("platforms_collider.txt"), "obj" + o + ".addCollider();\n", true);
 		}catch(IOException e){
@@ -240,7 +298,8 @@ public class LevelBuilder {
 	public void placeSwitch(float x, float y, float w, float h){
 		objects.add(new Switch(x, y, w, h, objColor));
 		try{
-			FileUtils.writeStringToFile(new File("switch.txt"), "Switch sw" + o + " = new " + objects.get(p)+"\n", true);
+			FileUtils.writeStringToFile(new File("switch.txt"), "Switch sw" + o + " = new " + objects.get(p) + "\n",
+					true);
 			FileUtils.writeStringToFile(new File("switch_render.txt"), "sw" + o + ".render();\n", true);
 			FileUtils.writeStringToFile(new File("switch_collider.txt"), "sw" + o + ".addCollider();\n", true);
 		}catch(IOException e){
@@ -255,9 +314,9 @@ public class LevelBuilder {
 	public void placeDoor(float x, float y, float w, float h){
 		objects.add(new Door(x, y, w, h, objColor));
 		try{
-			
-			
-			FileUtils.writeStringToFile(new File("door.txt"), "Platform dr" + o + " = new " + objects.get(p)+"\n", true);
+
+			FileUtils.writeStringToFile(new File("door.txt"), "Platform dr" + o + " = new " + objects.get(p) + "\n",
+					true);
 			FileUtils.writeStringToFile(new File("door_render.txt"), "dr" + o + ".render();\n", true);
 			FileUtils.writeStringToFile(new File("door_collider.txt"), "dr" + o + ".addCollider();\n", true);
 		}catch(IOException e){
