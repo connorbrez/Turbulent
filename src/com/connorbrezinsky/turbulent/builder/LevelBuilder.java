@@ -99,10 +99,14 @@ public class LevelBuilder {
 				case TOOL_REMOVE:
 					System.out.println("Clicked for Remove");
 					for(Object obj : objects){
+						
 						if(Main.getClick(i, obj, null)){
 							System.out.println("Removing obj: " + obj.toString());
 							try{
+								
+								
 								objects.remove(obj);
+								
 							}catch(Exception e){
 								System.out.println("Error removing obj " + obj.toString());
 								e.printStackTrace();
@@ -182,7 +186,7 @@ public class LevelBuilder {
 		int my = i.getAbsoluteMouseY();
 
 		currentColor.setBackgroundColor(objColor);
-		
+
 		if(mx < 80 && my > 200 && my < 200 + 200 && toolSelection.isVisible){
 			isActive = false;
 		}else if(mx > 0 && mx < 15 && my > 200 && my < 215){
@@ -198,9 +202,9 @@ public class LevelBuilder {
 		}else{
 			colorGui.hide();
 		}
-		
+
 		if(colorGui.isVisible && colorGuiActive){
-			
+
 		}
 
 		if(toolRemove.getClick(i)){
@@ -221,9 +225,9 @@ public class LevelBuilder {
 			}
 		}else if(currentColor.getClick(i)){
 			if(colorGuiActive){
-				colorGuiActive=false;
+				colorGuiActive = false;
 			}else{
-				colorGuiActive=true;
+				colorGuiActive = true;
 			}
 		}
 
@@ -235,27 +239,27 @@ public class LevelBuilder {
 	public void cgListener(Input i){
 		if(colorGuiActive && colorGui.isVisible){
 			if(blue.getClick(i)){
-				objColor=Color.blue;
+				objColor = Color.blue;
 			}else if(red.getClick(i)){
-				objColor=Color.red;
+				objColor = Color.red;
 			}else if(green.getClick(i)){
-				objColor=Color.green;
+				objColor = Color.green;
 			}else if(orange.getClick(i)){
-				objColor=Color.orange;
+				objColor = Color.orange;
 			}else if(white.getClick(i)){
-				objColor=Color.white;
+				objColor = Color.white;
 			}else if(black.getClick(i)){
-				objColor=Color.black;
+				objColor = Color.black;
 			}else if(pink.getClick(i)){
-				objColor=Color.pink;
+				objColor = Color.pink;
 			}else if(cyan.getClick(i)){
-				objColor=Color.cyan;
+				objColor = Color.cyan;
 			}
 		}
 	}
-	
+
 	int activeTf = 0;
-	
+
 	public void tfListener(Input i){
 
 		final int WIDTH = 1;
@@ -279,16 +283,16 @@ public class LevelBuilder {
 
 	public void placeObject(float x, float y, float w, float h){
 		objects.add(new Platform(x, y, w, h, objColor));
+		System.out.println(objects.indexOf(new Platform(x, y, w, h, objColor)));
 
 		try{
 			FileUtils.writeStringToFile(new File("platforms.txt"),
 					"Platform obj" + o + " = new " + objects.get(p) + "\n", true);
-			FileUtils.writeStringToFile(new File("platforms_render.txt"), "obj" + o + ".render();\n", true);
-			FileUtils.writeStringToFile(new File("platforms_collider.txt"), "obj" + o + ".addCollider();\n", true);
+			FileUtils.writeStringToFile(new File("platforms_render.txt"), "obj" + o + ".render(g);\n", true);
+			FileUtils.writeStringToFile(new File("platforms_collider.txt"), "obj" + o + ".addCollider(player);\n", true);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		System.out.println("Platform obj" + o + " = new " + objects.get(p));
 		p++;
 		o++;
 	}
@@ -300,8 +304,8 @@ public class LevelBuilder {
 		try{
 			FileUtils.writeStringToFile(new File("switch.txt"), "Switch sw" + o + " = new " + objects.get(p) + "\n",
 					true);
-			FileUtils.writeStringToFile(new File("switch_render.txt"), "sw" + o + ".render();\n", true);
-			FileUtils.writeStringToFile(new File("switch_collider.txt"), "sw" + o + ".addCollider();\n", true);
+			FileUtils.writeStringToFile(new File("switch_render.txt"), "sw" + o + ".render(player);\n", true);
+			FileUtils.writeStringToFile(new File("switch_collider.txt"), "sw" + o + ".addCollider(g);\n", true);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -315,10 +319,10 @@ public class LevelBuilder {
 		objects.add(new Door(x, y, w, h, objColor));
 		try{
 
-			FileUtils.writeStringToFile(new File("door.txt"), "Platform dr" + o + " = new " + objects.get(p) + "\n",
+			FileUtils.writeStringToFile(new File("door.txt"), "Door dr" + o + " = new " + objects.get(p) + "\n",
 					true);
-			FileUtils.writeStringToFile(new File("door_render.txt"), "dr" + o + ".render();\n", true);
-			FileUtils.writeStringToFile(new File("door_collider.txt"), "dr" + o + ".addCollider();\n", true);
+			FileUtils.writeStringToFile(new File("door_render.txt"), "dr" + o + ".render(g);\n", true);
+			FileUtils.writeStringToFile(new File("door_collider.txt"), "dr" + o + ".addCollider(player);\n", true);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
