@@ -281,7 +281,7 @@ public class LevelBuilder {
 		objects.add(new Platform(x, y, w, h, objColor));
 
 		try{
-			FileUtils.writeStringToFile(new File(this.getClass() + "platforms.txt"),
+			FileUtils.writeStringToFile(new File("platforms.txt"),
 					"Platform obj" + o + " = new " + objects.get(p) + "\n", true);
 			FileUtils.writeStringToFile(new File("platforms_render.txt"), "obj" + o + ".render();\n", true);
 			FileUtils.writeStringToFile(new File("platforms_collider.txt"), "obj" + o + ".addCollider();\n", true);
