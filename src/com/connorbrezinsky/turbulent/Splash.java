@@ -47,7 +47,7 @@ public class Splash extends BasicGameState {
 		timeElapsed += delta;
 
 		if(timeElapsed >= DELAY) {
-			game.enterState(1);
+			game.enterState(1923);
 		}
 
 	}

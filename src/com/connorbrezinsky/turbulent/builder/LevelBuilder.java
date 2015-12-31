@@ -103,10 +103,9 @@ public class LevelBuilder {
 						if(Main.getClick(i, obj, null)){
 							System.out.println("Removing obj: " + obj.toString());
 							try{
-								
-								
+			
 								objects.remove(obj);
-								
+								p--;
 							}catch(Exception e){
 								System.out.println("Error removing obj " + obj.toString());
 								e.printStackTrace();

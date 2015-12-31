@@ -322,6 +322,7 @@ public class Main extends StateBasedGame {
 		 */
 
 		this.addState(new Splash(0));
+		this.addState(new Menu(1923));
 		this.addState(new LevelOne(Level.stage[1]));
 		this.addState(new LevelTwo(Level.stage[2]));
 		this.addState(new LevelThree(Level.stage[3]));
@@ -344,6 +345,7 @@ public class Main extends StateBasedGame {
 		 */
 
 		State.initStates(arg0, this);
+		this.getState(1923).init(arg0, this);
 		System.out.println(states);
 
 	}
@@ -357,6 +359,7 @@ public class Main extends StateBasedGame {
 			a.setDisplayMode(viewportWidth, viewportHeight, false);
 			a.setVSync(true);
 			a.setTargetFrameRate(60);
+			a.setIcon("res/32x32.png"); 
 			a.start();
 
 		}catch(SlickException e){

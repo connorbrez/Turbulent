@@ -24,6 +24,8 @@ public class GuiButton extends GuiComponent {
 	
 	
 	
+	
+
 	public GuiButton setText(String s){
 		text = s;
 		return this;
