@@ -7,7 +7,7 @@ Libraries used
   - LWJGL
   - JInput
   - Slick2d
-  - Apahce Commons IO
+  - Apache Commons IO
 
 License
 -------------
