@@ -14,14 +14,14 @@ import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Hazard;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.ObjectSpawner;
-import com.connorbrezinsky.turbulent.SpriteLoader;
-import com.connorbrezinsky.turbulent.State;
 import com.connorbrezinsky.turbulent.Turbulence;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.PhysicsObject;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
+import com.connorbrezinsky.turbulent.util.SpriteLoader;
+import com.connorbrezinsky.turbulent.util.State;
 
 public class LevelEight extends BasicGameState {
 

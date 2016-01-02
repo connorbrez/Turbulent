@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.connorbrezinsky.turbulent.util.State;
+
 public class Splash extends BasicGameState {
 
 	int timeElapsed;

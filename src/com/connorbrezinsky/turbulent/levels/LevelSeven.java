@@ -12,11 +12,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.SpriteLoader;
-import com.connorbrezinsky.turbulent.State;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
+import com.connorbrezinsky.turbulent.util.SpriteLoader;
+import com.connorbrezinsky.turbulent.util.State;
 
 public class LevelSeven extends BasicGameState {
 

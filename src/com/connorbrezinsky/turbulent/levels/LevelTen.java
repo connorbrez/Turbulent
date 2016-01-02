@@ -11,9 +11,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
-import com.connorbrezinsky.turbulent.State;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
+import com.connorbrezinsky.turbulent.util.State;
 
 public class LevelTen extends BasicGameState {
 

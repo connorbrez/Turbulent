@@ -1,6 +1,5 @@
 package com.connorbrezinsky.turbulent;
 
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,16 +9,17 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.gui.GuiButton;
+import com.connorbrezinsky.turbulent.levels.Level;
 
 public class Menu extends BasicGameState {
 
 	Image background;
 	Image bPlay;
 	Image bExit;
-	
-	GuiButton play = new GuiButton(400-190/2, 300-45/2, 190, 45);
-	GuiButton exit = new GuiButton(400-190/2, 300-(45/2)+50, 190, 45);
-	
+
+	GuiButton play;
+	GuiButton exit;
+
 	public Menu(int i) {
 	}
 
@@ -28,6 +28,12 @@ public class Menu extends BasicGameState {
 		background = new Image("res/menu-background.png");
 		bPlay = new Image("res/button-play.png");
 		bExit = new Image("res/button-exit.png");
+		
+		play = new GuiButton(400 - bPlay.getWidth() / 2, 300 - bPlay.getHeight() / 2, bPlay.getWidth(),
+				bPlay.getHeight());
+		exit = new GuiButton(400 - bExit.getWidth() / 2, 300 - (bExit.getHeight() / 2) + bPlay.getHeight() + 5,
+				bExit.getWidth(), bExit.getHeight());
+		
 		
 		play.addSprite(bPlay);
 		exit.addSprite(bExit);
@@ -49,11 +55,12 @@ public class Menu extends BasicGameState {
 			container.exit();
 		}
 		
+		Level.goToLevel(i, game);
+
 	}
 
 	@Override
 	public int getID(){
-		// TODO Auto-generated method stub
 		return 1923;
 	}
 

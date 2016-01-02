@@ -25,6 +25,8 @@ import com.connorbrezinsky.turbulent.levels.LevelTwo;
 import com.connorbrezinsky.turbulent.levels.TestChamber;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.PhysicsObject;
+import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class Main extends StateBasedGame {
 
@@ -39,8 +41,8 @@ public class Main extends StateBasedGame {
 
 	public static double VERSION = 0.2;
 
-	static int sInt = 0;
-	static List<State> states = new ArrayList<>();
+	public static int sInt = 0;
+	public static List<State> states = new ArrayList<>();
 
 	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh){
 		if(mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)){
@@ -320,7 +322,7 @@ public class Main extends StateBasedGame {
 		/*
 		 * addState this.addState(new State(state));
 		 */
-
+	
 		this.addState(new Splash(0));
 		this.addState(new Menu(1923));
 		this.addState(new LevelOne(Level.stage[1]));
@@ -343,6 +345,8 @@ public class Main extends StateBasedGame {
 		/*
 		 * Init state this.getState(state).init(GameContaniner, this);
 		 */
+		Texture.init();
+
 
 		State.initStates(arg0, this);
 		this.getState(1923).init(arg0, this);
@@ -354,7 +358,7 @@ public class Main extends StateBasedGame {
 
 		AppGameContainer a;
 		try{
-
+			
 			a = new AppGameContainer(new Main("game"));
 			a.setDisplayMode(viewportWidth, viewportHeight, false);
 			a.setVSync(true);

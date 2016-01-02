@@ -1,4 +1,4 @@
-package com.connorbrezinsky.turbulent;
+package com.connorbrezinsky.turbulent.util;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
