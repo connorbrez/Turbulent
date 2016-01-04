@@ -315,6 +315,9 @@ public class Main extends StateBasedGame {
 			r.setFocus(false);
 		}
 	}
+	
+	
+	
 
 	public Main(String name) {
 		super("Turbulent v" + VERSION);
@@ -338,6 +341,14 @@ public class Main extends StateBasedGame {
 		this.addState(new TestChamber(Level.testChamber));
 
 	}
+	
+	static boolean ran = false;
+	public static void init() throws SlickException{
+		if(!ran){
+			Texture.init();
+			ran=true;
+		}
+	}
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException{
@@ -345,7 +356,7 @@ public class Main extends StateBasedGame {
 		/*
 		 * Init state this.getState(state).init(GameContaniner, this);
 		 */
-		Texture.init();
+		init();
 
 
 		State.initStates(arg0, this);
@@ -356,6 +367,8 @@ public class Main extends StateBasedGame {
 
 	public static void main(String[] args){
 
+		
+		
 		AppGameContainer a;
 		try{
 			

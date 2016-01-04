@@ -19,6 +19,7 @@ import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 import com.connorbrezinsky.turbulent.util.SpriteLoader;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelFour extends BasicGameState {
 
@@ -26,7 +27,7 @@ public class LevelFour extends BasicGameState {
 	
 	
 	Color bg = Color.black;
-	Image e_key;
+
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
 
 	public Platform obj1 = new Platform(150, 530, 40, 10, Color.orange);
@@ -56,23 +57,15 @@ public class LevelFour extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		e_key = new Image("res/e.png");
-
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
+		
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
 
-		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
-
 		sFinishDoor = new Switch(320, 400 - 30, 20, 20);
-		sFinishDoor.addSprite(sLoader.getImage(2));
+		sFinishDoor.addSprite(Texture.switchWhite_off);
 
 	}
 
@@ -85,7 +78,7 @@ public class LevelFour extends BasicGameState {
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
 		if(isActive) {
-			e_key.draw(280, 365);
+			Texture.e_key.draw(280, 365);
 			sFinishDoor.render(g);
 		}
 
@@ -120,8 +113,8 @@ public class LevelFour extends BasicGameState {
 		finishDoor.addCollider(player);
 		finishDoor.addSwitch(sFinishDoor);
 
-		this.sFinishDoor.addListener(player, Switch.ACTION, i);
-		this.sFinishDoor.addCollider(player);
+		sFinishDoor.addListener(player, Switch.ACTION, i);
+		sFinishDoor.addCollider(player);
 
 		Level.levelFinish.addCollider(player);
 		Level.levelFinish.setNextLevel(Level.stage[5]);
@@ -143,10 +136,10 @@ public class LevelFour extends BasicGameState {
 		}
 
 		if(sFinishDoor.isTriggered()) {
-			sFinishDoor.changeSprite(sLoader.getImage(3));
+			sFinishDoor.changeSprite(Texture.switchWhite_on);
 		}else{
 
-			sFinishDoor.changeSprite(sLoader.getImage(2));
+			sFinishDoor.changeSprite(Texture.switchWhite_off);
 		}
 
 		Level.goToLevel(i, arg1);

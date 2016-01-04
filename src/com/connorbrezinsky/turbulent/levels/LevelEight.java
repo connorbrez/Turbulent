@@ -22,11 +22,12 @@ import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 import com.connorbrezinsky.turbulent.util.SpriteLoader;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelEight extends BasicGameState {
 
 	State levelEight = new State(this);
-	
+
 	int stage = 0;
 
 	Color bg = Color.white;
@@ -155,19 +156,9 @@ public class LevelEight extends BasicGameState {
 		sx_3 = sTwoCube.getX() - 10;
 		sx_4 = sThreeCube.getX() - 10;
 
-		aLoader.startUse();
-		Image[] iLevelFinish = { aLoader.getSubImage(0, 0), aLoader.getSubImage(1, 0), aLoader.getSubImage(2, 0),
-				aLoader.getSubImage(3, 0), aLoader.getSubImage(4, 0), aLoader.getSubImage(5, 0),
-				aLoader.getSubImage(6, 0), aLoader.getSubImage(7, 0), aLoader.getSubImage(8, 0),
-				aLoader.getSubImage(9, 0), aLoader.getSubImage(0, 1), aLoader.getSubImage(1, 1) };
-		aLoader.endUse();
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
-		Image[] iPhysSpawner = { new Image("res/animation/physSpawner/physSpawner1.png"),
-				new Image("res/animation/physSpawner/physSpawner2.png"),
-				new Image("res/animation/physSpawner/physSpawner3.png"),
-				new Image("res/animation/physSpawner/physSpawner4.png"),
-				new Image("res/animation/physSpawner/physSpawner5.png"),
-				new Image("res/animation/physSpawner/physSpawner6.png"), };
+		Image[] iPhysSpawner = Texture.loadPhysicsSpawner();
 
 		Level.levelFinish = new Platform(750, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
@@ -184,36 +175,36 @@ public class LevelEight extends BasicGameState {
 		lSwitch[1].setCustomActionRadius(5, 20, 10, 80);
 		lSwitch[2].setCustomActionRadius(5, 20, 10, 80);
 
-		lSwitch[0].addSprite(sLoader.getImage(4, 0));
-		lSwitch[1].addSprite(sLoader.getImage(4, 0));
-		lSwitch[2].addSprite(sLoader.getImage(4, 0));
-		spike1.addSprite(sLoader.getImage(7, 0));
-		spike2.addSprite(sLoader.getImage(7, 0));
-		spike3.addSprite(sLoader.getImage(7, 0));
-		obj10[0].addSprite(sLoader.getImage(8, 0));
-		obj10[1].addSprite(sLoader.getImage(8, 0));
-		obj10[2].addSprite(sLoader.getImage(8, 0));
-		obj15[0].addSprite(sLoader.getImage(11, 0));
-		obj15[1].addSprite(sLoader.getImage(11, 0));
-		obj15[2].addSprite(sLoader.getImage(11, 0));
-		obj19.addSprite(sLoader.getImage(8, 0));
-		oSprite.addSprite(sLoader.getImage(8, 0));
-		obj21.addSprite(sLoader.getImage(11, 0));
-		spikeStrip[0].addSprite(sLoader.getImage(7, 0));
-		spikeStrip[1].addSprite(sLoader.getImage(7, 0));
-		spikeStrip[2].addSprite(sLoader.getImage(7, 0));
-		spikeStrip[3].addSprite(sLoader.getImage(7, 0));
-		spikeStrip[4].addSprite(sLoader.getImage(7, 0));
-		obj35.addSprite(sLoader.getImage(8, 0));
-		obj36.addSprite(sLoader.getImage(8, 0));
-		obj37.addSprite(sLoader.getImage(8, 0));
-		obj38.addSprite(sLoader.getImage(8, 0));
-		obj39.addSprite(sLoader.getImage(8, 0));
-		sBack.addSprite(sLoader.getImage(2, 0));
-		spike4.addSprite(sLoader.getImage(7, 0));
-		spikes[0].addSprite(sLoader.getImage(7, 0));
-		spikes[1].addSprite(sLoader.getImage(7, 0));
-		spikes[2].addSprite(sLoader.getImage(7, 0));
+		lSwitch[0].addSprite(Texture.switchBlack_off);
+		lSwitch[1].addSprite(Texture.switchBlack_off);
+		lSwitch[2].addSprite(Texture.switchBlack_off);
+		spike1.addSprite(Texture.spike);
+		spike2.addSprite(Texture.spike);
+		spike3.addSprite(Texture.spike);
+		obj10[0].addSprite(Texture.blockOrange);
+		obj10[1].addSprite(Texture.blockOrange);
+		obj10[2].addSprite(Texture.blockOrange);
+		obj15[0].addSprite(Texture.blockLightBlue);
+		obj15[1].addSprite(Texture.blockLightBlue);
+		obj15[2].addSprite(Texture.blockLightBlue);
+		obj19.addSprite(Texture.blockOrange);
+		oSprite.addSprite(Texture.blockOrange);
+		obj21.addSprite(Texture.blockLightBlue);
+		spikeStrip[0].addSprite(Texture.spike);
+		spikeStrip[1].addSprite(Texture.spike);
+		spikeStrip[2].addSprite(Texture.spike);
+		spikeStrip[3].addSprite(Texture.spike);
+		spikeStrip[4].addSprite(Texture.spike);
+		obj35.addSprite(Texture.blockOrange);
+		obj36.addSprite(Texture.blockOrange);
+		obj37.addSprite(Texture.blockOrange);
+		obj38.addSprite(Texture.blockOrange);
+		obj39.addSprite(Texture.blockOrange);
+		sBack.addSprite(Texture.switchWhite_off);
+		spike4.addSprite(Texture.spike);
+		spikes[0].addSprite(Texture.spike);
+		spikes[1].addSprite(Texture.spike);
+		spikes[2].addSprite(Texture.spike);
 
 	}
 
@@ -228,11 +219,11 @@ public class LevelEight extends BasicGameState {
 
 		sBack.render(g);
 
-		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()) {
+		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()){
 			bg = Color.white;
 			finishSwitch.render(g);
 			g.setColor(Color.black);
-			if(sOneSwitch.isTriggered()) {
+			if(sOneSwitch.isTriggered()){
 				g.setColor(Color.green);
 				g.drawString("S1", 460, 550 - 70);
 			}else{
@@ -240,7 +231,7 @@ public class LevelEight extends BasicGameState {
 				g.drawString("S1", 460, 550 - 70);
 			}
 
-			if(!sTwoSwitch.isTriggered()) {
+			if(!sTwoSwitch.isTriggered()){
 				g.setColor(Color.black);
 				g.drawString("S2", 490, 550 - 70);
 			}else{
@@ -248,7 +239,7 @@ public class LevelEight extends BasicGameState {
 				g.drawString("S2", 490, 550 - 70);
 			}
 
-			if(!sThreeSwitch.isTriggered()) {
+			if(!sThreeSwitch.isTriggered()){
 				g.setColor(Color.black);
 				g.drawString("S3", 520, 550 - 70);
 			}else{
@@ -276,7 +267,7 @@ public class LevelEight extends BasicGameState {
 
 			Level.levelFinish.render(g);
 
-		}else if(lSwitch[0].isTriggered()) {
+		}else if(lSwitch[0].isTriggered()){
 			stage = 1;
 			bg = Color.black;
 			obj2.render(g);
@@ -309,7 +300,7 @@ public class LevelEight extends BasicGameState {
 
 			sOneCube.render(g, sOneSpawner);
 
-		}else if(lSwitch[1].isTriggered()) {
+		}else if(lSwitch[1].isTriggered()){
 			stage = 2;
 			bg = Color.black;
 			obj20.render(g);
@@ -341,17 +332,17 @@ public class LevelEight extends BasicGameState {
 			sTwoSwitch.render(g);
 			sTwoCube.render(g, sTwoSpawner);
 
-		}else if(lSwitch[2].isTriggered()) {
+		}else if(lSwitch[2].isTriggered()){
 			stage = 3;
 			bg = Color.black;
 			obj40.render(g);
 			obj44.render(g);
 
-			if(sThreeCube.goneFromSpawner) {
+			if(sThreeCube.goneFromSpawner){
 				sThreeCube.render(g);
 			}
 
-			if(!t.isActive()) {
+			if(!t.isActive()){
 				sThreeCube.render(g, sThreeSpawner);
 				sThreeSwitch.render(g);
 				g.setColor(Color.gray);
@@ -359,10 +350,10 @@ public class LevelEight extends BasicGameState {
 						this.turbulenceControllsOne.getHeight() + 20);
 				this.turbulenceControllsOne.draw(80, 520);
 
-			}else if(t.isActive(t.z)) {
+			}else if(t.isActive(t.z)){
 				g.setColor(Color.gray);
-				g.fillRect(70, 510, sLoader.getImage(0, 1).getWidth() + 20, sLoader.getImage(0, 1).getHeight() + 20);
-				sLoader.draw(80, 520, 0, 1);
+				g.fillRect(70, 510, Texture.turbZ.getWidth() + 20, Texture.turbZ.getHeight() + 20);
+				Texture.turbZ.draw(80, 520);
 
 				obj40.render(g);
 				obj41.render(g);
@@ -372,10 +363,10 @@ public class LevelEight extends BasicGameState {
 				spikes[1].render(g);
 				spikes[2].render(g);
 
-			}else if(t.isActive(t.x)) {
+			}else if(t.isActive(t.x)){
 				g.setColor(Color.gray);
-				g.fillRect(70, 510, sLoader.getImage(1, 1).getWidth() + 20, sLoader.getImage(1, 1).getHeight() + 20);
-				sLoader.draw(80, 520, 1, 1);
+				g.fillRect(70, 510, Texture.turbX.getWidth() + 20, Texture.turbX.getHeight() + 20);
+				Texture.turbX.draw(80, 520);
 				obj40.render(g);
 				obj41.render(g);
 				obj42.render(g);
@@ -387,14 +378,14 @@ public class LevelEight extends BasicGameState {
 				spikes[2].render(g);
 
 				obj47.render(g);
-			}else if(t.isActive(t.c)) {
+			}else if(t.isActive(t.c)){
 				g.setColor(Color.gray);
-				g.fillRect(70, 510, sLoader.getImage(2, 1).getWidth() + 20, sLoader.getImage(2, 1).getHeight() + 20);
-				sLoader.draw(80, 520, 2, 1);
+				g.fillRect(70, 510, Texture.turbC.getWidth() + 20, Texture.turbC.getHeight() + 20);
+				Texture.turbC.draw(80, 520);
 				obj40.render(g);
 				obj42.render(g);
 				obj43.render(g);
-			}else if(t.isActive()) {
+			}else if(t.isActive()){
 
 			}
 		}
@@ -413,7 +404,7 @@ public class LevelEight extends BasicGameState {
 		sBack.addCollider(player);
 		sBack.addListener(player, Switch.ACTION, i);
 
-		if(sBack.isTriggered()) {
+		if(sBack.isTriggered()){
 			switch(stage){
 			case 1:
 				lSwitch[0].triggered = false;
@@ -431,7 +422,7 @@ public class LevelEight extends BasicGameState {
 			sBack.triggered = false;
 		}
 
-		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()) {
+		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()){
 			sBack.setPos(-20, -20);
 			finishCube.addPhysics();
 			finishCube.addPlayer(player);
@@ -451,7 +442,7 @@ public class LevelEight extends BasicGameState {
 			obj0.addCollider(player);
 			obj1.addCollider(player, finishCube);
 
-			if(sOneSwitch.isTriggered() && sTwoSwitch.isTriggered() && sThreeSwitch.isTriggered()) {
+			if(sOneSwitch.isTriggered() && sTwoSwitch.isTriggered() && sThreeSwitch.isTriggered()){
 				walls[0].destroy();
 				walls[1].destroy();
 				walls[2].destroy();
@@ -464,32 +455,32 @@ public class LevelEight extends BasicGameState {
 			walls[1].addCollider(player, finishCube);
 			walls[2].addCollider(player, finishCube);
 
-			if(lSwitch[0].isTriggered()) {
-				lSwitch[0].changeSprite(sLoader.getImage(5, 0));
+			if(lSwitch[0].isTriggered()){
+				lSwitch[0].changeSprite(Texture.switchBlack_on);
 
 			}else{
-				lSwitch[0].changeSprite(sLoader.getImage(4, 0));
+				lSwitch[0].changeSprite(Texture.switchBlack_off);
 			}
 
-			if(lSwitch[1].isTriggered()) {
-				lSwitch[1].changeSprite(sLoader.getImage(5, 0));
+			if(lSwitch[1].isTriggered()){
+				lSwitch[1].changeSprite(Texture.switchBlack_off);
 			}else{
 
-				lSwitch[1].changeSprite(sLoader.getImage(4, 0));
+				lSwitch[1].changeSprite(Texture.switchBlack_on);
 			}
 
-			if(lSwitch[2].isTriggered()) {
-				lSwitch[2].changeSprite(sLoader.getImage(5, 0));
+			if(lSwitch[2].isTriggered()){
+				lSwitch[2].changeSprite(Texture.switchBlack_on);
 			}else{
-				lSwitch[2].changeSprite(sLoader.getImage(4, 0));
+				lSwitch[2].changeSprite(Texture.switchBlack_off);
 			}
 
 			Level.levelFinish.addCollider(player, finishCube);
 			Level.levelFinish.setNextLevel(Level.stage[9]);
-			if(Level.levelFinish.isFinished(player)) {
+			if(Level.levelFinish.isFinished(player)){
 				// Level.levelFinish.goToNextLevel(arg1);
 			}
-		}else if(lSwitch[0].isTriggered()) {
+		}else if(lSwitch[0].isTriggered()){
 			player.setSpawn(200, 580);
 			sBack.setPos(160, 600 - 30);
 
@@ -528,7 +519,7 @@ public class LevelEight extends BasicGameState {
 			obj18.addCollider(player, sOneCube);
 			obj19.addCollider(player, sOneCube);
 
-		}else if(lSwitch[1].isTriggered()) {
+		}else if(lSwitch[1].isTriggered()){
 			sBack.setPos(640, 600 - 30);
 			player.setSpawn(680, 600 - 30);
 
@@ -567,7 +558,7 @@ public class LevelEight extends BasicGameState {
 			spikeStrip[3].addCollider(player, sTwoCube);
 			spikeStrip[4].addCollider(player, sTwoCube);
 
-		}else if(lSwitch[2].isTriggered()) {
+		}else if(lSwitch[2].isTriggered()){
 			t.addListener(i);
 			sBack.setPos(800 - 160, 600 - 30);
 			player.setSpawn(550, 600 - 40);
@@ -580,7 +571,7 @@ public class LevelEight extends BasicGameState {
 			sThreeCube.addPlayer(player);
 			sThreeCube.addPlayerCollider(player);
 
-			if(!t.isActive()) {
+			if(!t.isActive()){
 
 				obj40.setColor(Color.white);
 				obj44.setColor(Color.white);
@@ -588,7 +579,7 @@ public class LevelEight extends BasicGameState {
 				sThreeSwitch.addCollider(sThreeCube);
 				sThreeSwitch.addListener(player, sThreeCube, Switch.PRESSURE, i);
 
-			}else if(t.isActive(t.z)) {
+			}else if(t.isActive(t.z)){
 				obj40.setColor(Color.orange);
 				obj41.setColor(Color.orange);
 				obj44.setColor(Color.orange);
@@ -603,7 +594,7 @@ public class LevelEight extends BasicGameState {
 				spikes[1].addCollider(player, sThreeCube);
 				spikes[2].addCollider(player, sThreeCube);
 
-			}else if(t.isActive(t.x)) {
+			}else if(t.isActive(t.x)){
 				obj40.setColor(Color.yellow);
 				obj44.setColor(Color.yellow);
 
@@ -618,7 +609,7 @@ public class LevelEight extends BasicGameState {
 				obj47.setColor(Color.yellow);
 				obj46.addCollider(player, sThreeCube);
 				obj46.setColor(Color.yellow);
-			}else if(t.isActive(t.c)) {
+			}else if(t.isActive(t.c)){
 				obj40.setColor(Color.pink);
 				obj44.setColor(Color.pink);
 

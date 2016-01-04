@@ -6,7 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -17,24 +16,18 @@ import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
-import com.connorbrezinsky.turbulent.util.SpriteLoader;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelFive extends BasicGameState {
 
 	State levelFive = new State(this);
-	
+
 	Color bg = Color.black;
-	Image e_key;
-	Image dropjump_white;
-	Image dropjump_black1;
-	Image dropjump_black2;
 
 	Color objColor = Color.green;
 
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
-
-	SpriteLoader sLoader;
 
 	public Door finishDoor = new Door(650, 600 - 100, 10, 100, Color.green);
 	public Door door0 = new Door(650, 205, 10, 50, Color.red);
@@ -75,8 +68,6 @@ public class LevelFive extends BasicGameState {
 
 	}
 
-	
-
 	@Override
 	public int getID(){
 		return levelFive.getId();
@@ -85,39 +76,24 @@ public class LevelFive extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
 		player.setSpawn(100, 550);
-		
-		
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
 
-		dropjump_white = new Image("res/dropjump_4.png");
-		dropjump_black1 = new Image("res/dropjump_1.png");
-		dropjump_black2 = new Image("res/dropjump_2.png");
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
 
-		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+		doorSwitch0.addSprite(Texture.switchWhite_off);
+		doorSwitch1.addSprite(Texture.switchBlack_off);
 
-		doorSwitch0.addSprite(sLoader.getImage(2));
-		doorSwitch1.addSprite(sLoader.getImage(4));
-		
-		sDoor0.addSprite(sLoader.getImage(4));
-		colorSwitch.addSprite(sLoader.getImage(3));
+		sDoor0.addSprite(Texture.switchBlack_off);
+		colorSwitch.addSprite(Texture.switchWhite_on);
 
-		spike1.addSprite(sLoader.getImage(7));
-		spike2.addSprite(sLoader.getImage(7));
+		spike1.addSprite(Texture.spike);
+		spike2.addSprite(Texture.spike);
 
 		this.colorSwitch.setCustomActionRadius(25, 25, 55, 55);
 
 	}
-
-	
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
@@ -147,17 +123,17 @@ public class LevelFive extends BasicGameState {
 		obj14.render(g);
 		obj15.render(g);
 
-		if(colorSwitch.triggered) {
+		if(colorSwitch.triggered){
 			sDoor0.render(g);
 			door0.render(g);
 			doorSwitch1.render(g);
 			spike1.render(g);
 			spike2.render(g);
-			dropjump_black2.draw(90, 270);
-			dropjump_black1.draw(525, 235);
+			Texture.dropjump_black2.draw(90, 270);
+			Texture.dropjump_black1.draw(525, 235);
 		}else{
 			doorSwitch0.render(g);
-			dropjump_white.draw(310, 500);
+			Texture.dropjump_white.draw(310, 500);
 		}
 
 		player.render(g);
@@ -192,7 +168,7 @@ public class LevelFive extends BasicGameState {
 
 		obj1.addCollider(player);
 
-		if(colorSwitch.isTriggered()) {
+		if(colorSwitch.isTriggered()){
 			doorSwitch1.addListener(player, Switch.ACTION, i);
 			bg = Color.white;
 			colorSwitch.setColor(Color.black);
@@ -214,7 +190,7 @@ public class LevelFive extends BasicGameState {
 			door0.addSwitch(sDoor0);
 			doorSwitch1.addCollider(player);
 
-			colorSwitch.changeSprite(sLoader.getImage(5));
+			colorSwitch.changeSprite(Texture.switchBlack_on);
 
 			spike1.addCollider(player);
 			spike2.addCollider(player);
@@ -226,7 +202,7 @@ public class LevelFive extends BasicGameState {
 			setObjColor(Color.green);
 
 			obj0.setColor(Color.white);
-			colorSwitch.changeSprite(sLoader.getImage(3));
+			colorSwitch.changeSprite(Texture.switchWhite_on);
 			obj2.addCollider(player);
 			obj3.addCollider(player);
 			obj4.addCollider(player);
@@ -236,30 +212,29 @@ public class LevelFive extends BasicGameState {
 
 		}
 
-		if(doorSwitch0.isTriggered()) {
+		if(doorSwitch0.isTriggered()){
 			doorSwitch0.destroy();
 		}
 
-		if(doorSwitch1.isTriggered()) {
+		if(doorSwitch1.isTriggered()){
 			doorSwitch1.destroy();
 		}
 
-		if(sDoor0.isTriggered()) {
+		if(sDoor0.isTriggered()){
 			sDoor0.destroy();
 		}
 
-		if(doorSwitch0.isTriggered() && doorSwitch1.isTriggered()) {
+		if(doorSwitch0.isTriggered() && doorSwitch1.isTriggered()){
 			finishDoor.open();
 		}else{
 			finishDoor.close();
 		}
 
-		if(Level.levelFinish.isFinished(player)) {
+		if(Level.levelFinish.isFinished(player)){
 			Level.levelFinish.goToNextLevel(arg1);
 		}
 
 		Level.goToLevel(i, arg1);
 	}
 
-	
 }

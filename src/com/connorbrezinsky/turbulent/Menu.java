@@ -2,7 +2,6 @@ package com.connorbrezinsky.turbulent;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -10,12 +9,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.gui.GuiButton;
 import com.connorbrezinsky.turbulent.levels.Level;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class Menu extends BasicGameState {
-
-	Image background;
-	Image bPlay;
-	Image bExit;
 
 	GuiButton play;
 	GuiButton exit;
@@ -25,23 +21,20 @@ public class Menu extends BasicGameState {
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException{
-		background = new Image("res/menu-background.png");
-		bPlay = new Image("res/button-play.png");
-		bExit = new Image("res/button-exit.png");
-		
-		play = new GuiButton(400 - bPlay.getWidth() / 2, 300 - bPlay.getHeight() / 2, bPlay.getWidth(),
-				bPlay.getHeight());
-		exit = new GuiButton(400 - bExit.getWidth() / 2, 300 - (bExit.getHeight() / 2) + bPlay.getHeight() + 5,
-				bExit.getWidth(), bExit.getHeight());
-		
-		
-		play.addSprite(bPlay);
-		exit.addSprite(bExit);
+
+		play = new GuiButton(400 - Texture.bPlay.getWidth() / 2, 300 - Texture.bPlay.getHeight() / 2,
+				Texture.bPlay.getWidth(), Texture.bPlay.getHeight());
+		exit = new GuiButton(400 - Texture.bExit.getWidth() / 2,
+				300 - (Texture.bExit.getHeight() / 2) + Texture.bPlay.getHeight() + 5, Texture.bExit.getWidth(),
+				Texture.bExit.getHeight());
+
+		play.addSprite(Texture.bPlay);
+		exit.addSprite(Texture.bExit);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException{
-		background.draw();
+		Texture.background.draw();
 		play.render(g);
 		exit.render(g);
 	}
@@ -54,7 +47,7 @@ public class Menu extends BasicGameState {
 		}else if(exit.getClick(i)){
 			container.exit();
 		}
-		
+
 		Level.goToLevel(i, game);
 
 	}

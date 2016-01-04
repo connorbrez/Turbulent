@@ -20,6 +20,7 @@ import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 import com.connorbrezinsky.turbulent.util.SpriteLoader;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelSix extends BasicGameState {
 
@@ -41,9 +42,6 @@ public class LevelSix extends BasicGameState {
 
 	Switch pressureSwitch = new Switch(430, 350 - 5, 20, 5, Color.black);
 
-	Image pickup;
-	Image downarrow;
-
 	Platform finish = Level.levelFinish;
 
 	public ObjectSpawner objSpawner;
@@ -62,32 +60,18 @@ public class LevelSix extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
-
-		Image[] iPhysSpawner = { new Image("res/animation/physSpawner/physSpawner1.png"),
-				new Image("res/animation/physSpawner/physSpawner2.png"),
-				new Image("res/animation/physSpawner/physSpawner3.png"),
-				new Image("res/animation/physSpawner/physSpawner4.png"),
-				new Image("res/animation/physSpawner/physSpawner5.png"),
-				new Image("res/animation/physSpawner/physSpawner6.png"), };
-
-		downarrow = new Image("res/downarrow.png");
-		pickup = new Image("res/pickup.png");
-
-		SpriteSheet spritesheet = new SpriteSheet(new Image("res/sprites.png"), 20, 20);
-		sLoader = new SpriteLoader(spritesheet);
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+		
+		Image[] iLevelFinish = Texture.loadLevelFinish();
+		Image[] iPhysSpawner = Texture.loadPhysicsSpawner();
+		
 		objSpawner = new ObjectSpawner(iPhysSpawner, Level.objSDuration);
+		
 		sx = cube.getX() - 10;
 		cube.addPlayer(player);
 
-		obj0.addSprite(sLoader.getImage(0));
-		obj00.addSprite(sLoader.getImage(0));
+		obj0.addSprite(Texture.blockMagenta);
+		obj00.addSprite(Texture.blockMagenta);
 
 		finish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		finish.setType(Object.FINISH);
@@ -109,10 +93,10 @@ public class LevelSix extends BasicGameState {
 
 		g.setColor(Color.white);
 		g.fillRect(100, 490, 75, 50);
-		pickup.draw(105, 500);
+		Texture.pickup.draw(105, 500);
 
 		g.fillRect(pressureSwitch.getX() - 10, 350 - 60, 40, 60);
-		downarrow.draw(pressureSwitch.getX() - 2, 350 - 50);
+		Texture.downarrow.draw(pressureSwitch.getX() - 2, 350 - 50);
 		pressureSwitch.render(g);
 
 		cube.setSpawnerPos(sx, 600 - 50);

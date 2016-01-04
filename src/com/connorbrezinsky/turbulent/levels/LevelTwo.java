@@ -6,7 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,6 +17,7 @@ import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.util.SpriteLoader;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelTwo extends BasicGameState {
 
@@ -25,7 +25,7 @@ public class LevelTwo extends BasicGameState {
 	
 	Color bg = Color.black;
 	public Character player = new Character(40, Main.getMidY(20) + 100, 20, 20, Color.darkGray);
-	Image space_key;
+	
 
 	SpriteLoader sLoader;
 
@@ -49,24 +49,15 @@ public class LevelTwo extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		space_key = new Image("res/space.png");
 
-		Level.aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
-		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
 
-		Level.aLoader.startUse();
-		Image[] iLevelFinish = { Level.aLoader.getSubImage(0, 0), Level.aLoader.getSubImage(1, 0),
-				Level.aLoader.getSubImage(2, 0), Level.aLoader.getSubImage(3, 0), Level.aLoader.getSubImage(4, 0),
-				Level.aLoader.getSubImage(5, 0), Level.aLoader.getSubImage(6, 0), Level.aLoader.getSubImage(7, 0),
-				Level.aLoader.getSubImage(8, 0), Level.aLoader.getSubImage(9, 0), Level.aLoader.getSubImage(1, 1),
-				Level.aLoader.getSubImage(2, 1) };
-		Level.aLoader.endUse();
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
 		
-		spikes[0].addSprite(sLoader.getImage(7));
-		spikes[1].addSprite(sLoader.getImage(7));
+		spikes[0].addSprite(Texture.spike);
+		spikes[1].addSprite(Texture.spike);
 		
 		player.setSpawn(60, 600-40);
 
@@ -86,7 +77,7 @@ public class LevelTwo extends BasicGameState {
 		spikes[0].render(g);
 		spikes[1].render(g);
 
-		space_key.draw(10, 400);
+		Texture.space_key.draw(10, 400);
 
 		player.render(g);
 

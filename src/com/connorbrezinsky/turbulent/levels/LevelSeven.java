@@ -17,6 +17,7 @@ import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 import com.connorbrezinsky.turbulent.util.SpriteLoader;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelSeven extends BasicGameState {
 
@@ -60,44 +61,38 @@ public class LevelSeven extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
 		levelFinish = new Platform(obj1.getX() + (100 / 2 - (20 / 2)), obj1.getY() - 60, 20, 60, iLevelFinish,
 				Level.duration);
 		levelFinish.setType(Object.FINISH);
 		sLoader = new SpriteLoader(new SpriteSheet("res/sprites.png", 20, 20));
 
-		switchOne.addSprite(sLoader.getImage(2));
-		switchTwo.addSprite(sLoader.getImage(2));
-		switchThree.addSprite(sLoader.getImage(2));
-		switchFour.addSprite(sLoader.getImage(2));
+		switchOne.addSprite(Texture.switchWhite_off);
+		switchTwo.addSprite(Texture.switchWhite_off);
+		switchThree.addSprite(Texture.switchWhite_on);
+		switchFour.addSprite(Texture.switchWhite_on);
 
-		obj1.addSprite(sLoader.getImage(0));
-		obj2.addSprite(sLoader.getImage(6));
-		obj3.addSprite(sLoader.getImage(6));
-		obj4.addSprite(sLoader.getImage(6));
-		obj5.addSprite(sLoader.getImage(6));
-		obj6.addSprite(sLoader.getImage(6));
-		obj7.addSprite(sLoader.getImage(6));
-		obj8.addSprite(sLoader.getImage(6));
-		obj9.addSprite(sLoader.getImage(6));
-		obj10.addSprite(sLoader.getImage(6));
-		obj11.addSprite(sLoader.getImage(6));
-		obj12.addSprite(sLoader.getImage(6));
-		obj13.addSprite(sLoader.getImage(6));
-		obj14.addSprite(sLoader.getImage(6));
-		obj15.addSprite(sLoader.getImage(6));
-		obj16.addSprite(sLoader.getImage(6));
+		obj1.addSprite(Texture.blockMagenta);
+		obj2.addSprite(Texture.blockBlue);
+		obj3.addSprite(Texture.blockBlue);
+		obj4.addSprite(Texture.blockBlue);
+		obj5.addSprite(Texture.blockBlue);
+		obj6.addSprite(Texture.blockBlue);
+		obj7.addSprite(Texture.blockBlue);
+		obj8.addSprite(Texture.blockBlue);
+		obj9.addSprite(Texture.blockBlue);
+		obj10.addSprite(Texture.blockBlue);
+		obj11.addSprite(Texture.blockBlue);
+		obj12.addSprite(Texture.blockBlue);
+		obj13.addSprite(Texture.blockBlue);
+		obj14.addSprite(Texture.blockBlue);
+		obj15.addSprite(Texture.blockBlue);
+		obj16.addSprite(Texture.blockBlue);
 
-		doorWalls[0].addSprite(sLoader.getImage(0));
-		doorWalls[1].addSprite(sLoader.getImage(0));
-		doorWalls[2].addSprite(sLoader.getImage(0));
+		doorWalls[0].addSprite(Texture.blockMagenta);
+		doorWalls[1].addSprite(Texture.blockMagenta);
+		doorWalls[2].addSprite(Texture.blockMagenta);
 	}
 
 	@Override
@@ -159,29 +154,29 @@ public class LevelSeven extends BasicGameState {
 		}
 
 		if(switchOne.isTriggered()){
-			switchOne.changeSprite(sLoader.getImage(3));
+			switchOne.changeSprite(Texture.switchWhite_on);
 		}else{
-			switchOne.changeSprite(sLoader.getImage(2));
+			switchOne.changeSprite(Texture.switchWhite_off);
 
 		}
 
 		if(switchTwo.isTriggered()){
-			switchTwo.changeSprite(sLoader.getImage(3));
+			switchTwo.changeSprite(Texture.switchWhite_on);
 		}else{
-			switchTwo.changeSprite(sLoader.getImage(2));
+			switchTwo.changeSprite(Texture.switchWhite_off);
 
 		}
 
 		if(switchThree.isTriggered()){
-			switchThree.changeSprite(sLoader.getImage(3));
+			switchThree.changeSprite(Texture.switchWhite_on);
 		}else{
-			switchThree.changeSprite(sLoader.getImage(2));
+			switchThree.changeSprite(Texture.switchWhite_off);
 		}
 
 		if(switchFour.isTriggered()){
-			switchFour.changeSprite(sLoader.getImage(3));
+			switchFour.changeSprite(Texture.switchWhite_on);
 		}else{
-			switchFour.changeSprite(sLoader.getImage(2));
+			switchFour.changeSprite(Texture.switchWhite_off);
 
 		}
 
