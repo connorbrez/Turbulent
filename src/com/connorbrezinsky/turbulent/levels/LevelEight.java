@@ -622,7 +622,7 @@ public class LevelEight extends BasicGameState {
 
 		}
 
-		Level.gotoClick(i,player);
+	
 		Level.goToLevel(i, arg1);
 
 	}
