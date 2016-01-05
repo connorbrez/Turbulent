@@ -8,7 +8,12 @@ import org.newdawn.slick.geom.Rectangle;
 
 import com.connorbrezinsky.turbulent.levels.Level;
 
+
+
 public class Character {
+	
+	
+	
 	public float x, y, width, height, yVel;
 	public float gravity = 0.5F;
 	public float xSpeed = 3F;
@@ -26,15 +31,16 @@ public class Character {
 	public static String RIGHT = "right";
 	public boolean isTesting = false;
 	public boolean moving = false;
+	
+	
 
 	public Character(float _x, float _y, float w, float h, Color c) {
 		x = _x;
 		y = _y;
 		width = w;
 		height = h;
-		color = c;
+		color = c;		
 		rPl = new Rectangle(x, y, width, height);
-
 	}
 
 	public Character(float _x, float _y, float w, float h) {
@@ -138,6 +144,7 @@ public class Character {
 				x -= xVel / 4 + 1;
 			}else{
 				x -= xVel;
+				
 			}
 		}else if(i.isKeyPressed(jump)) {
 			jump();
@@ -207,6 +214,8 @@ public class Character {
 
 	public void addPhysics(){
 
+		
+		
 		yVel += gravity; 
 		y += yVel;
 

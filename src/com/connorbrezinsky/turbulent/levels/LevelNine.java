@@ -19,6 +19,7 @@ import com.connorbrezinsky.turbulent.object.PhysicsObject;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.object.Switch;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelNine extends BasicGameState {
 
@@ -32,7 +33,7 @@ public class LevelNine extends BasicGameState {
 	Platform obj0 = new Platform(600, 200, 200, 300, Color.white);
 	Platform obj1 = new Platform(187, 542, 50, 10, Color.white);
 	Platform obj2 = new Platform(384, 390, 50, 10, Color.white);
-	Platform obj3 = new Platform(197, 237, 50, 10, Color.white);
+	Platform obj3 = new Platform(170, 240, 50, 10, Color.white);
 	Platform obj4 = new Platform(0, 155, 50, 30, Color.white);
 	Platform obj5 = new Platform(288, 473, 50, 10, Color.white);
 	Platform obj6 = new Platform(282, 308, 50, 10, Color.white);
@@ -40,65 +41,70 @@ public class LevelNine extends BasicGameState {
 	Platform obj8 = new Platform(496, 202, 50, 10, Color.white);
 	Platform obj9 = new Platform(66, 195, 50, 10, Color.white);
 	Platform obj10 = new Platform(0, 90, 50, 10, Color.white);
+	Platform obj11 = new Platform(120, 400, 80, 10, Color.white);
 
 	PhysicsObject cube = new PhysicsObject(15, 130, 10, 10, Color.blue, true);
 	ObjectSpawner cSpawner;
-	Switch sw0 = new Switch(699, 165, 20, 20, Color.red);
+	Switch sw0 = new Switch(699, 165, 20, 20);
+	Switch sw1 = new Switch(120+(80/2-(20/2)),400-5,20,5, Color.blue);
 
 	Door dr0 = new Door(643, 500, 10, 100, Color.red);
 	Door dr1 = new Door(40, 100, 10, 55, Color.red);
 
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
+	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
 
-		Image[] iPhysSpawner = { new Image("res/animation/physSpawner/physSpawner1.png"),
-				new Image("res/animation/physSpawner/physSpawner2.png"),
-				new Image("res/animation/physSpawner/physSpawner3.png"),
-				new Image("res/animation/physSpawner/physSpawner4.png"),
-				new Image("res/animation/physSpawner/physSpawner5.png"),
-				new Image("res/animation/physSpawner/physSpawner6.png"), };
+		Image[] iPhysSpawner = Texture.loadPhysicsSpawner();
 
 		cSpawner = new ObjectSpawner(iPhysSpawner, Level.objSDuration);
 
 		cube.setSpawnerPos(cube.x - 10, cube.y - 25);
 
+		sw0.addSprite(Texture.switchWhite_off);
+
 	}
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
 		g.setBackground(bg);
 
 		cube.render(g, cSpawner);
-		
-		if(tb.z){
-			
-		}else if(tb.x){
-		
-		}else if(tb.c){
 
-		
+		if (tb.z) {
+			obj1.render(g);
+			obj2.render(g);
+			obj5.render(g);
+
+			obj1.setColor(Color.red);
+			obj2.setColor(Color.red);
+			obj5.setColor(Color.red);
+		} else if (tb.x) {
+			obj6.render(g);
+			obj7.render(g);
+			obj8.render(g);
+
+			obj6.setColor(Color.blue);
+			obj7.setColor(Color.blue);
+			obj8.setColor(Color.blue);
+		} else if (tb.c) {
+			obj3.render(g);
+			obj6.render(g);
+			obj9.render(g);
+
+			obj3.setColor(Color.green);
+			obj6.setColor(Color.green);
+			obj9.setColor(Color.green);
+		} else if (!tb.isActive()) {
+			obj11.render(g);
+			sw1.render(g);
 		}
-		// AUTO GENERATED CODE
+		
 		obj0.render(g);
-		obj1.render(g);
-		obj2.render(g);
-		obj3.render(g);
 		obj4.render(g);
-		obj5.render(g);
-		obj6.render(g);
-		obj7.render(g);
-		obj8.render(g);
-		obj9.render(g);
 		obj10.render(g);
 
 		sw0.render(g);
@@ -112,45 +118,59 @@ public class LevelNine extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException{
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		Input i = arg0.getInput();
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
 
 		tb.addListener(i);
-		
-		if(tb.z){
 
-		}else if(tb.x){
-
-		}else if(tb.c){
-
+		if (tb.z) {
+			obj1.addCollider(player, cube);
+			obj2.addCollider(player, cube);
+			obj5.addCollider(player, cube);
+		} else if (tb.x) {
+			obj6.addCollider(player, cube);
+			obj7.addCollider(player, cube);
+			obj8.addCollider(player, cube);
+		} else if (tb.c) {
+			obj6.addCollider(player, cube);
+			obj3.addCollider(player, cube);
+			obj9.addCollider(player, cube);
+		} else if (!tb.isActive()) {
+			obj11.addCollider(player, cube);
+			sw1.addCollider(player, cube);
+			sw1.addListener(player, cube, Switch.PRESSURE, i);
 		}
 
-		// AUTO GENERATED CODE
 		obj0.addCollider(player);
-		obj1.addCollider(player);
-		obj2.addCollider(player);
-		obj3.addCollider(player);
 		obj4.addCollider(player);
-		obj5.addCollider(player);
-		obj6.addCollider(player);
-		obj7.addCollider(player);
-		obj8.addCollider(player);
-		obj9.addCollider(player);
 		obj10.addCollider(player);
 
 		sw0.addCollider(player);
 		sw0.addListener(player, Switch.ACTION, i);
 
-		dr0.addCollider(player);
-		dr1.addCollider(player);
+		if (sw0.isTriggered()) {
+			sw0.destroy();
+		}
 
-		Level.levelFinish.addCollider(player);
+		cube.addCollider(player);
+		cube.addListener(i);
+		cube.addPhysics();
+		cube.addPlayer(player);
+		
+		
+		dr0.addCollider(player, cube);
+		dr0.addSwitch(sw1);
+		dr1.addCollider(player, cube);
+		dr1.addSwitch(sw0);
+		
+
+		Level.levelFinish.addCollider(player, cube);
 		Level.levelFinish.setNextLevel(Level.stage[10]);
 
-		if(Level.levelFinish.isFinished(player)){
+		if (Level.levelFinish.isFinished(player)) {
 			Level.levelFinish.goToNextLevel(arg1);
 		}
 
@@ -161,7 +181,7 @@ public class LevelNine extends BasicGameState {
 	}
 
 	@Override
-	public int getID(){
+	public int getID() {
 		return levelNine.getId();
 	}
 
