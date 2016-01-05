@@ -463,10 +463,10 @@ public class LevelEight extends BasicGameState {
 			}
 
 			if(lSwitch[1].isTriggered()){
-				lSwitch[1].changeSprite(Texture.switchBlack_off);
+				lSwitch[1].changeSprite(Texture.switchBlack_on);
 			}else{
 
-				lSwitch[1].changeSprite(Texture.switchBlack_on);
+				lSwitch[1].changeSprite(Texture.switchBlack_off);
 			}
 
 			if(lSwitch[2].isTriggered()){
@@ -478,7 +478,7 @@ public class LevelEight extends BasicGameState {
 			Level.levelFinish.addCollider(player, finishCube);
 			Level.levelFinish.setNextLevel(Level.stage[9]);
 			if(Level.levelFinish.isFinished(player)){
-				// Level.levelFinish.goToNextLevel(arg1);
+				Level.levelFinish.goToNextLevel(arg1);
 			}
 		}else if(lSwitch[0].isTriggered()){
 			player.setSpawn(200, 580);
@@ -622,6 +622,7 @@ public class LevelEight extends BasicGameState {
 
 		}
 
+		Level.gotoClick(i,player);
 		Level.goToLevel(i, arg1);
 
 	}
