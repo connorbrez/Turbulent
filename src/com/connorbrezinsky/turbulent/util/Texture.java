@@ -6,9 +6,8 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Texture {
 
-	static SpriteLoader sLoader;
-	
 	public static Image background;
+	public static Image test_background;
 	public static Image bPlay;
 	public static Image bExit;
 	public static Image loading;
@@ -30,31 +29,48 @@ public class Texture {
 	public static Image dropjump_black1;
 	public static Image dropjump_black2;
 	public static Image turbulenceControlls_img;
-	public static SpriteLoader turbulenceControlls;
 	public static Image turbZ;
 	public static Image turbX;
 	public static Image turbC;
-	
+	public static Image testPlayer;
 
-	public static void init() throws SlickException{
-		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"),20,20));
-		turbulenceControlls = new SpriteLoader(new SpriteSheet(new Image("res/turbulence_controlls_2.png"),23,25));
+	static SpriteLoader turbulenceControlls;
+	static SpriteLoader spinningCube;
+	static SpriteLoader sLoader;
+	static SpriteLoader door;
+	static SpriteLoader spawner;
+	static SpriteLoader dropjump;
+	static SpriteLoader backgrounds;
 
-		background = new Image("res/menu-background.png");
+	public static void init() throws SlickException {
+		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
+		turbulenceControlls = new SpriteLoader(new SpriteSheet(new Image("res/turbulence_controlls_2.png"), 23, 25));
+		spinningCube = new SpriteLoader(new SpriteSheet(new Image("res/animation/test.png"), 20, 20));
+		door = new SpriteLoader(new SpriteSheet(new Image("res/animation/finish/door_alt.png"), 20, 60));
+		spawner = new SpriteLoader(new SpriteSheet(new Image("res/animation/spawner/spawner.png"), 30, 50));
+		dropjump = new SpriteLoader(new SpriteSheet(new Image("res/dropjump.png"),49,34));
+		backgrounds = new SpriteLoader(new SpriteSheet(new Image("res/backgrounds.png"),800,600));
+		
+		
 		bPlay = new Image("res/button-play.png");
 		bExit = new Image("res/button-exit.png");
-		loading = new Image("res/loading.png");
 		move = new Image("res/move.png");
 		space_key = new Image("res/space.png");
 		downarrow = new Image("res/downarrow.png");
 		pickup = new Image("res/pickup.png");
 		e_key = new Image("res/e.png");
-		dropjump_white = new Image("res/dropjump_4.png");
-		dropjump_black1 = new Image("res/dropjump_1.png");
-		dropjump_black2 = new Image("res/dropjump_2.png");
 		turbulenceControlls_img = new Image("res/turbulence_controlls_1.png");
+
+		background = backgrounds.getImage(0);
+		loading = backgrounds.getImage(1);
+		test_background = backgrounds.getImage(2);
+		
+		dropjump_black1 = dropjump.getImage(0);
+		dropjump_black2 = dropjump.getImage(1);
+		dropjump_white = dropjump.getImage(2);
 		
 		blockMagenta = sLoader.getImage(0);
+		testPlayer = sLoader.getImage(1);
 		switchWhite_off = sLoader.getImage(2);
 		switchWhite_on = sLoader.getImage(3);
 		switchBlack_off = sLoader.getImage(4);
@@ -63,35 +79,35 @@ public class Texture {
 		spike = sLoader.getImage(7);
 		blockOrange = sLoader.getImage(8);
 		blockLightBlue = sLoader.getImage(11);
-		
+
 		turbZ = turbulenceControlls.getImage(0);
 		turbX = turbulenceControlls.getImage(1);
 		turbC = turbulenceControlls.getImage(2);
-		
-		
-		
+
 		System.out.println("Textures Initialzed");
-		
+
 	}
-	
-	public static Image[] loadLevelFinish() throws SlickException{
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
+
+	public static Image[] loadTest() throws SlickException {
+
+		Image[] testAnimation = { spinningCube.getImage(0), spinningCube.getImage(1), spinningCube.getImage(2),
+				spinningCube.getImage(3), spinningCube.getImage(4), spinningCube.getImage(5),
+				spinningCube.getImage(6) };
+		return testAnimation;
+	}
+
+	public static Image[] loadLevelFinish() throws SlickException {
+		Image[] iLevelFinish = { door.getImage(0), door.getImage(1), door.getImage(2), door.getImage(3),
+				door.getImage(4), door.getImage(5), door.getImage(6), door.getImage(7), door.getImage(8),
+				door.getImage(9), door.getImage(10), door.getImage(11) };
+
 		return iLevelFinish;
 	}
-	
-	public static Image[] loadPhysicsSpawner() throws SlickException{
-		Image[] iPhysSpawner = { new Image("res/animation/physSpawner/physSpawner1.png"),
-				new Image("res/animation/physSpawner/physSpawner2.png"),
-				new Image("res/animation/physSpawner/physSpawner3.png"),
-				new Image("res/animation/physSpawner/physSpawner4.png"),
-				new Image("res/animation/physSpawner/physSpawner5.png"),
-				new Image("res/animation/physSpawner/physSpawner6.png"), };
+
+	public static Image[] loadPhysicsSpawner() throws SlickException {
+		Image[] iPhysSpawner = { spawner.getImage(0), spawner.getImage(1), spawner.getImage(2), spawner.getImage(3),
+				spawner.getImage(4), spawner.getImage(5) };
+
 		return iPhysSpawner;
 	}
 

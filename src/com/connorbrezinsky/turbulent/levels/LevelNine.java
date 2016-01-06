@@ -43,6 +43,7 @@ public class LevelNine extends BasicGameState {
 	Platform obj10 = new Platform(0, 90, 50, 10, Color.white);
 	Platform obj11 = new Platform(120, 400, 80, 10, Color.white);
 
+ 	
 	PhysicsObject cube = new PhysicsObject(15, 130, 10, 10, Color.blue, true);
 	ObjectSpawner cSpawner;
 	Switch sw0 = new Switch(699, 165, 20, 20);
@@ -63,8 +64,10 @@ public class LevelNine extends BasicGameState {
 		cSpawner = new ObjectSpawner(iPhysSpawner, Level.objSDuration);
 
 		cube.setSpawnerPos(cube.x - 10, cube.y - 25);
-
+		cube.addPlayer(player);
+		
 		sw0.addSprite(Texture.switchWhite_off);
+		
 
 	}
 
@@ -74,6 +77,8 @@ public class LevelNine extends BasicGameState {
 
 		cube.render(g, cSpawner);
 
+		
+		
 		if (tb.z) {
 			obj1.render(g);
 			obj2.render(g);
@@ -155,16 +160,17 @@ public class LevelNine extends BasicGameState {
 			sw0.destroy();
 		}
 
-		cube.addCollider(player);
+		cube.addPlayerCollider(player);
 		cube.addListener(i);
 		cube.addPhysics();
-		cube.addPlayer(player);
+		
 		
 		
 		dr0.addCollider(player, cube);
 		dr0.addSwitch(sw1);
 		dr1.addCollider(player, cube);
 		dr1.addSwitch(sw0);
+	
 		
 
 		Level.levelFinish.addCollider(player, cube);

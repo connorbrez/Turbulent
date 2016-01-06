@@ -57,7 +57,7 @@ public class LevelBuilder {
 	GuiButton toolDoor = new GuiButton(toolSelection, 5, 295, 80, 20).setText("Door");
 	GuiButton hideGui = new GuiButton(0, 200, 15, 15).setText("-");
 	GuiButton currentColor = new GuiButton(toolSelection, 90 / 2 - 30 / 2, 375, 30, 20, objColor)
-			.setBorderColor(Color.darkGray);;
+			.setBorderColor(Color.darkGray);
 
 	GuiButton blue = new GuiButton(colorGui, 105, 220, 30, 20, Color.blue);
 	GuiButton green = new GuiButton(colorGui, 105, 245, 30, 20, Color.green);
@@ -73,40 +73,40 @@ public class LevelBuilder {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static UnicodeFont getNewFont(String fontName, int fontSize){
+	public static UnicodeFont getNewFont(String fontName, int fontSize) {
 		UnicodeFont returnFont = new UnicodeFont(new Font(fontName, Font.PLAIN, fontSize));
 		returnFont.addAsciiGlyphs();
 		returnFont.getEffects().add(new ColorEffect(java.awt.Color.black));
 		return (returnFont);
 	}
 
-	public void addBuilder(Input i) throws SlickException{
+	public void addBuilder(Input i) throws SlickException {
 		int mx = i.getMouseX();
 		int my = i.getMouseY();
 
-		if(Main.getKeyPress(i, Input.KEY_L)){
-			if(isActive){
+		if (Main.getKeyPress(i, Input.KEY_L)) {
+			if (isActive) {
 				isActive = false;
-			}else{
+			} else {
 				isActive = true;
 			}
 		}
 
-		if(isActive){
-			if(i.isMousePressed(0)){
-				switch(toolActive){
+		if (isActive) {
+			if (i.isMousePressed(0)) {
+				switch (toolActive) {
 
 				case TOOL_REMOVE:
 					System.out.println("Clicked for Remove");
-					for(Object obj : objects){
-						
-						if(Main.getClick(i, obj, null)){
+					for (Object obj : objects) {
+
+						if (Main.getClick(i, obj, null)) {
 							System.out.println("Removing obj: " + obj.toString());
-							try{
-			
+							try {
+
 								objects.remove(obj);
 								p--;
-							}catch(Exception e){
+							} catch (Exception e) {
 								System.out.println("Error removing obj " + obj.toString());
 								e.printStackTrace();
 							}
@@ -129,28 +129,28 @@ public class LevelBuilder {
 		}
 	}
 
-	public void initGui(GameContainer arg0) throws SlickException{
+	public void initGui(GameContainer arg0) throws SlickException {
 
 		tfWidth = new TextField(arg0, arg0.getDefaultFont(), 10, 350, 30, 20);
 		tfHeight = new TextField(arg0, arg0.getDefaultFont(), 50, 350, 30, 20);
 		tfHeight.setMaxLength(3);
 		tfWidth.setMaxLength(3);
 
-		tfHeight.addListener(new ComponentListener(){
+		tfHeight.addListener(new ComponentListener() {
 
 			@Override
-			public void componentActivated(AbstractComponent source){
-				if(!Float.isNaN(Float.parseFloat(tfHeight.getText()))){
+			public void componentActivated(AbstractComponent source) {
+				if (!Float.isNaN(Float.parseFloat(tfHeight.getText()))) {
 					objHeight = Float.parseFloat(tfHeight.getText());
 				}
 			}
 		});
 
-		tfWidth.addListener(new ComponentListener(){
+		tfWidth.addListener(new ComponentListener() {
 
 			@Override
-			public void componentActivated(AbstractComponent source){
-				if(!Float.isNaN(Float.parseFloat(tfWidth.getText()))){
+			public void componentActivated(AbstractComponent source) {
+				if (!Float.isNaN(Float.parseFloat(tfWidth.getText()))) {
 					objWidth = Float.parseFloat(tfWidth.getText());
 				}
 			}
@@ -158,12 +158,12 @@ public class LevelBuilder {
 
 	}
 
-	public void renderGui(GameContainer arg0, Graphics g){
+	public void renderGui(GameContainer arg0, Graphics g) {
 		toolSelection.render(g);
-		colorGui.render(g);
 		hideGui.render(g);
-		if(toolSelection.isVisible){
-			if(toolActive == TOOL_PLATFORM || toolActive == TOOL_DOOR){
+		if (toolSelection.isVisible) {
+			colorGui.render(g);
+			if (toolActive == TOOL_PLATFORM || toolActive == TOOL_DOOR) {
 
 				tfWidth.setBorderColor(Color.darkGray);
 				tfHeight.setBorderColor(Color.darkGray);
@@ -174,58 +174,60 @@ public class LevelBuilder {
 				tfWidth.setTextColor(Color.black);
 				tfWidth.render(arg0, g);
 				tfHeight.render(arg0, g);
+
 			}
+
 		}
 	}
 
 	boolean colorGuiActive = false;
 
-	public void guiListener(Input i) throws SlickException{
+	public void guiListener(Input i) throws SlickException {
 		int mx = i.getAbsoluteMouseX();
 		int my = i.getAbsoluteMouseY();
 
 		currentColor.setBackgroundColor(objColor);
 
-		if(mx < 80 && my > 200 && my < 200 + 200 && toolSelection.isVisible){
+		if (mx < 80 && my > 200 && my < 200 + 200 && toolSelection.isVisible) {
 			isActive = false;
-		}else if(mx > 0 && mx < 15 && my > 200 && my < 215){
+		} else if (mx > 0 && mx < 15 && my > 200 && my < 215) {
 			isActive = false;
-		}else if(colorGui.isVisible){
+		} else if (colorGui.isVisible) {
 			isActive = false;
-		}else{
+		} else {
 			isActive = true;
 		}
 
-		if(colorGuiActive){
+		if (colorGuiActive) {
 			colorGui.unHide();
-		}else{
+		} else {
 			colorGui.hide();
 		}
 
-		if(colorGui.isVisible && colorGuiActive){
+		if (colorGui.isVisible && colorGuiActive) {
 
 		}
 
-		if(toolRemove.getClick(i)){
+		if (toolRemove.getClick(i)) {
 			toolActive = TOOL_REMOVE;
-		}else if(toolPlatform.getClick(i)){
+		} else if (toolPlatform.getClick(i)) {
 			toolActive = TOOL_PLATFORM;
-		}else if(toolSwitch.getClick(i)){
+		} else if (toolSwitch.getClick(i)) {
 			toolActive = TOOL_SWITCH;
-		}else if(toolDoor.getClick(i)){
+		} else if (toolDoor.getClick(i)) {
 			toolActive = TOOL_DOOR;
-		}else if(hideGui.getClick(i)){
-			if(toolSelection.isVisible){
+		} else if (hideGui.getClick(i)) {
+			if (toolSelection.isVisible) {
 				toolSelection.hide();
 				hideGui.setText("+");
-			}else{
+			} else {
 				toolSelection.unHide();
 				hideGui.setText("-");
 			}
-		}else if(currentColor.getClick(i)){
-			if(colorGuiActive){
+		} else if (currentColor.getClick(i)) {
+			if (colorGuiActive) {
 				colorGuiActive = false;
-			}else{
+			} else {
 				colorGuiActive = true;
 			}
 		}
@@ -235,23 +237,23 @@ public class LevelBuilder {
 
 	}
 
-	public void cgListener(Input i){
-		if(colorGuiActive && colorGui.isVisible){
-			if(blue.getClick(i)){
+	public void cgListener(Input i) {
+		if (colorGuiActive && colorGui.isVisible) {
+			if (blue.getClick(i)) {
 				objColor = Color.blue;
-			}else if(red.getClick(i)){
+			} else if (red.getClick(i)) {
 				objColor = Color.red;
-			}else if(green.getClick(i)){
+			} else if (green.getClick(i)) {
 				objColor = Color.green;
-			}else if(orange.getClick(i)){
+			} else if (orange.getClick(i)) {
 				objColor = Color.orange;
-			}else if(white.getClick(i)){
+			} else if (white.getClick(i)) {
 				objColor = Color.white;
-			}else if(black.getClick(i)){
+			} else if (black.getClick(i)) {
 				objColor = Color.black;
-			}else if(pink.getClick(i)){
+			} else if (pink.getClick(i)) {
 				objColor = Color.pink;
-			}else if(cyan.getClick(i)){
+			} else if (cyan.getClick(i)) {
 				objColor = Color.cyan;
 			}
 		}
@@ -259,20 +261,20 @@ public class LevelBuilder {
 
 	int activeTf = 0;
 
-	public void tfListener(Input i){
+	public void tfListener(Input i) {
 
 		final int WIDTH = 1;
 		final int HEIGHT = 2;
-		if(toolSelection.isVisible){
-			if(Main.getClick(i, tfWidth)){
+		if (toolSelection.isVisible) {
+			if (Main.getClick(i, tfWidth)) {
 				activeTf = WIDTH;
-			}else if(Main.getClick(i, tfHeight)){
+			} else if (Main.getClick(i, tfHeight)) {
 				activeTf = HEIGHT;
 			}
 
-			if(activeTf == WIDTH){
+			if (activeTf == WIDTH) {
 				tfWidth.setFocus(true);
-			}else if(activeTf == HEIGHT){
+			} else if (activeTf == HEIGHT) {
 				tfHeight.setFocus(true);
 			}
 		}
@@ -280,16 +282,17 @@ public class LevelBuilder {
 
 	int o = 0;
 
-	public void placeObject(float x, float y, float w, float h){
+	public void placeObject(float x, float y, float w, float h) {
 		objects.add(new Platform(x, y, w, h, objColor));
 		System.out.println(objects.indexOf(new Platform(x, y, w, h, objColor)));
 
-		try{
+		try {
 			FileUtils.writeStringToFile(new File("platforms.txt"),
 					"Platform obj" + o + " = new " + objects.get(p) + "\n", true);
 			FileUtils.writeStringToFile(new File("platforms_render.txt"), "obj" + o + ".render(g);\n", true);
-			FileUtils.writeStringToFile(new File("platforms_collider.txt"), "obj" + o + ".addCollider(player);\n", true);
-		}catch(IOException e){
+			FileUtils.writeStringToFile(new File("platforms_collider.txt"), "obj" + o + ".addCollider(player);\n",
+					true);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		p++;
@@ -298,14 +301,14 @@ public class LevelBuilder {
 
 	int s = 0;
 
-	public void placeSwitch(float x, float y, float w, float h){
+	public void placeSwitch(float x, float y, float w, float h) {
 		objects.add(new Switch(x, y, w, h, objColor));
-		try{
+		try {
 			FileUtils.writeStringToFile(new File("switch.txt"), "Switch sw" + o + " = new " + objects.get(p) + "\n",
 					true);
 			FileUtils.writeStringToFile(new File("switch_render.txt"), "sw" + o + ".render(player);\n", true);
 			FileUtils.writeStringToFile(new File("switch_collider.txt"), "sw" + o + ".addCollider(g);\n", true);
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		p++;
@@ -314,39 +317,38 @@ public class LevelBuilder {
 
 	int d = 0;
 
-	public void placeDoor(float x, float y, float w, float h){
+	public void placeDoor(float x, float y, float w, float h) {
 		objects.add(new Door(x, y, w, h, objColor));
-		try{
+		try {
 
-			FileUtils.writeStringToFile(new File("door.txt"), "Door dr" + o + " = new " + objects.get(p) + "\n",
-					true);
+			FileUtils.writeStringToFile(new File("door.txt"), "Door dr" + o + " = new " + objects.get(p) + "\n", true);
 			FileUtils.writeStringToFile(new File("door_render.txt"), "dr" + o + ".render(g);\n", true);
 			FileUtils.writeStringToFile(new File("door_collider.txt"), "dr" + o + ".addCollider(player);\n", true);
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		p++;
 		d++;
 	}
 
-	public void renderObjects(Graphics g){
-		for(Object obj : objects){
+	public void renderObjects(Graphics g) {
+		for (Object obj : objects) {
 			obj.render(g);
 		}
 
 	}
 
-	public void addColliders(Character p){
-		for(Object obj : objects){
+	public void addColliders(Character p) {
+		for (Object obj : objects) {
 			obj.addCollider(p);
 		}
 	}
 
-	public void showObjectOutline(Graphics g, Input i, Color c){
+	public void showObjectOutline(Graphics g, Input i, Color c) {
 		int mx = i.getAbsoluteMouseX();
 		int my = i.getAbsoluteMouseY();
 
-		switch(toolActive){
+		switch (toolActive) {
 		case TOOL_PLATFORM:
 			g.setColor(c);
 			g.drawRect(mx - (objWidth / 2), my - (objHeight / 2), objWidth, objHeight);

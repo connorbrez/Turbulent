@@ -53,6 +53,12 @@ public class PhysicsObject extends Object {
 		char_ = c;
 	}
 
+	
+	@Override
+	public void addCollider(Character c){
+		addPlayerCollider(c);
+	}
+	
 	public void addPlayerCollider(Character c){
  		if(goneFromSpawner && canPickup) {
 			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {

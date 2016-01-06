@@ -165,15 +165,15 @@ public class Object {
 	}
 
 	public void destroy() {
-		isVisible=false;
+		isVisible = false;
 	}
-	
-	public void hide(){
-		isVisible=false;
+
+	public void hide() {
+		isVisible = false;
 	}
-	
-	public void show(){
-		isVisible=true;
+
+	public void show() {
+		isVisible = true;
 	}
 
 	public void setColor(Color c) {

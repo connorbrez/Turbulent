@@ -144,10 +144,7 @@ public class LevelEight extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
 
-		aLoader = new SpriteSheet(new Image("res/animations_20x60.png"), 20, 60);
-		SpriteSheet[] s = { new SpriteSheet(new Image("res/sprites.png"), 20, 20),
-				new SpriteSheet(new Image("res/turbulence_controlls_2.png"), 23, 25) };
-		sLoader = new SpriteLoader(s);
+		
 
 		turbulenceControllsOne = new Image("res/turbulence_controlls_1.png");
 

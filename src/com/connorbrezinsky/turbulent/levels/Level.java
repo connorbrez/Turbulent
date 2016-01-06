@@ -23,8 +23,8 @@ public class Level {
 	public static Image characterTest;
 
 	static Animation aLevelFinish;
-	static int d = 100;
-	static int[] duration = { d, d, d, d, d, d, d, d, d, d, d, d };
+	static int d = 120;
+	static int[] duration = { d, d, d, d, d, d, d, d, d, d, d, d};
 	static int[] lsDuration = { d, d, d, d, d, d, d, d, d, d, d, d, d, d, d };
 
 	static Animation aObjectSpawner;
@@ -63,10 +63,10 @@ public class Level {
 
 	}
 
-	public static  void gotoClick(Input i, Character p) {
+	public static void gotoClick(Input i, Character p) {
 		int mx = i.getMouseX();
 		int my = i.getMouseY();
-		
+
 		if (i.isMousePressed(0)) {
 			p.setPos(mx, my);
 		}

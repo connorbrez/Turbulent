@@ -14,6 +14,7 @@ import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.util.State;
+import com.connorbrezinsky.turbulent.util.Texture;
 
 public class LevelTen extends BasicGameState {
 
@@ -33,13 +34,7 @@ public class LevelTen extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-		Image[] iLevelFinish = { new Image("res/animation/finish/phase1.png"),
-				new Image("res/animation/finish/phase2.png"), new Image("res/animation/finish/phase3.png"),
-				new Image("res/animation/finish/phase4.png"), new Image("res/animation/finish/phase5.png"),
-				new Image("res/animation/finish/phase6.png"), new Image("res/animation/finish/phase7.png"),
-				new Image("res/animation/finish/phase8.png"), new Image("res/animation/finish/phase9.png"),
-				new Image("res/animation/finish/phase10.png"), new Image("res/animation/finish/phase11.png"),
-				new Image("res/animation/finish/phase12.png") };
+		Image[] iLevelFinish = Texture.loadLevelFinish();
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
