@@ -129,8 +129,8 @@ public class LevelFive extends BasicGameState {
 			doorSwitch1.render(g);
 			spike1.render(g);
 			spike2.render(g);
-			Texture.dropjump_black2.draw(90, 270);
-			Texture.dropjump_black1.draw(525, 235);
+			Texture.dropjump_black1.draw(90, 270);
+			Texture.dropjump_black2.draw(525, 235);
 		}else{
 			doorSwitch0.render(g);
 			Texture.dropjump_white.draw(310, 500);

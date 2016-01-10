@@ -43,14 +43,14 @@ public class LevelNine extends BasicGameState {
 	Platform obj10 = new Platform(0, 90, 50, 10, Color.white);
 	Platform obj11 = new Platform(120, 400, 80, 10, Color.white);
 
- 	
-	PhysicsObject cube = new PhysicsObject(15, 130, 10, 10, Color.blue, true);
-	ObjectSpawner cSpawner;
 	Switch sw0 = new Switch(699, 165, 20, 20);
-	Switch sw1 = new Switch(120+(80/2-(20/2)),400-5,20,5, Color.blue);
+	Switch sw1 = new Switch(120 + (80 / 2 - (20 / 2)), 400 - 5, 20, 5, Color.blue);
 
 	Door dr0 = new Door(643, 500, 10, 100, Color.red);
 	Door dr1 = new Door(40, 100, 10, 55, Color.red);
+	
+	PhysicsObject cube = new PhysicsObject(15, 130, 10, 10, Color.blue, true);
+	ObjectSpawner cSpawner;
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -65,9 +65,8 @@ public class LevelNine extends BasicGameState {
 
 		cube.setSpawnerPos(cube.x - 10, cube.y - 25);
 		cube.addPlayer(player);
-		
+
 		sw0.addSprite(Texture.switchWhite_off);
-		
 
 	}
 
@@ -77,8 +76,6 @@ public class LevelNine extends BasicGameState {
 
 		cube.render(g, cSpawner);
 
-		
-		
 		if (tb.z) {
 			obj1.render(g);
 			obj2.render(g);
@@ -107,7 +104,7 @@ public class LevelNine extends BasicGameState {
 			obj11.render(g);
 			sw1.render(g);
 		}
-		
+
 		obj0.render(g);
 		obj4.render(g);
 		obj10.render(g);
@@ -163,23 +160,21 @@ public class LevelNine extends BasicGameState {
 		cube.addPlayerCollider(player);
 		cube.addListener(i);
 		cube.addPhysics();
-		
-		
-		
+
 		dr0.addCollider(player, cube);
 		dr0.addSwitch(sw1);
 		dr1.addCollider(player, cube);
 		dr1.addSwitch(sw0);
-	
-		
 
 		Level.levelFinish.addCollider(player, cube);
 		Level.levelFinish.setNextLevel(Level.stage[10]);
 
 		if (Level.levelFinish.isFinished(player)) {
-			Level.levelFinish.goToNextLevel(arg1);
+			//Level.levelFinish.goToNextLevel(arg1);
 		}
 
+		Level.goToLevel(i, arg1);
+		
 	}
 
 	public LevelNine(int s) {

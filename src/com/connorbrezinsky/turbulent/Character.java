@@ -9,11 +9,8 @@ import org.newdawn.slick.geom.Rectangle;
 import com.connorbrezinsky.turbulent.levels.Level;
 
 
-
 public class Character {
-	
-	
-	
+
 	public float x, y, width, height, yVel;
 	public float gravity = 0.5F;
 	public float xSpeed = 3F;
@@ -31,15 +28,13 @@ public class Character {
 	public static String RIGHT = "right";
 	public boolean isTesting = false;
 	public boolean moving = false;
-	
-	
 
 	public Character(float _x, float _y, float w, float h, Color c) {
 		x = _x;
 		y = _y;
 		width = w;
 		height = h;
-		color = c;		
+		color = c;
 		rPl = new Rectangle(x, y, width, height);
 	}
 
@@ -61,135 +56,140 @@ public class Character {
 
 	}
 
-	public void addSprite(Image s){
+	public void addSprite(Image s) {
 		sprite = s;
 	}
 
-	public void render(Graphics g){
-		if(!isTesting) {
+	public void render(Graphics g) {
+		
+
+		if (!isTesting) {
 			g.setColor(color);
 			g.fillRect(x, y, width, height);
-		}else if(sprite != null) {
+		} else if (sprite != null) {
 			sprite.draw(x, y, width, height);
-		}else{
+		} else {
 			Level.characterTest.draw(x, y, width, height);
 		}
 
 	}
 
-	public void addCollider(Character c){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+	public void addCollider(Character c) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 			c.x = x - c.getWidth();
 
-		}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x,
-				y, width, 10)) {
+		} else if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(),
+				x, y, width, 10)) {
 			c.y = y - c.getHeight();
 			c.yVel = 0;
 			c.isJumping = false;
-		}else
-			if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width, 10)) {
+		} else if (Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
+				10)) {
 			c.y = y - c.getHeight();
 			c.yVel = 0;
 			c.isJumping = false;
 
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10, height)) {
+		} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10,
+				height)) {
 			c.x = x + width;
-		}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width, 10)) {
+		} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
+				10)) {
 			c.y = y + height;
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
+		} else if (Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
 				y + height - 10, width, 10)) {
 			c.y = y + height;
 		}
 	}
 
-	public void addWorldCollider(){
-		if(x < 0) {
+	public void addWorldCollider() {
+		if (x < 0) {
 			x = 1;
-		}else if(x + width > Main.viewportWidth) {
+		} else if (x + width > Main.viewportWidth) {
 			x = Main.viewportWidth - 21;
-		}else if(y < 0) {
+		} else if (y < 0) {
 			y = 1;
 			this.yVel = 0;
 		}
 	}
 
-	public void addBasicController(Input i, int right, int left, int jump){
+	public void addBasicController(Input i, int right, int left, int jump) {
 
-		if(i.isKeyDown(left)) {
+		if (i.isKeyDown(left)) {
 			direction = LEFT;
 			moving = true;
-			if(moving) {
+			if (moving) {
 				xVel = xSpeed;
-			}else{
+			} else {
 				xVel = 0;
 			}
-			if(i.isKeyPressed(jump)) {
+			if (i.isKeyPressed(jump)) {
 				jump();
-			}else if(isJumping) {
+			} else if (isJumping) {
 				x += xVel / 4 + 1;
-			}else{
+			} else {
 				x += xVel;
 			}
-		}else if(i.isKeyDown(right)) {
+		} else if (i.isKeyDown(right)) {
 			moving = true;
 			direction = RIGHT;
-			if(moving) {
+			if (moving) {
 				xVel = xSpeed;
-			}else{
+			} else {
 				xVel = 0;
 			}
-			if(i.isKeyPressed(jump)) {
+			if (i.isKeyPressed(jump)) {
 				jump();
-			}else if(isJumping) {
+			} else if (isJumping) {
 				x -= xVel / 4 + 1;
-			}else{
+			} else {
 				x -= xVel;
-				
+
 			}
-		}else if(i.isKeyPressed(jump)) {
+		} else if (i.isKeyPressed(jump)) {
 			jump();
-		}else{
+		} else {
 			xVel = 0;
+			moving = false;
 		}
 
-		try{
-			if(i.getControllerCount() > 0) {
+		try {
+			if (i.getControllerCount() > 0) {
 
-				if(i.getAxisValue(0, 0) > 0.5) {
+				if (i.getAxisValue(0, 0) > 0.5) {
 					xVel = xSpeed;
 					direction = LEFT;
-					if(i.isControlPressed(15, 0)) {
+					if (i.isControlPressed(15, 0)) {
 						jump();
-					}else if(isJumping) {
+					} else if (isJumping) {
 						x += xVel / 4 + 1;
-					}else{
+					} else {
 						x += xVel;
 					}
-				}else if(i.getAxisValue(0, 0) < -0.5) {
+				} else if (i.getAxisValue(0, 0) < -0.5) {
 					direction = RIGHT;
 					xVel = xSpeed;
-					if(i.isControlPressed(15, 0)) {
+					if (i.isControlPressed(15, 0)) {
 						jump();
-					}else if(isJumping) {
+					} else if (isJumping) {
 						x -= xVel / 4 + 1;
-					}else{
+					} else {
 						x -= xVel;
 					}
-				}else if(i.isControlPressed(15, 0)) {
+				} else if (i.isControlPressed(15, 0)) {
 					jump();
-				}else{
+				} else {
 					xVel = 0;
 				}
 
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public void jump(){
-		if(isJumping == false) {
+	public void jump() {
+		if (isJumping == false) {
 			yVel = ySpeed;
 			isJumping = true;
 			canMove = false;
@@ -199,30 +199,28 @@ public class Character {
 
 	float sx, sy = 1000;
 
-	public void setSpawn(float _x, float _y){
+	public void setSpawn(float _x, float _y) {
 		sx = _x;
 		sy = _y;
 	}
 
-	public void kill(){
-		if(sx >= 1000 & sy >= 1000) {
+	public void kill() {
+		if (sx >= 1000 & sy >= 1000) {
 			setPos(100, 550);
-		}else{
+		} else {
 			setPos(sx, sy);
 		}
 	}
 
-	public void addPhysics(){
+	public void addPhysics() {
 
-		
-		
-		yVel += gravity; 
+		yVel += gravity;
 		y += yVel;
 
-		if(yVel > 150) {
+		if (yVel > 150) {
 			yVel = 150;
 		}
-		if(y > Main.viewportHeight - height) {
+		if (y > Main.viewportHeight - height) {
 			y = Main.viewportHeight - height;
 			yVel = 0;
 			isJumping = false;
@@ -232,64 +230,64 @@ public class Character {
 	}
 
 	// HELPER FUNCTIONS
-	public float getX(){
+	public float getX() {
 		return x;
 	}
 
-	public float getY(){
+	public float getY() {
 		return y;
 	}
 
-	public float getWidth(){
+	public float getWidth() {
 		return width;
 	}
 
-	public float getHeight(){
+	public float getHeight() {
 		return height;
 	}
 
-	public float getYVel(){
+	public float getYVel() {
 		return yVel;
 	}
 
-	public float getGravity(){
+	public float getGravity() {
 		return gravity;
 	}
 
-	public float getXSpeed(){
+	public float getXSpeed() {
 		return xSpeed;
 	}
 
-	public float getYSpeed(){
+	public float getYSpeed() {
 		return ySpeed;
 	}
 
-	public void setGravity(float g){
+	public void setGravity(float g) {
 		gravity = g;
 	}
 
-	public void setXSpeed(float xS){
+	public void setXSpeed(float xS) {
 		xSpeed = xS;
 	}
 
-	public void setYSpeed(float yS){
+	public void setYSpeed(float yS) {
 		ySpeed = yS;
 	}
 
-	public void setPos(float _x, float _y){
+	public void setPos(float _x, float _y) {
 		x = _x;
 		y = _y;
 	}
 
-	public void setX(float _x){
+	public void setX(float _x) {
 		x = _x;
 	}
 
-	public void setY(float _y){
+	public void setY(float _y) {
 		y = _y;
 	}
 
-	public void setColor(Color c){
+	public void setColor(Color c) {
 		color = c;
 	}
 

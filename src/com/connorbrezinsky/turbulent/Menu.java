@@ -1,5 +1,6 @@
 package com.connorbrezinsky.turbulent;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -27,7 +28,7 @@ public class Menu extends BasicGameState {
 		exit = new GuiButton(400 - Texture.bExit.getWidth() / 2,
 				300 - (Texture.bExit.getHeight() / 2) + Texture.bPlay.getHeight() + 5, Texture.bExit.getWidth(),
 				Texture.bExit.getHeight());
-
+		container.setShowFPS(false);
 		play.addSprite(Texture.bPlay);
 		exit.addSprite(Texture.bExit);
 	}
@@ -37,6 +38,9 @@ public class Menu extends BasicGameState {
 		Texture.background.draw();
 		play.render(g);
 		exit.render(g);
+		g.setColor(Color.white);
+		g.drawString("v"+Main.VERSION, 5, 5);
+		
 	}
 
 	@Override

@@ -26,6 +26,8 @@ public class PhysicsObject extends Object {
 	public boolean goneFromSpawner = true;
 	int actionKey = Input.KEY_E;
 	Character char_;
+	boolean isPushable = true;
+	float weight = 0;
 
 	public PhysicsObject(float _x, float _y, float w, float h, Color c) {
 		super(_x, _y, w, h, c);
@@ -34,6 +36,19 @@ public class PhysicsObject extends Object {
 		width = w;
 		height = h;
 		color = c;
+
+		if (width > height) {
+			weight = Math.round(width/10);
+			
+		} else if (height > width) {
+			weight = Math.round(height/10);
+		}else if(height==width){
+			weight = Math.round(height/10);
+		}
+	
+		System.out.println(weight);
+		
+
 	}
 
 	public PhysicsObject(float _x, float _y, float w, float h, Color c, boolean spawner) {
@@ -44,107 +59,131 @@ public class PhysicsObject extends Object {
 		height = h;
 		color = c;
 		hasSpawner = spawner;
-		if(spawner){
+		if (spawner) {
 			goneFromSpawner = false;
 		}
+		
+		if (width > height) {
+			weight = Math.round(width/10);
+			
+		} else if (height > width) {
+			weight = Math.round(height/10);
+		}else if(height==width){
+			weight = Math.round(height/10);
+		}
+	
+		System.out.println(weight);
 	}
 
-	public void addPlayer(Character c){
+	public void addPlayer(Character c) {
 		char_ = c;
 	}
 
-	
 	@Override
-	public void addCollider(Character c){
+	public void addCollider(Character c) {
 		addPlayerCollider(c);
 	}
-	
-	public void addPlayerCollider(Character c){
- 		if(goneFromSpawner && canPickup) {
-			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
-				c.x = x - c.getWidth() - 2;
 
-			}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
- 				c.x = x - c.getWidth() - 2;
-
-			}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(),
-					x, y, width, 10)) {
+	public void addPlayerCollider(Character c) {
+		if (goneFromSpawner && canPickup) {
+			if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+				c.x = x - c.getWidth();
+				if (isPushable) {
+					xVel = c.xVel-weight;
+				}
+			} else if (c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
+				c.x = x - c.getWidth();
+				if (isPushable) {
+					xVel = c.xVel-weight;
+				}
+			} else if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(),
+					c.getHeight(), x, y, width, 10)) {
 				c.y = y - c.getHeight();
 				c.yVel = 0;
 				c.isJumping = false;
-			}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
+			} else if (Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
 					10)) {
- 				c.y = y - c.getHeight();
- 				c.yVel = 0;
- 				c.isJumping = false;
-
-			}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
 				c.y = y - c.getHeight();
 				c.yVel = 0;
 				c.isJumping = false;
 
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10,
+			} else if (c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
+				c.y = y - c.getHeight();
+				c.yVel = 0;
+				c.isJumping = false;
+
+			} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10,
 					height)) {
-				c.x = x + width + 0.1F;
+				c.x = x + width;
+				if (isPushable) {
+					xVel = (-c.xVel)+weight;
+				}
 
-			}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
- 				c.x = x + width + 0.1F;
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
+			} else if (c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
+				c.x = x + width;
+				if (isPushable) {
+					xVel = (-c.xVel)+weight;
+				}
+
+			} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
 					10)) {
 				c.y = y + height;
 				c.yVel = 0;
 
-			}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
+			} else if (c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
 				c.y = y + height;
 				c.yVel = 0;
 
-			}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
+			} else if (Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
 					y + height - 10, width, 10)) {
-	
- 				c.y = y + height;
- 				c.yVel = 0;
- 			}
 
- 		}
+				c.y = y + height;
+				c.yVel = 0;
+			} else {
+				xVel = 0;
+			}
+
+		}
 	}
 
-	public void addPhysObjCollider(PhysicsObject c){
-		if(canPickup && c.canPickup && goneFromSpawner) {
-			if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
+	public void addPhysObjCollider(PhysicsObject c) {
+		if (canPickup && c.canPickup && goneFromSpawner) {
+			if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 				c.x = x - c.getWidth() - 0.1F;
 
-			}else if(c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
+			} else if (c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
 				c.x = x - c.getWidth() - 0.1F;
 
-			}else if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(),
-					x, y, width, 10)) {
+			} else if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(),
+					c.getHeight(), x, y, width, 10)) {
 				c.y = y - c.getHeight();
 				c.yVel = 0;
-			}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
+			} else if (Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), x, y, width,
 					10)) {
 				c.y = y - c.getHeight();
 				c.yVel = 0;
 
-			}else if(c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
+			} else if (c.x < x && c.x + c.width > x && c.y + c.height > y && c.y + c.height < y + 10) {
 				c.y = y - c.getHeight();
 				c.yVel = 0;
 
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10,
+			} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x + width - 10, y, 10,
 					height)) {
 				c.x = x + width + 0.1F;
 
-			}else if(c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
+			} else if (c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
 				c.x = x + width + 0.1F;
-			}else if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
+
+			} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
 					10)) {
 				c.y = y + height;
 				c.yVel = 0;
 
-			}else if(c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
+			} else if (c.x < x && c.x + c.width > x && c.y < y + height - 10 && c.y + c.height > y + height - 10) {
 				c.y = y + height;
 				c.yVel = 0;
 
-			}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
+			} else if (Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), x,
 					y + height - 10, width, 10)) {
 				c.y = y + height;
 				c.yVel = 0;
@@ -152,36 +191,36 @@ public class PhysicsObject extends Object {
 		}
 	}
 
-	public void render(Graphics g){
+	public void render(Graphics g) {
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
-		if(!canPickup) {
+		if (!canPickup) {
 			g.setColor(Color.red);
 			g.drawRect(x, y, width, height);
 		}
 	}
 
-	public void render(Graphics g, ObjectSpawner pObj){
+	public void render(Graphics g, ObjectSpawner pObj) {
 
 		pObj.render(spawnerX, spawnerY);
 
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
-		if(!canPickup) {
+		if (!canPickup) {
 			g.setColor(Color.red);
 			g.drawRect(x, y, width, height);
 		}
 	}
 
-	public void addPhysics(){
-		if(canPickup && goneFromSpawner) {
+	public void addPhysics() {
+		if (canPickup && goneFromSpawner) {
 			yVel += gravity;
 			y += yVel;
 
-			if(yVel > 150) {
+			if (yVel > 150) {
 				yVel = 150;
 			}
-			if(y > Main.viewportHeight - height) {
+			if (y > Main.viewportHeight - height) {
 				y = Main.viewportHeight - height;
 				yVel = 0;
 
@@ -190,28 +229,28 @@ public class PhysicsObject extends Object {
 
 	}
 
-	public void respawn(){
-		if(canPickup) {
+	public void respawn() {
+		if (canPickup) {
 			goneFromSpawner = false;
 			canPickup = true;
 			this.setPos(this.spawnerX + 10, this.spawnerY + 30);
 		}
 	}
 
-	public void carry(Character c){
-		if(char_ != null && char_.direction == Character.LEFT) {
+	public void carry(Character c) {
+		if (char_ != null && char_.direction == Character.LEFT) {
 			this.x = c.x + c.width + 10;
 			this.y = c.y - 3;
-		}else if(char_ != null && char_.direction == Character.RIGHT) {
+		} else if (char_ != null && char_.direction == Character.RIGHT) {
 			this.x = c.x - 20;
 			this.y = c.y - 3;
-		}else{
+		} else {
 			this.x = c.x + c.width + 10;
 			this.y = c.y - 3;
 		}
 	}
 
-	public void pickup(Character c){
+	public void pickup(Character c) {
 		canPickup = false;
 		goneFromSpawner = true;
 		this.x = c.x + c.width + 4;
@@ -219,70 +258,72 @@ public class PhysicsObject extends Object {
 
 	}
 
-	public float getWidth(){
+	public float getWidth() {
 		return width;
 	}
 
-	public float getHeight(){
+	public float getHeight() {
 		return height;
 	}
 
-	public float getX(){
+	public float getX() {
 		return x;
 	}
 
-	public float getY(){
+	public float getY() {
 		return y;
 	}
 
-	public float[] getPos(){
+	public float[] getPos() {
 		float[] pos = { x, y };
 		return pos;
 	}
 
-	public void setPos(float _x, float _y){
+	public void setPos(float _x, float _y) {
 		x = _x;
 		y = _y;
 	}
 
-	public void setSpawnerPos(float sx, float sy){
+	public void setSpawnerPos(float sx, float sy) {
 		spawnerX = sx;
 		spawnerY = sy;
 	}
 
-	public void setSpawnerX(float sx){
+	public void setSpawnerX(float sx) {
 		spawnerX = sx;
 
 	}
 
-	public void setSpawnerY(float sy){
+	public void setSpawnerY(float sy) {
 		spawnerY = sy;
 	}
 
-	public void showTriggerArea(Graphics g){
+	public void showTriggerArea(Graphics g) {
 		g.setColor(Color.red);
 		g.drawRect(x - 40, y - 40, width + 80, height + 80);
 
 	}
 
-	public void addListener(Input i){
+	public void addListener(Input i) {
 		Trigger trig = new Trigger(x - 40, y - 40, width + 80, height + 80, Trigger.AREA);
 
-		if(char_ != null) {
+		x += xVel;
+
+		if (char_ != null) {
 
 			trig.addBasicCollider(char_);
 
-			if(Main.getKeyPress(i, Input.KEY_R) && goneFromSpawner) {
+			if (Main.getKeyPress(i, Input.KEY_R) && goneFromSpawner) {
 				respawn();
 			}
 
-			if(trig.isTriggered && canPickup) {
-				if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
+			if (trig.isTriggered && canPickup) {
+				if (Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
 					pickup(char_);
 				}
-			}else if(!canPickup) {
+			} else if (!canPickup) {
 				carry(char_);
-				if(Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
+				if (Main.getKeyPress(i, actionKey) || i.isControlPressed(17)) {
 					canPickup = true;
 				}
 

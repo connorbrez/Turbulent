@@ -45,7 +45,7 @@ public class LevelSix extends BasicGameState {
 	Platform finish = Level.levelFinish;
 
 	public ObjectSpawner objSpawner;
-	public PhysicsObject cube = new PhysicsObject(200, 600 - 20, 10, 10, Color.blue, true);
+	public PhysicsObject cube = new PhysicsObject(200, 600 - 20, 20, 30, Color.blue, true);
 	float sx;
 
 	public LevelSix(int s) {
@@ -89,7 +89,7 @@ public class LevelSix extends BasicGameState {
 		obj4.render(g);
 		obj5.render(g);
 
-		finishDoor.render(g);
+		finishDoor.render(g); 
 
 		g.setColor(Color.white);
 		g.fillRect(100, 490, 75, 50);

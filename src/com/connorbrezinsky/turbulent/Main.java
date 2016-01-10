@@ -356,7 +356,7 @@ public class Main extends StateBasedGame {
 		/*
 		 * Init state this.getState(state).init(GameContaniner, this);
 		 */
-		init();
+		
 
 
 		State.initStates(arg0, this);

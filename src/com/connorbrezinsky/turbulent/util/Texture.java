@@ -33,6 +33,7 @@ public class Texture {
 	public static Image turbX;
 	public static Image turbC;
 	public static Image testPlayer;
+	public static Image playerTrail;
 
 	static SpriteLoader turbulenceControlls;
 	static SpriteLoader spinningCube;
@@ -79,6 +80,7 @@ public class Texture {
 		spike = sLoader.getImage(7);
 		blockOrange = sLoader.getImage(8);
 		blockLightBlue = sLoader.getImage(11);
+		playerTrail = sLoader.getImage(12);
 
 		turbZ = turbulenceControlls.getImage(0);
 		turbX = turbulenceControlls.getImage(1);

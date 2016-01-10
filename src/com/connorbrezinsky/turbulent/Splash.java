@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.connorbrezinsky.turbulent.util.Save;
 import com.connorbrezinsky.turbulent.util.State;
 import com.connorbrezinsky.turbulent.util.Texture;
 
@@ -28,14 +29,15 @@ public class Splash extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-	
+	Main.init();
+		Save.writeSave();
 		
+		System.out.println(Save.getSave());
 	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(Color.white);
-		//logo.draw(400 - (logo.getWidth() / 2), 300 - (logo.getHeight() / 2));
 		Texture.loading.draw();
 
 	}

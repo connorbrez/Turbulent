@@ -44,7 +44,8 @@ public class LevelOne extends BasicGameState {
 
 		Level.levelFinish = new Platform(700, 600 - 60, 20, 60, iLevelFinish, Level.duration);
 		Level.levelFinish.setType(Object.FINISH);
-
+		
+		
 	}
 
 	@Override
