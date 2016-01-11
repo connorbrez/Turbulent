@@ -10,6 +10,9 @@ public class Texture {
 	public static Image test_background;
 	public static Image bPlay;
 	public static Image bExit;
+	public static Image bContinue;
+	public static Image bSave;
+	public static Image bMenu;
 	public static Image loading;
 	public static Image move;
 	public static Image space_key;
@@ -34,7 +37,8 @@ public class Texture {
 	public static Image turbC;
 	public static Image testPlayer;
 	public static Image playerTrail;
-
+	public static Image menu;
+	
 	static SpriteLoader turbulenceControlls;
 	static SpriteLoader spinningCube;
 	static SpriteLoader sLoader;
@@ -55,12 +59,17 @@ public class Texture {
 		
 		bPlay = new Image("res/button-play.png");
 		bExit = new Image("res/button-exit.png");
+		bContinue = new Image("res/button-continue.png");
+		bSave = new Image("res/button-save.png");
+		bMenu = new Image("res/button-menu.png");
+		
 		move = new Image("res/move.png");
 		space_key = new Image("res/space.png");
 		downarrow = new Image("res/downarrow.png");
 		pickup = new Image("res/pickup.png");
 		e_key = new Image("res/e.png");
 		turbulenceControlls_img = new Image("res/turbulence_controlls_1.png");
+		menu = new Image("res/menu.png");
 
 		background = backgrounds.getImage(0);
 		loading = backgrounds.getImage(1);

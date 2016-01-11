@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
+import com.connorbrezinsky.turbulent.gui.GuiPauseMenu;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
 import com.connorbrezinsky.turbulent.util.State;
@@ -60,6 +61,7 @@ public class LevelOne extends BasicGameState {
 		Texture.move.draw(10, 400);
 
 		player.render(g);
+		GuiPauseMenu.render(g);
 
 	}
 
@@ -69,7 +71,7 @@ public class LevelOne extends BasicGameState {
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
-
+		GuiPauseMenu.update(arg0, arg1);
 		Level.levelFinish.addCollider(player);
 		Level.levelFinish.setNextLevel(Level.stage[2]);
 		if(Level.levelFinish.isFinished(player)){

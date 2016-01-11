@@ -29,9 +29,7 @@ public class Splash extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
-	Main.init();
-		Save.writeSave();
-		
+		Main.init();
 		System.out.println(Save.getSave());
 	}
 

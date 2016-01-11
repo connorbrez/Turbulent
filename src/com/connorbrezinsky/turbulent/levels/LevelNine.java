@@ -13,6 +13,7 @@ import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.ObjectSpawner;
 import com.connorbrezinsky.turbulent.Turbulence;
+import com.connorbrezinsky.turbulent.gui.GuiPauseMenu;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.PhysicsObject;
@@ -73,7 +74,6 @@ public class LevelNine extends BasicGameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
 		g.setBackground(bg);
-
 		cube.render(g, cSpawner);
 
 		if (tb.z) {
@@ -116,12 +116,14 @@ public class LevelNine extends BasicGameState {
 
 		Level.levelFinish.render(g);
 		player.render(g);
+		GuiPauseMenu.render(g);
 
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		Input i = arg0.getInput();
+		GuiPauseMenu.update(arg0, arg1);
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();

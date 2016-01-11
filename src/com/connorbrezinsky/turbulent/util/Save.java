@@ -11,6 +11,8 @@ public class Save {
 	
 	static File save = new File("save.txt");
 	
+	
+	
 	public static void writeSave() {
 		if (!save.exists()) {
 			try {
@@ -48,17 +50,20 @@ public class Save {
 
 	public static void save(int level) {
 		String stringToWrite = String.valueOf(level);
-		if (save.exists()) {
+		if (!save.exists()) {
 			System.err.print("No save file found, will create one");
 			writeSave();
 			try {
 				FileUtils.writeStringToFile(save, stringToWrite);
+				System.out.println("Saving Complete");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
+			System.out.println("Save file found, saving..");
 			try {
 				FileUtils.writeStringToFile(save, stringToWrite);
+				System.out.println("Saving Complete");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

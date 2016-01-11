@@ -1,4 +1,4 @@
-package com.connorbrezinsky.turbulent.gui;
+package com.connorbrezinsky.turbulent.guiutils;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -56,8 +56,9 @@ public class GuiComponent {
 	}
 	
 	
-	public void addSprite(Image s){
+	public GuiComponent addSprite(Image s){
 		i = s;
+		return this;
 	}
 
 	public void render(Graphics g){

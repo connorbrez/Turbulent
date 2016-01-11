@@ -1,4 +1,4 @@
-package com.connorbrezinsky.turbulent.gui;
+package com.connorbrezinsky.turbulent.guiutils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +33,9 @@ public class Gui {
 		color = c;
 	}
 
-	public void addSprite(Image s){
+	public Gui addSprite(Image s){
 		i = s;
+		return this;
 	}
 
 	public void render(Graphics g){
@@ -52,8 +53,9 @@ public class Gui {
 		}
 	}
 
-	public void hide(){
+	public Gui hide(){
 		isVisible = false;
+		return this;
 	}
 	
 	public void unHide(){

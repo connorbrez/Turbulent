@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.connorbrezinsky.turbulent.Character;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.Trigger;
+import com.connorbrezinsky.turbulent.gui.GuiPauseMenu;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
@@ -92,12 +93,14 @@ public class LevelFour extends BasicGameState {
 
 		Level.levelFinish.render(g);
 		player.render(g);
+		GuiPauseMenu.render(g);
 
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException{
 		Input i = arg0.getInput();
+		GuiPauseMenu.update(arg0, arg1);
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();

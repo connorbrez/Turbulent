@@ -15,6 +15,7 @@ import com.connorbrezinsky.turbulent.Hazard;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.ObjectSpawner;
 import com.connorbrezinsky.turbulent.Turbulence;
+import com.connorbrezinsky.turbulent.gui.GuiPauseMenu;
 import com.connorbrezinsky.turbulent.object.Door;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.PhysicsObject;
@@ -213,7 +214,6 @@ public class LevelEight extends BasicGameState {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
 		g.setBackground(bg);
-
 		sBack.render(g);
 
 		if(!lSwitch[0].isTriggered() && !lSwitch[1].isTriggered() && !lSwitch[2].isTriggered()){
@@ -388,12 +388,14 @@ public class LevelEight extends BasicGameState {
 		}
 
 		player.render(g);
+		GuiPauseMenu.render(g);
 
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException{
 		Input i = arg0.getInput();
+		GuiPauseMenu.update(arg0, arg1);
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();

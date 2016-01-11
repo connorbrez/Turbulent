@@ -25,6 +25,7 @@ import com.connorbrezinsky.turbulent.levels.LevelTwo;
 import com.connorbrezinsky.turbulent.levels.TestChamber;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.PhysicsObject;
+import com.connorbrezinsky.turbulent.util.Save;
 import com.connorbrezinsky.turbulent.util.State;
 import com.connorbrezinsky.turbulent.util.Texture;
 
@@ -43,6 +44,7 @@ public class Main extends StateBasedGame {
 
 	public static int sInt = 0;
 	public static List<State> states = new ArrayList<>();
+	public static boolean isPaused = false;
 
 	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh){
 		if(mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)){
@@ -346,6 +348,7 @@ public class Main extends StateBasedGame {
 	public static void init() throws SlickException{
 		if(!ran){
 			Texture.init();
+			Save.writeSave();
 			ran=true;
 		}
 	}
