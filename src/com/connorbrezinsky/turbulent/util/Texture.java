@@ -13,6 +13,8 @@ public class Texture {
 	public static Image bContinue;
 	public static Image bSave;
 	public static Image bMenu;
+	public static Image bSettings;
+	public static Image bDelete;
 	public static Image loading;
 	public static Image move;
 	public static Image space_key;
@@ -62,6 +64,8 @@ public class Texture {
 		bContinue = new Image("res/button-continue.png");
 		bSave = new Image("res/button-save.png");
 		bMenu = new Image("res/button-menu.png");
+		bSettings = new Image("res/button-settings.png");
+		bDelete = new Image("res/button-delete.png");
 		
 		move = new Image("res/move.png");
 		space_key = new Image("res/space.png");

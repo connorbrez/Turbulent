@@ -348,7 +348,7 @@ public class Main extends StateBasedGame {
 	public static void init() throws SlickException{
 		if(!ran){
 			Texture.init();
-			Save.writeSave();
+			Save.write();
 			ran=true;
 		}
 	}

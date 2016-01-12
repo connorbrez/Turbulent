@@ -18,6 +18,8 @@ public class Menu extends BasicGameState {
 	GuiButton play;
 	GuiButton exit;
 	GuiButton continue_;
+	GuiButton settings =  new GuiButton(800-26, 10, 16,16);
+	GuiButton delete = new GuiButton(490, 375, 24,24);
 
 	public Menu(int i) {
 	}
@@ -34,9 +36,13 @@ public class Menu extends BasicGameState {
 				300 - (Texture.bContinue.getHeight() / 2) + Texture.bPlay.getHeight() * 2 + 10,
 				Texture.bContinue.getWidth(), Texture.bContinue.getHeight()).addSprite(Texture.bContinue);
 		
+		
+		
 		container.setShowFPS(false);
 		play.addSprite(Texture.bPlay);
 		exit.addSprite(Texture.bExit);
+		settings.addSprite(Texture.bSettings);
+		delete.addSprite(Texture.bDelete);
 	}
 
 	@Override
@@ -44,11 +50,13 @@ public class Menu extends BasicGameState {
 		Texture.background.draw();
 		play.render(g);
 		exit.render(g);
+		settings.render(g);
 		g.setColor(Color.white);
 		g.drawString("v" + Main.VERSION, 5, 5);
 
-		if (!Save.getSave().equals("nosave")) {
+		if (!Save.get().equals("nosave")) {
 			continue_.render(g);
+			delete.render(g);
 		}
 
 	}
@@ -60,10 +68,14 @@ public class Menu extends BasicGameState {
 			game.enterState(1);
 		} else if (exit.getClick(i)) {
 			container.exit();
-		}else if (!Save.getSave().equals("nosave")) {
+		}else if (!Save.get().equals("nosave")) {
 				if(continue_.getClick(i)){
-					game.enterState(Integer.parseInt(Save.getSave()));
+					game.enterState(Integer.parseInt(Save.get()));
+				}else if(delete.getClick(i)){
+					Save.delete();
 				}
+		}else if(settings.getClick(i)){
+			
 		}
 
 		Level.goToLevel(i, game);

@@ -9,11 +9,11 @@ import org.apache.commons.io.FileUtils;
 
 public class Save {
 	
-	static File save = new File("save.txt");
+	static File save = new File("turbulent" + File.separator + "save.txt");
 	
+	//TODO make a save directory instead of saving to the current running directory
 	
-	
-	public static void writeSave() {
+	public static void write() {
 		if (!save.exists()) {
 			try {
 				FileUtils.writeStringToFile(save, "nosave");
@@ -23,17 +23,17 @@ public class Save {
 		}
 	}
 
-	public static void deleteSave() {
+	public static void delete() {
 		if (save.exists()) {
 			try {
-				FileUtils.forceDelete(save);
+				FileUtils.writeStringToFile(save, "nosave");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public static String getSave() {
+	public static String get() {
 
 		
 		List<String> text;
@@ -52,7 +52,7 @@ public class Save {
 		String stringToWrite = String.valueOf(level);
 		if (!save.exists()) {
 			System.err.print("No save file found, will create one");
-			writeSave();
+			write();
 			try {
 				FileUtils.writeStringToFile(save, stringToWrite);
 				System.out.println("Saving Complete");
