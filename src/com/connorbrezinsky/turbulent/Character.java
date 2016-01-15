@@ -109,6 +109,29 @@ public class Character {
 			this.yVel = 0;
 		}
 	}
+	
+	public void addWorldCollider(float maxX) {
+		if (x < 0) {
+			x = 1;
+		} else if (x + width > maxX) {
+			x = maxX - 21;
+		} else if (y < 0) {
+			y = 1;
+			this.yVel = 0;
+		}
+	}
+	
+
+	public void addWorldCollider(float minX, float minY, float maxX) {
+		if (x < minX) {
+			x = minX+1;
+		} else if (x + width > maxX) {
+			x = maxX - 21;
+		} else if (y < minY) {
+			y = minY+1;
+			this.yVel = 0;
+		}
+	}
 
 	public void addCamera() {
 		cameraX = this.x;

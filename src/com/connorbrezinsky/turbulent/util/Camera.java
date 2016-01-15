@@ -22,6 +22,8 @@ public class Camera {
 
 		this.setMaxOffset(maxX, maxY);
 		this.setMinOffset(minX, minY);
+		
+	
 
 	}
 
@@ -32,16 +34,18 @@ public class Camera {
 		x = p.getX();
 		y = p.getY();
 
+		
+
 		if (this.x - container.getWidth() / 2 < offsetMin[0]) {
-			x = container.getWidth() / 2;
-		}else if(this.x + container.getWidth()> offsetMax[0]){
-			x = container.getWidth()/2;
+			x = offsetMin[0] + container.getWidth()/2;
+		}else if(this.x + container.getWidth()/2 > offsetMax[0]){
+			x = offsetMax[0] - container.getWidth()/2;
 		}
 
 		if (this.y - container.getHeight() / 2 < offsetMin[1]) {
-			y = container.getHeight() / 2;
+			y = offsetMin[1] + container.getHeight() / 2;
 		}else if(this.y + container.getHeight()> offsetMax[1]){
-			y = container.getHeight()/2;
+			y = offsetMax[1] - container.getHeight() / 2;
 		}
 		
 	}

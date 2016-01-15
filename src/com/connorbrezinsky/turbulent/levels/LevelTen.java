@@ -10,11 +10,12 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Character;
+import com.connorbrezinsky.turbulent.LevelBuilder;
 import com.connorbrezinsky.turbulent.Main;
 import com.connorbrezinsky.turbulent.gui.GuiPauseMenu;
-import com.connorbrezinsky.turbulent.LevelBuilder;
 import com.connorbrezinsky.turbulent.object.Object;
 import com.connorbrezinsky.turbulent.object.Platform;
+import com.connorbrezinsky.turbulent.util.Camera;
 import com.connorbrezinsky.turbulent.util.State;
 import com.connorbrezinsky.turbulent.util.Texture;
 
@@ -25,6 +26,8 @@ public class LevelTen extends BasicGameState {
 
 	State levelTen = new State(this);
 	LevelBuilder builder = new LevelBuilder();
+	
+	Camera cam = new Camera(player,0,0,800,600);
 
 	public LevelTen(int s) {
 
@@ -56,7 +59,7 @@ public class LevelTen extends BasicGameState {
 		Input i = arg0.getInput();
 
 		g.setBackground(bg);
-		
+		cam.update(g, arg0);
 		Level.levelFinish.render(g);
 		player.render(g);
 		
@@ -74,23 +77,22 @@ public class LevelTen extends BasicGameState {
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		Input i = arg0.getInput();
 		GuiPauseMenu.update(arg0, arg1);
-		player.addCamera();
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
-		// player.addWorldCollider();
-		Level.levelFinish.addCollider(player);
+		player.addWorldCollider(1600);
 
 		builder.addBuilder(i);
 		builder.addColliders(player);
 		builder.guiListener(i);
 
 		
+		//Level.levelFinish.addCollider(player);
 
 		// TODO add next levels
 		// Level.levelFinish.setNextLevel(Level.stage[11]);
-		if (Level.levelFinish.isFinished(player)) {
+		//if (Level.levelFinish.isFinished(player)) {
 			// Level.levelFinish.goToNextLevel(arg1);
-		}
+		//}
 		Level.goToLevel(i, arg1);
 
 	}

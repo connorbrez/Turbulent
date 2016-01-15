@@ -39,7 +39,6 @@ public class LevelSix extends BasicGameState {
 	public Platform obj4 = new Platform(330, 500, 40, 10, Color.blue);
 	public Platform obj5 = new Platform(400, 550, 40, 10, Color.blue);
 
-
 	SpriteLoader sLoader;
 
 	Switch pressureSwitch = new Switch(430, 350 - 5, 20, 5, Color.black);
