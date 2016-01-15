@@ -39,6 +39,7 @@ public class LevelSix extends BasicGameState {
 	public Platform obj4 = new Platform(330, 500, 40, 10, Color.blue);
 	public Platform obj5 = new Platform(400, 550, 40, 10, Color.blue);
 
+
 	SpriteLoader sLoader;
 
 	Switch pressureSwitch = new Switch(430, 350 - 5, 20, 5, Color.black);
@@ -53,21 +54,20 @@ public class LevelSix extends BasicGameState {
 
 	}
 
-
 	@Override
-	public int getID(){
+	public int getID() {
 		return levelSix.getId();
 	}
 
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException{
+	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		sLoader = new SpriteLoader(new SpriteSheet(new Image("res/sprites.png"), 20, 20));
-		
+
 		Image[] iLevelFinish = Texture.loadLevelFinish();
 		Image[] iPhysSpawner = Texture.loadPhysicsSpawner();
-		
+
 		objSpawner = new ObjectSpawner(iPhysSpawner, Level.objSDuration);
-		
+
 		sx = cube.getX() - 10;
 		cube.addPlayer(player);
 
@@ -79,7 +79,7 @@ public class LevelSix extends BasicGameState {
 	}
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException{
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
 		g.setBackground(bg);
 		finish.render(g);
 		obj0.render(g);
@@ -90,7 +90,7 @@ public class LevelSix extends BasicGameState {
 		obj4.render(g);
 		obj5.render(g);
 
-		finishDoor.render(g); 
+		finishDoor.render(g);
 
 		g.setColor(Color.white);
 		g.fillRect(100, 490, 75, 50);
@@ -104,13 +104,16 @@ public class LevelSix extends BasicGameState {
 		cube.render(g, objSpawner);
 
 		player.render(g);
+
 		GuiPauseMenu.render(g);
+
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException{
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		Input i = arg0.getInput();
 		GuiPauseMenu.update(arg0, arg1);
+
 		player.addBasicController(i, Input.KEY_A, Input.KEY_D, Input.KEY_SPACE);
 		player.addPhysics();
 		player.addWorldCollider();
@@ -132,15 +135,14 @@ public class LevelSix extends BasicGameState {
 		finishDoor.addCollider(player);
 		cube.addPlayerCollider(player);
 
-		finish.addCollider(player);
 		finish.setNextLevel(Level.stage[7]);
-		if(finish.isFinished(player)){
+		if (finish.isFinished(player)) {
 			finish.goToNextLevel(arg1);
 		}
 
-		if(pressureSwitch.isTriggered()){
+		if (pressureSwitch.isTriggered()) {
 			finishDoor.open();
-		}else{
+		} else {
 			finishDoor.close();
 		}
 

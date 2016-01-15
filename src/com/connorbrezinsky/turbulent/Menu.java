@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
 
 import com.connorbrezinsky.turbulent.guiutils.GuiButton;
 import com.connorbrezinsky.turbulent.levels.Level;
@@ -15,6 +16,8 @@ import com.connorbrezinsky.turbulent.util.Texture;
 
 public class Menu extends BasicGameState {
 
+	static FadeInTransition enter = new FadeInTransition();
+	
 	GuiButton play;
 	GuiButton exit;
 	GuiButton continue_;
@@ -43,6 +46,9 @@ public class Menu extends BasicGameState {
 		exit.addSprite(Texture.bExit);
 		settings.addSprite(Texture.bSettings);
 		delete.addSprite(Texture.bDelete);
+		
+		enter.init(new Splash(0), this);
+		
 	}
 
 	@Override
@@ -58,6 +64,9 @@ public class Menu extends BasicGameState {
 			continue_.render(g);
 			delete.render(g);
 		}
+		
+		enter.postRender(game, container, g);
+		enter.preRender(game, container, g);
 
 	}
 
@@ -70,6 +79,7 @@ public class Menu extends BasicGameState {
 			container.exit();
 		}else if (!Save.get().equals("nosave")) {
 				if(continue_.getClick(i)){
+					System.out.println(Save.get());
 					game.enterState(Integer.parseInt(Save.get()));
 				}else if(delete.getClick(i)){
 					Save.delete();
@@ -79,6 +89,8 @@ public class Menu extends BasicGameState {
 		}
 
 		Level.goToLevel(i, game);
+		
+		enter.update(game, container, delta);
 
 	}
 

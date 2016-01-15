@@ -8,8 +8,6 @@ public class SpriteLoader {
 	SpriteSheet sprites;
 	SpriteSheet[] sprites_;
 
-	// TODO make animation loader
-
 	public SpriteLoader(SpriteSheet s) {
 		sprites = s;
 	}

@@ -3,6 +3,7 @@ package com.connorbrezinsky.turbulent.gui;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.connorbrezinsky.turbulent.Main;
@@ -18,12 +19,13 @@ public class GuiPauseMenu {
 	static GuiButton menu = new GuiButton(guiMenu, 335, 220, 130, 30).addSprite(Texture.bMenu);
 	static GuiButton save = new GuiButton(guiMenu, 335, 260, 130, 30).addSprite(Texture.bSave);
 	static GuiButton exit = new GuiButton(guiMenu, 335, 300, 130, 30).addSprite(Texture.bExit);
+	static GuiButton restart = new GuiButton(guiMenu, 335, 370, 130, 30);
 
 	public static void render(Graphics g) {
 		guiMenu.render(g);
 	}
 
-	public static void update(GameContainer container, StateBasedGame game) {
+	public static void update(GameContainer container, StateBasedGame game) throws SlickException {
 		Input i = container.getInput();
 
 		if (menu.getClick(i)) {

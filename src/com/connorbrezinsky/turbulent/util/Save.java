@@ -7,16 +7,17 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import com.connorbrezinsky.codec.CodecUtil;
+
 public class Save {
-	
-	static File save = new File("turbulent" + File.separator + "save.txt");
-	
-	//TODO make a save directory instead of saving to the current running directory
-	
+	private static String home = System.getProperty("user.home");
+	private static File save = new File(home + File.separator + "turbulent" + File.separator + "save.txt");
+
 	public static void write() {
+		System.out.println(home + File.separator + "turbulent" + File.separator + "save.txt");
 		if (!save.exists()) {
 			try {
-				FileUtils.writeStringToFile(save, "nosave");
+				FileUtils.writeStringToFile(save, CodecUtil.encode("nosave"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -26,7 +27,7 @@ public class Save {
 	public static void delete() {
 		if (save.exists()) {
 			try {
-				FileUtils.writeStringToFile(save, "nosave");
+				FileUtils.writeStringToFile(save, CodecUtil.encode("nosave"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -35,7 +36,6 @@ public class Save {
 
 	public static String get() {
 
-		
 		List<String> text;
 
 		try {
@@ -45,11 +45,11 @@ public class Save {
 			e.printStackTrace();
 		}
 
-		return text.get(0);
+		return CodecUtil.decode(text.get(0));
 	}
 
 	public static void save(int level) {
-		String stringToWrite = String.valueOf(level);
+		String stringToWrite = CodecUtil.encode(String.valueOf(level));
 		if (!save.exists()) {
 			System.err.print("No save file found, will create one");
 			write();

@@ -8,10 +8,9 @@ import org.newdawn.slick.geom.Rectangle;
 
 import com.connorbrezinsky.turbulent.levels.Level;
 
-
 public class Character {
 
-	public float x, y, width, height, yVel;
+	public float x, y, width, height, yVel, cameraX, cameraY;
 	public float gravity = 0.5F;
 	public float xSpeed = 3F;
 	public float xVel = 0F;
@@ -61,7 +60,6 @@ public class Character {
 	}
 
 	public void render(Graphics g) {
-		
 
 		if (!isTesting) {
 			g.setColor(color);
@@ -112,6 +110,11 @@ public class Character {
 		}
 	}
 
+	public void addCamera() {
+		cameraX = this.x;
+		cameraY = this.y;
+	}
+
 	public void addBasicController(Input i, int right, int left, int jump) {
 
 		if (i.isKeyDown(left)) {
@@ -125,7 +128,7 @@ public class Character {
 			if (i.isKeyPressed(jump)) {
 				jump();
 			} else if (isJumping) {
-				x += xVel / 4 + 1;
+				x += xVel / 4 + 1.3F;
 			} else {
 				x += xVel;
 			}
@@ -140,7 +143,7 @@ public class Character {
 			if (i.isKeyPressed(jump)) {
 				jump();
 			} else if (isJumping) {
-				x -= xVel / 4 + 1;
+				x -= xVel / 4 + 1.3F;
 			} else {
 				x -= xVel;
 
@@ -161,7 +164,7 @@ public class Character {
 					if (i.isControlPressed(15, 0)) {
 						jump();
 					} else if (isJumping) {
-						x += xVel / 4 + 1;
+						x += xVel / 4 + 1.3F;
 					} else {
 						x += xVel;
 					}
@@ -171,7 +174,7 @@ public class Character {
 					if (i.isControlPressed(15, 0)) {
 						jump();
 					} else if (isJumping) {
-						x -= xVel / 4 + 1;
+						x -= xVel / 4 + 1.3F;
 					} else {
 						x -= xVel;
 					}

@@ -46,280 +46,289 @@ public class Main extends StateBasedGame {
 	public static List<State> states = new ArrayList<>();
 	public static boolean isPaused = false;
 
-	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh){
-		if(mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)){
+	public static boolean buttonClick(Input input, int mx, int my, int bx, int by, int bw, int bh) {
+		if (mx > bx && mx < bx + bw && my > by && my < by + bh && input.isMousePressed(0)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static int getMidX(int width){
+	public static int getMidX(int width) {
 		return viewportWidth / 2 - (width / 2);
 	}
 
-	public static int getMidY(int height){
+	public static int getMidY(int height) {
 		return viewportHeight / 2 - (height / 2);
 	}
 
 	public static boolean addCollisonBox(float x1, float y1, float w1, float h1, float x2, float y2, float w2,
-			float h2){
+			float h2) {
 		float boxX = x2;
 		float boxY = y2;
 		float boxH = h2;
 		float boxW = w2;
 
-		if(x1 >= boxX && x1 <= boxX + boxW && y1 >= boxY && y1 <= boxY + boxH){
+		if (x1 >= boxX && x1 <= boxX + boxW && y1 >= boxY && y1 <= boxY + boxH) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean leftBoxCollider(Character c, Object p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10, p.height)){
+	public static boolean leftBoxCollider(Character c, Object p) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
+				p.height)) {
 			return true;
 
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
+		} else if (c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
 			return true;
 
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean bottomBoxCollider(Character c, Object p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width, 10)){
+	public static boolean bottomBoxCollider(Character c, Object p) {
+		if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
+				10)) {
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10){
+		} else if (c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10
+				&& c.y + c.height > p.y + p.height - 10) {
 			return true;
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)){
+		} else if (Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
+				p.y + p.height - 10, p.width, 10)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean topBoxCollider(Character c, Object p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)){
+	public static boolean topBoxCollider(Character c, Object p) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x,
+				p.y, p.width, 10)) {
 			return true;
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)){
+		} else if (Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
+				p.width, 10)) {
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10){
+		} else if (c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean rightBoxCollider(Character c, Object p){
+	public static boolean rightBoxCollider(Character c, Object p) {
 
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10, p.height)){
+		if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
+				p.height)) {
 			return true;
-		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
+		} else if (c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean checkCollison(Character c, Object o){
-		if(c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
-				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()){
+	public static boolean checkCollison(Character c, Object o) {
+		if (c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
+				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean rightBoxCollider(Character c, Trigger p){
+	public static boolean rightBoxCollider(Character c, Trigger p) {
 
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10, p.height)){
+		if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
+				p.height)) {
 			return true;
-		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
+		} else if (c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean leftBoxCollider(Character c, Trigger p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10, p.height)){
+	public static boolean leftBoxCollider(Character c, Trigger p) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
+				p.height)) {
 			return true;
 
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
+		} else if (c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
 			return true;
 
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean bottomBoxCollider(Character c, Trigger p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width, 10)){
+	public static boolean bottomBoxCollider(Character c, Trigger p) {
+		if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
+				10)) {
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10){
+		} else if (c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10
+				&& c.y + c.height > p.y + p.height - 10) {
 			return true;
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)){
+		} else if (Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
+				p.y + p.height - 10, p.width, 10)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean topBoxCollider(Character c, Trigger p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)){
+	public static boolean topBoxCollider(Character c, Trigger p) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x,
+				p.y, p.width, 10)) {
 			return true;
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)){
+		} else if (Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
+				p.width, 10)) {
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10){
+		} else if (c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean leftBoxCollider(PhysicsObject c, Object p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10, p.height)){
+	public static boolean leftBoxCollider(PhysicsObject c, Object p) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y, 10,
+				p.height)) {
 			return true;
 
-		}else if(c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
+		} else if (c.x + c.width > p.x && c.x + c.width < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
 			return true;
 
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean bottomBoxCollider(PhysicsObject c, Object p){
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width, 10)){
+	public static boolean bottomBoxCollider(PhysicsObject c, Object p) {
+		if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x, p.y + p.height - 10, p.width,
+				10)) {
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10 && c.y + c.height > p.y + p.height - 10){
+		} else if (c.x < p.x && c.x + c.width > p.x && c.y < p.y + p.height - 10
+				&& c.y + c.height > p.y + p.height - 10) {
 			return true;
-		}else if(Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
-				p.y + p.height - 10, p.width, 10)){
+		} else if (Main.addCollisonBox(c.getX() + c.getHeight(), c.getY(), c.getWidth(), c.getHeight(), p.x,
+				p.y + p.height - 10, p.width, 10)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean topBoxCollider(PhysicsObject c, Object p){
-		if(Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
-				p.width, 10)){
+	public static boolean topBoxCollider(PhysicsObject c, Object p) {
+		if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x,
+				p.y, p.width, 10)) {
 			return true;
-		}else if(Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y, p.width,
-				10)){
+		} else if (Main.addCollisonBox(c.getX(), c.getY() + c.getHeight(), c.getWidth(), c.getHeight(), p.x, p.y,
+				p.width, 10)) {
 			return true;
-		}else if(c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10){
+		} else if (c.x < p.x && c.x + c.width > p.x && c.y + c.height > p.y && c.y + c.height < p.y + 10) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean rightBoxCollider(PhysicsObject c, Object p){
+	public static boolean rightBoxCollider(PhysicsObject c, Object p) {
 
-		if(Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10, p.height)){
+		if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), p.x + p.width - 10, p.y, 10,
+				p.height)) {
 			return true;
-		}else if(c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height){
+		} else if (c.x > p.x && c.x < p.x + 10 && c.y < p.y && c.y + c.height > p.y + p.height) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean checkCollison(PhysicsObject c, Object o){
-		if(c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
-				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()){
+	public static boolean checkCollison(PhysicsObject c, Object o) {
+		if (c.getX() > o.getX() && c.getX() + c.getWidth() < o.getX() + o.getWidth() && c.getY() > o.getY()
+				&& c.getY() + c.getHeight() < o.getY() + o.getHeight()) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean getKeyPress(Input i, int key){
-		if(i.isKeyPressed(key) && i.isKeyDown(key)){
+	public static boolean getKeyPress(Input i, int key) {
+		if (i.isKeyPressed(key) && i.isKeyDown(key)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean getControllerPress(Input i, int button){
-		if(i.getControllerCount() > 1){
-			if(i.isControlPressed(button)){
+	public static boolean getControllerPress(Input i, int button) {
+		if (i.getControllerCount() > 1) {
+			if (i.isControlPressed(button)) {
 				i.clearControlPressedRecord();
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean getClick(Input i, Rectangle r){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
-				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
+	public static boolean getClick(Input i, Rectangle r) {
+		if (i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	public static boolean getClick(Input i, Object r){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
-				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
-
-			return true;
-		}else{
-
-			return false;
-		}
-	}
-
-	public static boolean getClick(Input i, Object r, Boolean b){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
-				&& i.getMouseY() < r.getY() + r.getHeight()){
+	public static boolean getClick(Input i, Object r) {
+		if (i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)) {
 
 			return true;
-		}else{
+		} else {
 
 			return false;
 		}
 	}
 
-	public static boolean getClick(Input i, TextField r){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
-				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
+	public static boolean getClick(Input i, Object r, Boolean b) {
+		if (i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight()) {
 
 			return true;
-		}else{
+		} else {
 
 			return false;
 		}
 	}
 
-	public static void addTextFieldFocusListener(Input i, TextField r){
-		if(i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
-				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)){
+	public static boolean getClick(Input i, TextField r) {
+		if (i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)) {
+
+			return true;
+		} else {
+
+			return false;
+		}
+	}
+
+	public static void addTextFieldFocusListener(Input i, TextField r) {
+		if (i.getMouseX() > r.getX() && i.getMouseX() < r.getX() + r.getWidth() && i.getMouseY() > r.getY()
+				&& i.getMouseY() < r.getY() + r.getHeight() && i.isMousePressed(0)) {
 
 			r.setFocus(true);
-		}else{
+		} else {
 
 			r.setFocus(false);
 		}
 	}
-	
-	
-	
 
 	public Main(String name) {
 		super("Turbulent v" + VERSION);
@@ -327,7 +336,7 @@ public class Main extends StateBasedGame {
 		/*
 		 * addState this.addState(new State(state));
 		 */
-	
+
 		this.addState(new Splash(0));
 		this.addState(new Menu(1923));
 		this.addState(new LevelOne(Level.stage[1]));
@@ -343,46 +352,43 @@ public class Main extends StateBasedGame {
 		this.addState(new TestChamber(Level.testChamber));
 
 	}
-	
+
 	static boolean ran = false;
-	public static void init() throws SlickException{
-		if(!ran){
+
+	public static void init() throws SlickException {
+		if (!ran) {
 			Texture.init();
 			Save.write();
-			ran=true;
+
+			ran = true;
 		}
 	}
 
 	@Override
-	public void initStatesList(GameContainer arg0) throws SlickException{
+	public void initStatesList(GameContainer arg0) throws SlickException {
 
 		/*
 		 * Init state this.getState(state).init(GameContaniner, this);
 		 */
-		
-
 
 		State.initStates(arg0, this);
 		this.getState(1923).init(arg0, this);
-		System.out.println(states);
 
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 
-		
-		
 		AppGameContainer a;
-		try{
-			
+		try {
+
 			a = new AppGameContainer(new Main("game"));
 			a.setDisplayMode(viewportWidth, viewportHeight, false);
 			a.setVSync(true);
 			a.setTargetFrameRate(60);
-			a.setIcon("res/32x32.png"); 
+			a.setIcon("res/32x32.png");
 			a.start();
 
-		}catch(SlickException e){
+		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 

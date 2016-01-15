@@ -26,7 +26,7 @@ public class PhysicsObject extends Object {
 	public boolean goneFromSpawner = true;
 	int actionKey = Input.KEY_E;
 	Character char_;
-	boolean isPushable = true;
+	boolean isPushable = false;
 	float weight = 0;
 
 	public PhysicsObject(float _x, float _y, float w, float h, Color c) {
@@ -38,16 +38,15 @@ public class PhysicsObject extends Object {
 		color = c;
 
 		if (width > height) {
-			weight = Math.round(width/10);
-			
+			weight = Math.round(width / 10);
+
 		} else if (height > width) {
-			weight = Math.round(height/10);
-		}else if(height==width){
-			weight = Math.round(height/10);
+			weight = Math.round(height / 10);
+		} else if (height == width) {
+			weight = Math.round(height / 10);
 		}
-	
+
 		System.out.println(weight);
-		
 
 	}
 
@@ -62,17 +61,21 @@ public class PhysicsObject extends Object {
 		if (spawner) {
 			goneFromSpawner = false;
 		}
-		
+
 		if (width > height) {
-			weight = Math.round(width/10);
-			
+			weight = Math.round(width / 10);
+
 		} else if (height > width) {
-			weight = Math.round(height/10);
-		}else if(height==width){
-			weight = Math.round(height/10);
+			weight = Math.round(height / 10);
+		} else if (height == width) {
+			weight = Math.round(height / 10);
 		}
-	
+
 		System.out.println(weight);
+	}
+	
+	public void setPusable(boolean f){
+		isPushable=f;
 	}
 
 	public void addPlayer(Character c) {
@@ -89,12 +92,12 @@ public class PhysicsObject extends Object {
 			if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY(), c.getWidth(), c.getHeight(), x, y, 10, height)) {
 				c.x = x - c.getWidth();
 				if (isPushable) {
-					xVel = c.xVel-weight;
+					xVel = c.xVel - weight;
 				}
 			} else if (c.x + c.width > x && c.x + c.width < x + 10 && c.y < y && c.y + c.height > y + height) {
 				c.x = x - c.getWidth();
 				if (isPushable) {
-					xVel = c.xVel-weight;
+					xVel = c.xVel - weight;
 				}
 			} else if (Main.addCollisonBox(c.getX() + c.getWidth(), c.getY() + c.getHeight(), c.getWidth(),
 					c.getHeight(), x, y, width, 10)) {
@@ -116,13 +119,13 @@ public class PhysicsObject extends Object {
 					height)) {
 				c.x = x + width;
 				if (isPushable) {
-					xVel = (-c.xVel)+weight;
+					xVel = (-c.xVel) + weight;
 				}
 
 			} else if (c.x > x && c.x < x + 10 && c.y < y && c.y + c.height > y + height) {
 				c.x = x + width;
 				if (isPushable) {
-					xVel = (-c.xVel)+weight;
+					xVel = (-c.xVel) + weight;
 				}
 
 			} else if (Main.addCollisonBox(c.getX(), c.getY(), c.getWidth(), c.getHeight(), x, y + height - 10, width,
