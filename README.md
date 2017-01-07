@@ -1,6 +1,6 @@
 Turbulent
 ===============
-The platformer where chaotic change is normal. 
+Where chaotic change is normal. 
 
 Libraries used
 ---------------
