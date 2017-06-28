@@ -2,6 +2,10 @@ Turbulent
 ===============
 Where chaotic change is normal. 
 
+Update from June 28th, 2017
+===========================
+Work on this game has been idle but I have been thinking about updating, stay tuned.
+
 Libraries used
 ---------------
   - LWJGL
