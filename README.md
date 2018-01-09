@@ -21,7 +21,7 @@ Download & Installation
 ------------------------
   Releases: https://github.com/connorbrez/Turbulent/releases
   
-  They're are specfic releases for certain operating systems. If you download the specfic release for your OS and it does not work, please report the bug here: https://github.com/connorbrez/Turbulent/issues and download & try the universal version. 
+  There are specfic releases for certain operating systems. If you download the specfic release for your OS and it does not work, please report the bug here: https://github.com/connorbrez/Turbulent/issues and download & try the universal version. 
   
   Mac users download universal release.
   
